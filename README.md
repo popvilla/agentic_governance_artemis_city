@@ -53,3 +53,8 @@ Once the setup is complete and your virtual environment is activated, you can ru
     python interface/codex_cli.py
     ```
     This will launch a simple command-line interface for interacting with the Codex.
+
+Next steps
+1) currently testing various memory structure implementations to handle to memory structure of local AAgentic structure across variety of Models
+2) Early results demonstrate that GPT and AI models that operate within this framwork will provide better coding outputs, and gain ability to iterate along with Developers.
+3) Token usage reduction noted from reduction in context sourcing performed by GPT. Each model is performing task their corpus has already made them well suited for.

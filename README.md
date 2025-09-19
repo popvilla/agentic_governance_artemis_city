@@ -1,7 +1,7 @@
-# Agentic Codex: Version Zero
+# Artemis City
 
 ## 1. Brief Description
-The Agentic Codex is an architectural framework designed to align agentic reasoning with transparent, accountable action across distributed intelligence systems—both human and machine. This initial scaffolding, Version Zero, provides a foundational structure for defining agents, managing memory, establishing interfaces, and simulating environments, all seeded with the intention of iterative clarity and accountable collaboration. It balances trust, entropy, and collaboration, moving towards a "net good over noise" ethos.
+Artemis City is an architectural framework designed to align agentic reasoning with transparent, accountable action across distributed intelligence systems—both human and machine. This initial scaffolding, Version Zero, provides a foundational structure for defining agents, managing memory, establishing interfaces, and simulating environments, all seeded with the intention of iterative clarity and accountable collaboration. It balances trust, entropy, and collaboration, moving towards a "net good over noise" ethos.
 
 ## 2. Prerequisites
 Before you begin, ensure you have the following software installed on your system:

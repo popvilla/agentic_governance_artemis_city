@@ -2,7 +2,19 @@ import time
 import random
 
 def simulate_mail_delivery(sender, recipient, message):
-    """Simulates a secure mail delivery process."""
+    """Simulates a secure mail delivery process.
+
+    This function mimics a mail delivery system with a simulated delay and a
+    10% chance of failure, printing the status of the delivery to the console.
+
+    Args:
+        sender (str): The identifier of the message sender.
+        recipient (str): The identifier of the message recipient.
+        message (str): The content of the message to be delivered.
+
+    Returns:
+        bool: True if the delivery is successful, False otherwise.
+    """
     print(f"\n--- Mail Delivery Simulation ---")
     print(f"Sender: {sender}, Recipient: {recipient}")
     print(f"Message: '{message}'")

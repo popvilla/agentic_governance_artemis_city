@@ -1,3 +1,289 @@
+---
+
+---
+
+> A security-conscious, cross-language development `.gitignore` file. This governs a multi-environment stack (Python, R, Power BI, Quarto, Power Platform) to ensure sensitive files, system-generated junk, and large outputs are excluded from version control.
+
+---
+
+---
+
+```gitignore
+
+---
+
+# === 🔐 Environment Secrets & API Tokens ===
+
+---
+
+.env                  # Local environment file (secrets, keys, tokens)
+
+---
+
+- .env # Any file ending in .env (fallback for other names)
+
+---
+
+.Renviron             # R's environment variables file
+
+---
+
+.httr-oauth           # OAuth tokens from httr-based R packages
+
+---
+
+---
+
+# === 🧠 Python Artifacts ===
+
+---
+
+__pycache__/          # Python compiled bytecode cache (auto-generated)
+
+---
+
+- .py[cod] # Compiled Python files (.pyc, .pyo, etc.)
+
+---
+
+- .ipynb_checkpoints/ # Auto-saves from Jupyter Notebooks
+
+---
+
+- .sqlite3 # SQLite databases (often used for caching or mock data)
+
+---
+
+- .log # Execution logs, print dumps
+
+---
+
+---
+
+# === 🧪 RStudio Project Files ===
+
+---
+
+.Rhistory             # Command history in RStudio
+
+---
+
+.Rapp.history         # RApp session info
+
+---
+
+.RData                # R environment dump (auto-loaded if not ignored)
+
+---
+
+.Ruserdata            # RStudio user settings
+
+---
+
+.Rproj.user/          # RStudio temp/session info (IDE-specific, not project-wide)
+
+---
+
+- .Rproj # RStudio project file (keep if you want to track the project itself)
+
+---
+
+- .Rproj* # Covers backup/copy versions (.Rproj1, etc.)
+
+---
+
+---
+
+# === 📓 Quarto / Markdown Outputs ===
+
+---
+
+_output/              # Rendered docs (Quarto uses this)
+
+---
+
+- .html # HTML render outputs
+
+---
+
+- .pdf # PDF render outputs
+
+---
+
+- .docx # Word exports
+
+---
+
+---
+
+# === 📊 Data, Notebooks, Reports ===
+
+---
+
+/outputs/             # Folder where output files go
+
+---
+
+/logs/                # Log directory if used
+
+---
+
+/tmp/                 # Temporary storage
+
+---
+
+/__temp__/            # Another common name for scratch directories
+
+---
+
+.cache/               # Local caches, often from package managers
+
+---
+
+- .zip # Bundled archives (e.g. exports, checkpoints)
+
+---
+
+- .csv # Flat data files
+
+---
+
+- .xlsx # Excel
+
+---
+
+- .xls
+
+---
+
+- .tsv # Tab-separated files
+
+---
+
+- .parquet # Apache parquet — columnar data format
+
+---
+
+- .sav # SPSS or other binary data formats
+
+---
+
+---
+
+# === 🧼 macOS / Windows / Linux System Files ===
+
+---
+
+.DS_Store             # macOS folder metadata
+
+---
+
+Thumbs.db             # Windows thumbnail cache
+
+---
+
+desktop.ini           # Windows folder layout info
+
+---
+
+---
+
+# Linux hidden/session files
+
+---
+
+.Trash-*              # GNOME/KDE Trash folders
+
+---
+
+.Xauthority           # X11 GUI session auth cookie
+
+---
+
+.gvfs                 # GNOME Virtual File System mount point
+
+---
+
+.recently-used        # GTK recently used cache
+
+---
+
+.lock                 # App-level file locks (LibreOffice, etc.)
+
+---
+
+~lock.*               # Temp file lock indicators
+
+---
+
+core                  # Linux crash dump
+
+---
+
+core.*                # Segfault memory dump files
+
+---
+
+---
+
+# Linux user-local config (skip unless app-specific)
+
+---
+
+.cache/
+
+---
+
+.config/
+
+---
+
+.local/
+
+---
+
+---
+
+# === 🛠 Backup and Editor Junk ===
+
+---
+
+- .bak # Backup file extensions
+
+---
+
+- .tmp # Temporary saved files
+
+---
+
+- .swp # Vim/Emacs swap files
+
+---
+
+- .swo
+
+---
+
+- ~ # Some editors add a tilde to mark temp edits
+
+---
+
+---
+
+# === 🔁 Git Control Files ===
+
+---
+
+.gitignore            # You may choose to version this file or not
+
+---
+
+.gitmodules           # Submodules — version only if used
+
+---
+
+.gitattributes        # Line endings, merge rules, linguist overrides.
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

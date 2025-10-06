@@ -1,5 +1,7 @@
 # Translator Protocol
 
+> **Purpose:** This document specifies the **Translator Protocol**, a set of rules and safeguards designed to ensure consistent and accurate communication across different languages and encoding systems. It is critical for maintaining semantic integrity when agents or systems with diverse linguistic contexts interact.
+
 This protocol defines the standards and safeguards for transliteration and encoding consistency across different agent pairs and external systems. It aims to prevent encoding mismatches and ensure semantic integrity, especially for non-Latin character sets (e.g., Cyrillic, Arabic, Asian languages).
 
 ## Purpose:

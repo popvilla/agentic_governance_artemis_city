@@ -1,5 +1,7 @@
 # Sandbox City: Map of the Town
 
+> **Purpose:** This document serves as a high-level guide to **Sandbox City**, a simulated environment used for testing and visualizing agent interactions. It maps the city's "zones" to their corresponding system functions, providing a narrative framework to make complex operations more understandable.
+
 Sandbox City is a metaphorical and functional environment designed for agent immersion, simulation, and testing. It provides a narrative layer over system functions, making complex interactions more intuitive and observable.
 
 ## Overview:

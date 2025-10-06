@@ -2,18 +2,23 @@ import time
 import random
 
 def simulate_mail_delivery(sender, recipient, message):
-    """Simulates a secure mail delivery process.
+    """Simulates a secure mail delivery process within Sandbox City.
 
-    This function mimics a mail delivery system with a simulated delay and a
-    10% chance of failure, printing the status of the delivery to the console.
+    This function models a mail delivery from a sender to a recipient,
+    introducing a variable network delay to simulate transfer time. It also
+    incorporates a random chance of failure to represent potential network
+    issues or security compromises. The outcome of the simulation is printed
+    to the console.
 
     Args:
-        sender (str): The identifier of the message sender.
-        recipient (str): The identifier of the message recipient.
-        message (str): The content of the message to be delivered.
+        sender (str): The identifier for the agent or user sending the message.
+        recipient (str): The identifier for the agent or user receiving the
+                         message.
+        message (str): The content of the message being sent.
 
     Returns:
-        bool: True if the delivery is successful, False otherwise.
+        bool: True if the message is delivered successfully, False if the
+              delivery fails.
     """
     print(f"\n--- Mail Delivery Simulation ---")
     print(f"Sender: {sender}, Recipient: {recipient}")

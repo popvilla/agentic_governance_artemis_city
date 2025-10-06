@@ -1,5 +1,7 @@
 # Release Gatecheck Protocol
 
+> **Purpose:** This document provides a comprehensive checklist that must be completed before any public release or significant system update. It serves as a final quality and safety gate to ensure that all ethical, security, and performance standards are met.
+
 This protocol defines the essential checklist and criteria that must be met before any public release, significant token usage, or extension of the AI stack for the Agentic Codex. It ensures alignment with internal ethics and operational readiness.
 
 ## Categories:

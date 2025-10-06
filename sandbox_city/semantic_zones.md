@@ -1,5 +1,7 @@
 # Sandbox City: Semantic Zones Detail
 
+> **Purpose:** This document provides a detailed breakdown of the **Semantic Zones** within Sandbox City. It links the metaphorical name of each zone (e.g., "Post Office") to its concrete technical function, the agents that operate there, and the protocols that govern it.
+
 This document provides a more detailed breakdown of the semantic zones within Sandbox City, linking their metaphorical roles to their underlying functional implementations in the Agentic Codex.
 
 ## 1. Post Office (Secure Load Zone)

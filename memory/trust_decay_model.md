@@ -1,5 +1,7 @@
 # Trust Decay Model
 
+> **Purpose:** This document describes the **Trust Decay Model**, a framework for dynamically evaluating the reliability of agents, memories, and protocols. It provides a quantitative mechanism for trust to decrease over time and to be adjusted based on system interactions, which is essential for security and managing agent drift.
+
 This model defines how trust in agents, memories, and protocols erodes or strengthens over time and based on interactions within the Agentic Codex.
 
 ## Core Concepts:

@@ -1,5 +1,9 @@
 # Agent Template
 
+> **Purpose:** This document provides a standardized template for defining new agents within the Artemis City framework. It ensures that all agents are consistently documented with clear operational parameters, security boundaries, and functional roles.
+>
+> **Usage:** To create a new agent, copy this template and fill in the specified fields. This process is crucial for maintaining system transparency, security, and accountability.
+
 This template defines the essential characteristics and operational parameters for any new agent integrated into the Agentic Codex.
 
 ---

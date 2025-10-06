@@ -3,14 +3,18 @@ import yaml
 import os
 
 def load_agent_router_config(config_path):
-    """Loads the agent router configuration from a YAML file.
+    """Loads agent routing configurations from a specified YAML file.
+
+    This function reads a YAML file that defines the routing logic for different
+    agents based on command keywords. It's designed to fail gracefully by
+    returning an empty dictionary if the file doesn't exist.
 
     Args:
-        config_path (str): The path to the agent router YAML configuration file.
+        config_path (str): The full path to the agent router YAML config file.
 
     Returns:
-        dict: A dictionary containing the agent router configuration, or an empty
-              dictionary if the file is not found.
+        dict: A dictionary containing the agent router configuration. Returns an
+              empty dictionary if the configuration file cannot be found.
     """
     if not os.path.exists(config_path):
         print(f"Error: Agent router config not found at {config_path}")
@@ -19,16 +23,17 @@ def load_agent_router_config(config_path):
         return yaml.safe_load(f)
 
 def handle_command(command, agent_router):
-    """Simulates handling a command by routing it to the appropriate agent.
+    """Routes a command to the appropriate agent based on predefined keywords.
 
-    This function checks the command against a list of keywords defined for each
-    agent in the router configuration. If a match is found, it prints routing
-    information. Otherwise, it defaults to general system processing.
+    This function simulates routing by matching keywords in the command string
+    against the patterns defined in the agent router configuration. If a keyword
+    match is found, it prints the details of the agent that would handle the
+    command. If no agent matches, it defaults to a general system response.
 
     Args:
-        command (str): The command string to be processed.
-        agent_router (dict): A dictionary containing agent configurations, where
-                             each agent has keywords and a role description.
+        command (str): The user-provided command string to be processed.
+        agent_router (dict): The configuration dictionary that maps agents to
+                             keywords and roles.
     """
     print(f"CLI received command: '{command}'")
     routed = False
@@ -43,12 +48,12 @@ def handle_command(command, agent_router):
         print("No specific agent found for this command. Defaulting to general system processing.")
 
 def main():
-    """The main entry point for the Agentic Codex CLI.
+    """Initializes and runs the Agentic Codex Command-Line Interface (CLI).
 
-    This function initializes the command-line interface, parses arguments, and
-    enters a loop to accept user commands. It loads the agent router
-    configuration and uses it to handle commands either from an initial
-    argument or from interactive input.
+    This function serves as the main entry point for the application. It sets
+    up an argument parser to handle commands passed at startup and enters an
+    interactive loop to accept commands from the user. It loads the agent
+    router configuration to correctly handle command routing.
     """
     parser = argparse.ArgumentParser(description="Agentic Codex CLI Interface")
     parser.add_argument("command", nargs="?", help="The command to send to the Codex (e.g., 'status', 'ask artemis')")

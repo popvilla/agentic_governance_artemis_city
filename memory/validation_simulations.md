@@ -1,5 +1,7 @@
 # Validation Simulations Protocol
 
+> **Purpose:** This document specifies the **Validation Simulations Protocol**, a framework for running simulated tests to validate agent behavior, check memory integrity, and stress-test system protocols. These simulations are crucial for proactive anomaly detection and ensuring overall system resilience.
+
 This protocol outlines the framework for conducting simulations to validate agent behavior, memory integrity, and protocol effectiveness within the Agentic Codex.
 
 ## Purpose:

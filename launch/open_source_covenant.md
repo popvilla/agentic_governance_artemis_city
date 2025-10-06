@@ -1,5 +1,7 @@
 # Open Source Covenant
 
+> **Purpose:** This document establishes the principles and commitments governing the open-source components of Artemis City. It defines the project's dedication to transparency, collaboration, and ethical use, ensuring a healthy and responsible community.
+
 This covenant outlines the principles and commitments for components of the Agentic Codex that are released under an open-source license. It aims to foster collaboration, transparency, and responsible development within the broader community.
 
 ## Principles:

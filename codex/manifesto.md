@@ -1,5 +1,7 @@
 # Codex Manifesto
 
+> **Purpose:** This document outlines the guiding principles and core philosophy of the Artemis City project. It serves as a foundational text to ensure that all agents and system components operate in alignment with a common set of ethical and functional standards.
+
 ## Purpose & Principles
 This Codex exists to align agentic reasoning with transparent, accountable action. It balances trust, entropy, and collaboration across distributed intelligence systems—both human and machine.
 

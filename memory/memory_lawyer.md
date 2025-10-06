@@ -1,5 +1,7 @@
 # Memory Lawyer Protocol
 
+> **Purpose:** This document defines the **Memory Lawyer Protocol**, a set of rules governing how memory is created, accessed, and disputed within the system. It ensures that all memory operations are fair, transparent, and accountable, acting as a judicial-like framework for data integrity.
+
 This protocol outlines the rules and procedures for managing, accessing, and disputing memory within the Agentic Codex. It acts as the "judicial review" for memory-related concerns.
 
 ## Principles:

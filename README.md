@@ -121,3 +121,19 @@ The `mail_delivery_sim.py` script simulates a secure mail delivery process withi
     Pack Rat is initiating secure transfer...
     Transfer failed: Data integrity compromised or recipient unreachable.
     ```
+
+## Project Structure
+
+This repository is organized into several key directories, each serving a distinct purpose within the Artemis City framework:
+
+-   `agents/`: Contains Markdown files defining the roles and responsibilities of the different agents operating within the system (e.g., `artemis.md`, `copilot.md`).
+-   `codex/`: Holds the core principles and high-level vision of the Artemis City project.
+-   `interface/`: Includes the primary user-facing components, such as the command-line interface (`codex_cli.py`) and its configuration (`agent_router.yaml`).
+-   `launch/`: Contains documents related to project governance, including the open source covenant and release gatechecks.
+-   `memory/`: Provides conceptual frameworks for agent memory, trust decay models, and validation simulations.
+-   `sandbox_city/`: A simulated environment designed for testing agent interactions. It includes networked scripts (`mail_delivery_sim.py`) and conceptual layouts.
+-   `requirements.txt`: Lists the Python packages required to run the project.
+
+## Contributing
+
+Contributions are welcome! If you have ideas for improvements, please open an issue to discuss your proposed changes. For consistency, please adhere to the existing coding style and ensure that all public functions are documented using Google-style Python docstrings.

@@ -1,55 +1,15 @@
----
+# Enviroßnment Secrets & API Tokens
+.env
+*.env
+.Renviron
+.httr-oauth
+
+# Python Artifacts
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
 
 ---
-
-> A security-conscious, cross-language development `.gitignore` file. This governs a multi-environment stack (Python, R, Power BI, Quarto, Power Platform) to ensure sensitive files, system-generated junk, and large outputs are excluded from version control.
-
----
-
----
-
-```gitignore
-
----
-
-# === 🔐 Environment Secrets & API Tokens ===
-
----
-
-.env                  # Local environment file (secrets, keys, tokens)
-
----
-
-- .env # Any file ending in .env (fallback for other names)
-
----
-
-.Renviron             # R's environment variables file
-
----
-
-.httr-oauth           # OAuth tokens from httr-based R packages
-
----
-
----
-
-# === 🧠 Python Artifacts ===
-
----
-
-__pycache__/          # Python compiled bytecode cache (auto-generated)
-
----
-
-- .py[cod] # Compiled Python files (.pyc, .pyo, etc.)
-
----
-
-- .ipynb_checkpoints/ # Auto-saves from Jupyter Notebooks
-
----
-
 - .sqlite3 # SQLite databases (often used for caching or mock data)
 
 ---
@@ -498,3 +458,4 @@ Summary_Docs/Quantum_Harmony_Reflection 04-23-25.md
 Summary_Docs/Thoughtnotes_1.md
 Summary_Docs/Untitled.md
 Summary_Docs/VoiceCapture_Header_Template.md
+.gitignore

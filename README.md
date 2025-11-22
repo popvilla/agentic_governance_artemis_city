@@ -288,4 +288,8 @@ Currently, the project uses manual testing:
    - Use YAML for configuration files
    - Keep configuration separate from code
    - Validate configuration on load
-
+  
+----
+Authored by Prinston — Systems Architect, Ethics-Focused Ops
+With Artemis (OpenAI) — AI dev partner
+As of November 2025|> Jules - Google Lab Claude - Anthropic

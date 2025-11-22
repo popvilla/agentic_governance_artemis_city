@@ -1,7 +1,12 @@
 [project]
-name = "artemis-city"
+name = "golden-child"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+    "code",
+    "fastapi>=0.116.1",
+    "npm>=0.1.1",
+    "supabase>=2.18.1",
+]

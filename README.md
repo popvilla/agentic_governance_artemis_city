@@ -7,32 +7,21 @@ Artemis City
 ## Table of Contents
 
 1. [Project Overview](#project-overview)
-   - [Version History](#version-history)
-   - [Project Metadata](#project-metadata)
-   - [Mission Statement][mission-statement] 
-2. [Quick Start & Security Setup](#quick-start--security-setup)
-   - [Secure Environment Setup](#secure-environment-setup)
-   - [Running Artemis City](#running-artemis-city)
-   - [Key Documentation](#key-documentation)
-   - [Security Best Practices](#security-best-practices)
-3. [Core Philosophy & Principles](#core-philosophy--principles)
-   - [Mission Statement][mission-statement]
-   - [Core Principles](#core-principles)
-4. [Repository Structure](#repository-structure)
-5. [Agent System Architecture](#agent-system-architecture)
-6. [Key Protocols & Models](#key-protocols--models)
-7. [Development Workflows](#development-workflows)
-8. [Coding Conventions](#coding-conventions)
-9. [Important Files Reference](#important-files-reference)
-10. [Working with This Codebase](#working-with-this-codebase)
-11. [Communication Patterns](#communication-patterns)
-12. [Security Best Practices](#security-best-practices)
+2. [Core Philosophy & Principles](#core-philosophy--principles)
+3. [Repository Structure](#repository-structure)
+4. [Agent System Architecture](#agent-system-architecture)
+5. [Key Protocols & Models](#key-protocols--models)
+6. [Development Workflows](#development-workflows)
+7. [Coding Conventions](#coding-conventions)
+8. [Important Files Reference](#important-files-reference)
+9. [Working with This Codebase](#working-with-this-codebase)
+10. [Communication Patterns](#communication-patterns)
 
 ---
 
 ## Project Overview
 
-**Artemis City** is an architectural framework designed to align agentic reasoning with transparent, accountable action across distributed intelligence systems—both human and machine. This is **Version 0.1.0**, providing foundational scaffolding for:
+**Artemis City** is an architectural framework designed to align agentic reasoning with transparent, accountable action across distributed intelligence systems—both human and machine. This is **Version Zero**, providing foundational scaffolding for:
 
 - Defining agents with clear roles and boundaries
 - Managing memory with trust decay models
@@ -49,85 +38,6 @@ Artemis City
 
 ### Mission Statement
 Balance **trust**, **entropy**, and **collaboration** to achieve "net good over noise" through iterative clarity and accountable collaboration.
-
----
-
-## Quick Start & Security Setup
-
-###  Secure Environment Setup (Required First Step)
-
-Before running Artemis City, you must configure environment variables securely:
-
-```bash
-# Run the automated setup script
-./setup_secrets.sh
-```
-
-This script will:
-- Create `.env` files from templates
-- Generate secure API keys automatically
-- Set proper file permissions (600)
-- Verify gitignore protection
-
-**Manual Setup:**
-```bash
-# Copy environment templates
-cp .env.example .env
-cd "Artemis Agentic Memory Layer "
-cp .env.example .env
-cd ..
-
-# Generate secure API key
-openssl rand -hex 32  # Use this value for MCP_API_KEY in both .env files
-
-# Set secure permissions
-chmod 600 .env
-chmod 600 "Artemis Agentic Memory Layer /.env"
-```
-
-###  Running Artemis City
-
-**1. Install Python dependencies:**
-```bash
-python -m venv .venv
-source .venv/bin/activate  # macOS/Linux
-pip install -r requirements.txt
-```
-
-**2. Start the MCP Memory Server:**
-```bash
-cd "Artemis Agentic Memory Layer "
-npm install
-npm run dev
-```
-
-**3. Run the CLI (in another terminal):**
-```bash
-source .venv/bin/activate
-python interface/codex_cli.py
-```
-
-**4. Try the demos:**
-```bash
-# City postal system demo
-python demo_city_postal.py
-
-# Memory integration demo
-python demo_memory_integration.py
-
-# Artemis persona features
-python demo_artemis.py
-```
-
-###  Key Documentation
-
-- **[SECURITY.md](SECURITY.md)** - Comprehensive security best practices
-- **[WARP.md](WARP.md)** - Development guide for AI assistants
-- **[LIVING_CITY.md](LIVING_CITY.md)** - Living city metaphor guide
-- **[MEMORY_INTEGRATION.md](MEMORY_INTEGRATION.md)** - Memory layer architecture
-- **[ARTEMIS_FEATURES.md](ARTEMIS_FEATURES.md)** - Persona system documentation
-
- **IMPORTANT**: Never commit `.env` files or any files containing secrets to version control!
 
 ---
 
@@ -378,77 +288,7 @@ Currently, the project uses manual testing:
    - Use YAML for configuration files
    - Keep configuration separate from code
    - Validate configuration on load
-
----
-
-## Security Best Practices
-
-###  Secret Protection
-
-Artemis City follows strict security practices to protect sensitive information:
-
-**Protected Patterns (via `.gitignore`):**
-- Environment files: `.env`, `.env.*`, `.envrc`
-- API keys: `*.key`, `*.pem`, `secrets/`
-- Credentials: `credentials.json`, `auth.json`, `token.json`
-- SSH keys: `id_rsa*`, `id_ed25519*`, etc.
-- Cloud configs: `.aws/`, `.gcloud/`, `.azure/`
-- Database files: `*.sqlite`, `*.db`, `*.dump`
-
-**Required Practices:**
-
-1. **Never commit secrets** - Use `.env` files (already in `.gitignore`)
-2. **Use environment variables** - Load secrets from environment, not hardcode
-3. **Generate strong keys** - Use `openssl rand -hex 32` or similar
-4. **Rotate keys regularly** - Change API keys every 90 days
-5. **Set file permissions** - `chmod 600 .env` to restrict access
-6. **Use different keys per environment** - Dev keys ≠ Production keys
-
-###  Development Security
-
-**Do's:**
--  Use `.env.example` as template
--  Load secrets via `os.environ.get()`
--  Log "API key configured", not the actual key
--  Use HTTPS/TLS in production
--  Validate environment variables on startup
-
-**Don'ts:**
--  Hardcode secrets in source code
--  Commit `.env` files to version control
--  Share API keys in chat/email/docs
--  Log secret values
--  Use weak or predictable keys
-
-### 🚨 If Secrets Are Exposed
-
-1. **Immediately rotate** all compromised keys
-2. **Revoke old keys** from all services
-3. **Monitor logs** for unauthorized access
-4. **Document the incident** for future prevention
-5. **Review security practices** with the team
-
-###  Security Resources
-
-- **[SECURITY.md](SECURITY.md)** - Complete security guide with:
-  - Environment variable setup
-  - API key management
-  - Pre-commit hooks
-  - Production deployment
-  - Incident response procedures
-
-**Tools:**
-- `setup_secrets.sh` - Automated secure environment setup
-- `.env.example` - Environment variable template
-- `.gitignore` - Comprehensive secret protection patterns
-
-**External Resources:**
-- [OWASP Top 10](https://owasp.org/www-project-top-ten/)
-- [GitHub Secret Scanning](https://docs.github.com/en/code-security/secret-scanning)
-- [git-secrets](https://github.com/awslabs/git-secrets) - Prevent committing secrets
-
- **Remember**: Security is everyone's responsibility! Always err on the side of caution when handling sensitive data.
-
+  
 ----
 Authored by Prinston (Apollo) — Systems Architect, Ethics-Focused Ops
 With Artemis (OpenAI) — AI dev partner 

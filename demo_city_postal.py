@@ -68,7 +68,7 @@ The city thrives through our collaboration.
             """.strip(),
             priority="normal"
         )
-        
+
         print(f"\n   {packet}")
         input("\n   Press Enter to continue to next delivery...")
     

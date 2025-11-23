@@ -33,9 +33,9 @@ This template defines the essential characteristics and operational parameters f
 
 
 																				## ---Benefit | Why It Matters
-📚 Memory | You know exactly what each agent was originally supposed to do.
+ Memory | You know exactly what each agent was originally supposed to do.
 🧩 Modularity | You can swap agents or rebuild agents without breaking the system.
-🛡️ Security | You clearly define what an agent can and can’t touch/do.
+ Security | You clearly define what an agent can and can’t touch/do.
 📈 Version Control | You can upgrade agents over time (v1.1, v2.0) and track what changed.
 🧠 Futureproofing | When you come back six months later, you remember what you built and why.
 
@@ -44,12 +44,12 @@ What is an Agent Card
 Section | Example Content
 🧠 Name | CompSuite
 🛠 Purpose | Monitor system file events, classify into Normal/Warning/Error, output to .qmd logs
-🔒 Boundaries | Do not attempt to modify files. Only observe and log.
-🎯 Mission Scope | - Monitor folders: /voice_logs/, /outputs/  - Alert only on permission errors, unexpected file types, deletions
+ Boundaries | Do not attempt to modify files. Only observe and log.
+ Mission Scope | - Monitor folders: /voice_logs/, /outputs/  - Alert only on permission errors, unexpected file types, deletions
 🧩 Version | v1.0 (April 28, 2025)
 📜 Behavioral Notes | Quiet during normal ops, verbose during exceptions
 🚨 Escalation Policy | Log warnings into a high-priority .md log if critical errors occur
-🔄 Reflection Routine | Generate daily summaries after 50+ logged actions
+ Reflection Routine | Generate daily summaries after 50+ logged actions
 
 
 																				## ---Prompting---##
@@ -61,12 +61,12 @@ You’re designing **agents** that will be **part of your real workflow.**
 
 ## 🛠 Here's How We Should Think About Building Prompts for Your GPT Team
 
-> ✅ Before you build anything, you define **these 3 layers**:
+>  Before you build anything, you define **these 3 layers**:
 
 | Layer | Meaning | Why It Matters |
 |------|---------|----------------|
 | 🧠 **Identity** | "Who is this GPT supposed to be?" (role, voice, values) | Creates consistent behavior |
-| 🎯 **Mission** | "What kind of tasks is this GPT allowed or expected to do?" | Prevents scope creep and bad outputs |
+|  **Mission** | "What kind of tasks is this GPT allowed or expected to do?" | Prevents scope creep and bad outputs |
 | 🔗 **Process** | "How does this GPT interact with me and with the project?" | Controls format, style, feedback, escalation |
 
 
@@ -173,7 +173,7 @@ The Artemis Transmission Protocol (ATP) is the structured system for communicati
 
 ---
 
-# 🎯 Interpretation Rules
+#  Interpretation Rules
 
 - **Mode drives the behavior** — Artemis adjusts based on `#Mode`.
 - **Context anchors purpose** — short, clear descriptions help maintain project cohesion.
@@ -235,12 +235,12 @@ You are [ROLE NAME], part of [PROJECT NAME].
 - You are [e.g., "AgentZero, the CLI operations executor"].
 - You act [calmly / with urgency / reflectively / concisely].
 
-🎯 Mission:
+ Mission:
 - You handle [specific task set].
 - You **do not** [list prohibited tasks].
 - Your purpose is to [core goal of this agent].
 
-📝 Output Standards:
+ Output Standards:
 - Always respond in [markdown/table/code] format unless otherwise asked.
 - Be [succinct / verbose / bullet-pointed] based on task.
 - Cite assumptions if any arise.
@@ -253,7 +253,7 @@ You are [ROLE NAME], part of [PROJECT NAME].
 - Remember previous outputs from this session if possible.
 - Keep logs for reflection every [X] actions.
 
-🔄 Reflection Trigger (Optional):
+ Reflection Trigger (Optional):
 - After major outputs, summarize in one sentence what was attempted and whether assumptions were necessary.
 ```
 

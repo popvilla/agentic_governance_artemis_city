@@ -117,7 +117,7 @@ htmlcov/
 nosetests.xml
 coverage.xml
 *.cover
-*.py,cover
+*.py.cover
 .hypothesis/
 .pytest_cache/
 cover/
@@ -159,6 +159,12 @@ ipython_config.py
 # pipenv
 Pipfile.lock
 
+# UV
+#   Similar to Pipfile.lock, it is generally recommended to include uv.lock in version control.
+#   This is especially recommended for binary packages to ensure reproducibility, and is more
+#   commonly ignored for libraries.
+#uv.lock
+
 # poetry
 poetry.lock
 
@@ -178,6 +184,7 @@ celerybeat.pid
 
 # Virtual environments
 .env
+.envrc
 .venv
 env/
 venv/
@@ -512,3 +519,4 @@ Artemis Agentic Memory Layer/ModuleAnalysisCache-*
 !WARP.md
 !*.md
 WARP.md
+package-lock.json

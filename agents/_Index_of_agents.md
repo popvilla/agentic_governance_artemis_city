@@ -2,6 +2,8 @@
  [[ArtemisCity/agents/agent_template.md]]
  [[ArtemisCity/agents/artemis_transmission_protocol (ATP)]]
  [[ArtemisCity/agents/artemis.md]]
+ [[ArtemisCity/agents/artemis/_Index_of_artemis.md]]
+ [[ArtemisCity/agents/atp/_Index_of_atp.md]]
  [[ArtemisCity/agents/codex_daemon.md]]
  [[ArtemisCity/agents/copilot.md]]
  [[ArtemisCity/agents/pack_rat.md]]

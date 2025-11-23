@@ -129,7 +129,7 @@ def main():
     
     # Load agent router configuration
     script_dir = os.path.dirname(__file__)
-    agent_router_path = os.path.join(script_dir, 'agent_router.yaml')
+    agent_router_path = os.path.join(script_dir, 'interface', 'agent_router.yaml')
     agent_router_config = load_agent_router_config(agent_router_path)
     
     # Show active instruction scopes

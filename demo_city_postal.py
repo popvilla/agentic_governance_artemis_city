@@ -15,7 +15,49 @@ from pathlib import Path
 # Add parent directory to path
 sys.path.insert(0, str(Path(__file__).parent))
 
-from memory.integration import get_post_office, get_trust_interface
+try:
+    from memory.integration import get_post_office, get_trust_interface
+    MEMORY_AVAILABLE = True
+except ImportError:
+    MEMORY_AVAILABLE = False
+    print("⚠️  Memory integration not available - running in demo mode")
+    
+    # Create mock functions for demo purposes
+    class MockPostOffice:
+        def send_mail(self, sender, recipient, subject, content, priority="normal"):
+            return f"📧 Mail from {sender} to {recipient}: {subject}"
+        
+        def check_mailbox(self, agent):
+            return []
+        
+        def send_to_archives(self, sender, archive_section, title, content):
+            class MockResponse:
+                success = True
+            return MockResponse()
+        
+        def request_from_archives(self, requester, query, section):
+            return []
+        
+        def get_postal_report(self):
+            return "Mock postal report"
+    
+    class MockTrust:
+        def get_trust_score(self, citizen):
+            class MockScore:
+                score = 0.75
+                class MockLevel:
+                    value = "TRUSTED"
+                level = MockLevel()
+            return MockScore()
+        
+        def can_perform_operation(self, citizen, operation):
+            return True
+    
+    def get_post_office():
+        return MockPostOffice()
+    
+    def get_trust_interface():
+        return MockTrust()
 
 
 def city_welcome():
@@ -278,7 +320,7 @@ def main():
         print()
         print("=" * 70)
         print()
-        
+
     except KeyboardInterrupt:
         print("\n\n👋 Goodbye from Artemis City!")
         print()

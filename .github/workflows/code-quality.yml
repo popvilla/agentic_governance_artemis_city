@@ -1,0 +1,221 @@
+name: Code Quality
+
+on:
+  pull_request:
+    branches: [ main, develop ]
+  schedule:
+    # Run weekly on Sunday at 9 AM UTC
+    - cron: '0 9 * * 0'
+  workflow_dispatch:
+
+env:
+  PYTHON_VERSION: '3.13'
+
+jobs:
+  # ============================================
+  # CODE COVERAGE
+  # ============================================
+  
+  coverage:
+    name: Code Coverage Report
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest pytest-cov
+      
+      - name: Run tests with coverage
+        run: |
+          if [ -d "tests" ]; then
+            pytest tests/ --cov=. --cov-report=xml --cov-report=html --cov-report=term
+          else
+            echo "No tests directory, creating placeholder coverage"
+            echo "<coverage></coverage>" > coverage.xml
+          fi
+      
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          file: ./coverage.xml
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: false
+      
+      - name: Upload HTML coverage report
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-report
+          path: htmlcov/
+  
+  # ============================================
+  # CODE COMPLEXITY
+  # ============================================
+  
+  complexity:
+    name: Code Complexity Analysis
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install radon xenon
+      
+      - name: Run Radon (complexity)
+        run: |
+          echo "## Cyclomatic Complexity" > complexity-report.md
+          radon cc . -a -nb >> complexity-report.md || true
+          echo "\n## Maintainability Index" >> complexity-report.md
+          radon mi . -nb >> complexity-report.md || true
+        continue-on-error: true
+      
+      - name: Run Xenon (complexity threshold)
+        run: |
+          xenon --max-absolute B --max-modules A --max-average A . || true
+        continue-on-error: true
+      
+      - name: Upload complexity report
+        uses: actions/upload-artifact@v3
+        with:
+          name: complexity-report
+          path: complexity-report.md
+  
+  # ============================================
+  # CODE DUPLICATION
+  # ============================================
+  
+  duplication:
+    name: Code Duplication Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pylint
+      
+      - name: Check for code duplication
+        run: |
+          pylint --disable=all --enable=duplicate-code agents/ core/ interface/ memory/ || true
+        continue-on-error: true
+  
+  # ============================================
+  # STATIC ANALYSIS
+  # ============================================
+  
+  static-analysis:
+    name: Advanced Static Analysis
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-dev.txt
+          pip install vulture  # Dead code detector
+      
+      - name: Run Vulture (dead code)
+        run: |
+          vulture . --min-confidence 80 > vulture-report.txt || true
+        continue-on-error: true
+      
+      - name: Run MyPy with strict mode
+        run: |
+          mypy --strict agents/ core/ interface/ memory/ > mypy-report.txt || true
+        continue-on-error: true
+      
+      - name: Upload reports
+        uses: actions/upload-artifact@v3
+        with:
+          name: static-analysis-reports
+          path: |
+            vulture-report.txt
+            mypy-report.txt
+  
+  # ============================================
+  # LINE COUNT STATISTICS
+  # ============================================
+  
+  statistics:
+    name: Code Statistics
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Count lines of code
+        run: |
+          echo "## Code Statistics" > stats.md
+          echo "" >> stats.md
+          echo "### Python Files" >> stats.md
+          find . -name "*.py" ! -path "*/venv/*" ! -path "*/.venv/*" | xargs wc -l | tail -1 >> stats.md
+          echo "" >> stats.md
+          echo "### TypeScript Files" >> stats.md
+          find . -name "*.ts" ! -path "*/node_modules/*" | xargs wc -l | tail -1 >> stats.md || echo "No TypeScript files" >> stats.md
+          echo "" >> stats.md
+          echo "### Markdown Files" >> stats.md
+          find . -name "*.md" ! -path "*/venv/*" ! -path "*/.venv/*" ! -path "*/node_modules/*" | xargs wc -l | tail -1 >> stats.md
+      
+      - name: Comment statistics on PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const stats = fs.readFileSync('stats.md', 'utf8');
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: stats
+            });
+  
+  # ============================================
+  # QUALITY SUMMARY
+  # ============================================
+  
+  summary:
+    name: Quality Summary
+    runs-on: ubuntu-latest
+    needs: [coverage, complexity, duplication, static-analysis]
+    if: always()
+    steps:
+      - name: Create summary
+        run: |
+          echo "# Code Quality Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## Job Status" >> $GITHUB_STEP_SUMMARY
+          echo "- Coverage: ${{ needs.coverage.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Complexity: ${{ needs.complexity.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Duplication: ${{ needs.duplication.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Static Analysis: ${{ needs.static-analysis.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "View detailed reports in workflow artifacts." >> $GITHUB_STEP_SUMMARY

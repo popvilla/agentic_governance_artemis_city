@@ -1,0 +1,130 @@
+name: Dependency Updates
+
+on:
+  schedule:
+    # Run weekly on Monday at 9 AM UTC
+    - cron: '0 9 * * 1'
+  workflow_dispatch:  # Allow manual trigger
+
+env:
+  PYTHON_VERSION: '3.13'
+
+jobs:
+  # ============================================
+  # CHECK PYTHON DEPENDENCIES
+  # ============================================
+  
+  check-python-deps:
+    name: Check Python Dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pip-audit safety
+          pip install -r requirements.txt
+          pip install -r requirements-dev.txt
+      
+      - name: Check for outdated packages
+        run: pip list --outdated
+      
+      - name: Run pip-audit (security)
+        run: pip-audit
+        continue-on-error: true
+      
+      - name: Run safety check
+        run: safety check --json > safety-report.json || true
+        continue-on-error: true
+      
+      - name: Upload safety report
+        uses: actions/upload-artifact@v3
+        with:
+          name: python-security-report
+          path: safety-report.json
+  
+  # ============================================
+  # CHECK NODE DEPENDENCIES
+  # ============================================
+  
+  check-node-deps:
+    name: Check Node Dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      
+      - name: Check for updates
+        working-directory: 'Artemis Agentic Memory Layer '
+        run: |
+          npm outdated || true
+      
+      - name: Run npm audit
+        working-directory: 'Artemis Agentic Memory Layer '
+        run: |
+          npm audit --json > ../npm-audit.json || true
+        continue-on-error: true
+      
+      - name: Upload audit report
+        uses: actions/upload-artifact@v3
+        with:
+          name: node-security-report
+          path: npm-audit.json
+  
+  # ============================================
+  # CREATE ISSUE FOR VULNERABILITIES
+  # ============================================
+  
+  create-issue:
+    name: Create Security Issue
+    runs-on: ubuntu-latest
+    needs: [check-python-deps, check-node-deps]
+    if: failure()
+    permissions:
+      issues: write
+    steps:
+      - name: Create issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const title = 'Security vulnerabilities detected in dependencies';
+            const body = `## Dependency Security Alert
+            
+            The weekly dependency scan has detected potential security vulnerabilities.
+            
+            **Action Required:**
+            - Review the security reports in the workflow artifacts
+            - Update affected dependencies
+            - Run \`make security\` locally to verify fixes
+            
+            **Workflow:** ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+            
+            This issue was automatically created by the dependency update workflow.`;
+            
+            // Check if issue already exists
+            const issues = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: 'security,dependencies'
+            });
+            
+            if (issues.data.length === 0) {
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: title,
+                body: body,
+                labels: ['security', 'dependencies', 'automated']
+              });
+            }

@@ -1,8 +1,8 @@
-#  Contributing to Artemis City
+# Contributing to Artemis City
 
 Thank you for your interest in contributing to Artemis City! This document provides guidelines for maintaining code quality and consistency.
 
-##  Table of Contents
+## Table of Contents
 
 1. [Getting Started](#getting-started)
 2. [Code Style Guidelines](#code-style-guidelines)
@@ -11,7 +11,7 @@ Thank you for your interest in contributing to Artemis City! This document provi
 5. [Testing](#testing)
 6. [Pull Request Process](#pull-request-process)
 
-##  Getting Started
+## Getting Started
 
 ### Setup Development Environment
 
@@ -42,17 +42,19 @@ make security      # Security scans
 make test          # Run tests
 ```
 
-##  Code Style Guidelines
+## Code Style Guidelines
 
 ### Python Style
 
 We follow **PEP 8** with modifications for modern Python development:
 
 **Line Length:**
+
 - Maximum: 100 characters (not 79)
 - Docstrings/comments: Can wrap naturally
 
 **Naming Conventions:**
+
 - Functions/variables: `snake_case`
 - Classes: `PascalCase`
 - Constants: `UPPER_SNAKE_CASE`
@@ -60,6 +62,7 @@ We follow **PEP 8** with modifications for modern Python development:
 - Project-specific abbreviations: `mcp`, `atp`, `id`, `db`
 
 **Docstrings:**
+
 - Use Google-style docstrings
 - Required for all public functions/classes
 - Include Args, Returns, Raises sections
@@ -87,6 +90,7 @@ def example_function(param1: str, param2: int) -> bool:
 ```
 
 **Imports:**
+
 ```python
 # Standard library
 import os
@@ -104,6 +108,7 @@ from memory.integration import MemoryClient
 ### TypeScript/JavaScript Style
 
 **Formatting:**
+
 - Use **Prettier** for formatting
 - Line length: 100 characters
 - Indentation: 2 spaces
@@ -112,6 +117,7 @@ from memory.integration import MemoryClient
 - Trailing commas (ES5)
 
 **Naming Conventions:**
+
 - Variables/functions: `camelCase`
 - Classes/Types: `PascalCase`
 - Constants: `UPPER_SNAKE_CASE`
@@ -120,6 +126,7 @@ from memory.integration import MemoryClient
 ### File Organization
 
 **Python Files:**
+
 ```python
 """Module docstring describing the file's purpose."""
 
@@ -144,11 +151,12 @@ if __name__ == "__main__":
     main()
 ```
 
-##  Linting and Formatting
+## Linting and Formatting
 
 ### Automatic Formatting
 
 **Format all Python code:**
+
 ```bash
 make format
 # or
@@ -157,6 +165,7 @@ isort .
 ```
 
 **Format JavaScript/TypeScript:**
+
 ```bash
 cd "Artemis Agentic Memory Layer "
 npm run lint:fix
@@ -167,21 +176,25 @@ npm run lint:fix
 #### Python
 
 **Flake8** - Style guide enforcement:
+
 ```bash
 flake8 .
 ```
 
 **Pylint** - Comprehensive static analysis:
+
 ```bash
 pylint agents/ core/ interface/ memory/
 ```
 
 **MyPy** - Type checking:
+
 ```bash
 mypy .
 ```
 
 **Bandit** - Security scanner:
+
 ```bash
 bandit -r . -c pyproject.toml
 ```
@@ -189,6 +202,7 @@ bandit -r . -c pyproject.toml
 #### JavaScript/TypeScript
 
 **ESLint** (if configured):
+
 ```bash
 cd "Artemis Agentic Memory Layer "
 npm run lint
@@ -205,7 +219,7 @@ Our linting configuration:
 - `.editorconfig` - Editor consistency
 - `.gitattributes` - Line endings and file handling
 
-##  Pre-commit Hooks
+## Pre-commit Hooks
 
 We use **pre-commit** to automatically check code before commits.
 
@@ -221,44 +235,51 @@ pre-commit install
 Pre-commit hooks run automatically on `git commit`:
 
  **File Checks:**
+
 - Large files (>1MB)
 - Line endings (LF)
 - Trailing whitespace
 - YAML/JSON syntax
 
  **Python Checks:**
+
 - Black formatting
 - isort import sorting
 - Flake8 linting
 - Bandit security scanning
 
  **Secret Detection:**
+
 - Private key detection
 - Secret pattern matching
 - .env file prevention
 
  **JavaScript/TypeScript:**
+
 - Prettier formatting
 - Markdown linting
 
 ### Usage
 
 **Run manually on all files:**
+
 ```bash
 pre-commit run --all-files
 ```
 
 **Skip hooks (emergency only):**
+
 ```bash
 git commit --no-verify
 ```
 
 **Update hooks:**
+
 ```bash
 pre-commit autoupdate
 ```
 
-##  Testing
+## Testing
 
 ### Running Tests
 
@@ -280,6 +301,7 @@ make test-cov
 ### Writing Tests
 
 **Test file structure:**
+
 ```python
 """Tests for module_name."""
 
@@ -302,15 +324,17 @@ class TestClassName:
 ```
 
 **Test naming:**
+
 - Files: `test_*.py` or `*_test.py`
 - Functions: `test_*`
 - Classes: `Test*`
 
-##  Pull Request Process
+## Pull Request Process
 
 ### Before Submitting
 
 1. **Run all checks:**
+
    ```bash
    make check
    make security
@@ -318,6 +342,7 @@ class TestClassName:
    ```
 
 2. **Format your code:**
+
    ```bash
    make format
    ```
@@ -328,6 +353,7 @@ class TestClassName:
    - Add to CHANGELOG.md
 
 4. **Verify pre-commit passes:**
+
    ```bash
    pre-commit run --all-files
    ```
@@ -335,22 +361,26 @@ class TestClassName:
 ### PR Requirements
 
  **Code Quality:**
+
 - All linters pass
 - No security issues
 - Type hints for public APIs
 - Docstrings for public functions
 
  **Testing:**
+
 - Tests pass
 - New features have tests
 - Coverage doesn't decrease
 
  **Documentation:**
+
 - Code is documented
 - README updated if needed
 - Breaking changes noted
 
  **Git:**
+
 - Commits are descriptive
 - Branch is up to date
 - No merge conflicts
@@ -380,7 +410,7 @@ Brief description of changes
 - [ ] No new warnings
 ```
 
-##  Code Review Guidelines
+## Code Review Guidelines
 
 ### For Authors
 
@@ -396,9 +426,10 @@ Brief description of changes
 - Explain reasoning
 - Approve when standards met
 
-##  Security Guidelines
+## Security Guidelines
 
 **Never commit:**
+
 - API keys or tokens
 - Passwords or credentials
 - Private keys
@@ -406,16 +437,18 @@ Brief description of changes
 - Personal data
 
 **Use:**
+
 - Environment variables for secrets
 - `.env.example` as template
 - `setup_secrets.sh` for setup
 
 **Check before committing:**
+
 ```bash
 make secrets
 ```
 
-##  Additional Resources
+## Additional Resources
 
 - [Python PEP 8](https://pep8.org/)
 - [Google Python Style Guide](https://google.github.io/styleguide/pyguide.html)
@@ -432,4 +465,4 @@ make secrets
 
 ---
 
-**Thank you for contributing to Artemis City!** 
+**Thank you for contributing to Artemis City!**

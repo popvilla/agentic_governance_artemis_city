@@ -14,6 +14,7 @@ The memory integration bridge connects the Python-based Artemis City agent syste
 ## Architecture
 
 ```
+
 ┌────────────────────────────────────────────────────────────────┐
 │                       Artemis City Core                        │
 │  ┌──────────────┐   ┌─────────────────┐   ┌────────────────┐ │
@@ -52,6 +53,7 @@ The memory integration bridge connects the Python-based Artemis City agent syste
                                             │   Vault         │
                                             │  (Knowledge)    │
                                             └─────────────────┘
+
 ```
 
 ## Components
@@ -103,6 +105,7 @@ client.store_agent_context(
 Trust-based access control for memory operations with decay model.
 
 **Features:**
+
 - Trust scores for agents (0.0-1.0)
 - Trust levels (FULL, HIGH, MEDIUM, LOW, UNTRUSTED)
 - Operation permission matrix
@@ -120,6 +123,7 @@ Trust-based access control for memory operations with decay model.
 | UNTRUSTED   | 0.0-0.3     | none                                         |
 
 **Example:**
+
 ```python
 from memory.integration import get_trust_interface
 
@@ -150,6 +154,7 @@ High-level interface for loading and organizing context from vault.
 - Date range filtering
 
 **Example:**
+
 ```python
 from memory.integration import ContextLoader
 
@@ -552,4 +557,5 @@ Planned improvements aligned with the plan:
 **Author**: Prinston Palmer  
 **Last Updated**: November 23, 2025  
 **Status**: Production Ready
+
 ```

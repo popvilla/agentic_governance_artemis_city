@@ -423,6 +423,7 @@ desktop.ini
 *.swp
 *.swo
 *~
+.ts
 
 # Logs
 *.log
@@ -459,3 +460,4 @@ Summary_Docs/Thoughtnotes_1.md
 Summary_Docs/Untitled.md
 Summary_Docs/VoiceCapture_Header_Template.md
 .gitignore
+Artemis Agentic Memory Layer/ModuleAnalysisCache-810547F0

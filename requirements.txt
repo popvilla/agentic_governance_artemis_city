@@ -1,1 +1,66 @@
-PyYAML>=6.0
+# ============================================
+# ARTEMIS CITY - PYTHON DEPENDENCIES
+# ============================================
+# Core dependencies for Artemis City agent system
+#
+# Recommended installation method:
+#   pip install -r requirements.txt
+#   or
+#   pip install -e .[dev]  # For development with all optional dependencies
+
+# ============================================
+# CORE DEPENDENCIES
+# ============================================
+PyYAML>=6.0.1,<7.0.0  # YAML parsing for agent router configuration
+
+# ============================================
+# OPTIONAL DEPENDENCIES
+# ============================================
+# Install with: pip install -e '.[enhanced]' or uncomment below
+# pydantic>=2.0.0,<3.0.0  # Data validation and parsing
+# requests>=2.31.0,<3.0.0  # HTTP client
+# click>=8.1.0,<9.0.0  # CLI toolkit
+# prompt-toolkit>=3.0.0,<4.0.0  # Enhanced REPL
+
+# ============================================
+# DEVELOPMENT DEPENDENCIES
+# ============================================
+# Install with: pip install -e '.[dev]' or uncomment below
+#
+# Testing
+# pytest>=7.4.0,<8.0.0
+# pytest-cov>=4.1.0,<5.0.0
+# pytest-asyncio>=0.21.0,<0.25.0
+#
+# Code Quality
+# black>=23.0.0,<24.0.0  # Code formatter
+# isort>=5.12.0,<6.0.0  # Import sorter
+# flake8>=6.0.0,<7.0.0  # Linter
+# mypy>=1.5.0,<2.0.0  # Type checker
+# bandit>=1.7.0,<2.0.0  # Security linter
+#
+# Documentation
+# mkdocs>=1.5.0,<2.0.0
+# mkdocs-material>=9.0.0,<10.0.0
+# mkdocstrings[python]>=0.24.0,<0.25.0
+
+# ============================================
+# DEVELOPMENT NOTES
+# ============================================
+# Python Version: 3.8+ (3.12 recommended)
+#
+# Virtual Environment Setup:
+#   python -m venv .venv
+#   source .venv/bin/activate  # macOS/Linux
+#   .venv\Scripts\activate    # Windows
+#   pip install -e '.[dev]'    # Install in development mode with all dependencies
+#
+# For Memory Layer (Node.js):
+#   cd "Artemis Agentic Memory Layer"
+#   npm install
+#
+# Security Note:
+# - Always use virtual environments to isolate dependencies
+# - Never install packages globally unless absolutely necessary
+# - Run security checks: bandit -r .
+# - Update dependencies regularly: pip list --outdated

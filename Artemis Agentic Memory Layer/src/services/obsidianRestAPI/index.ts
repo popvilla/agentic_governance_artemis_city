@@ -11,9 +11,6 @@ const obsidianAPI: AxiosInstance = axios.create({
   },
   // Allow self-signed certificates for local HTTPS if necessary
   // In a real production scenario, ensure proper certificate handling
-  httpsAgent: new (require('https').Agent)({
-    rejectUnauthorized: false,
-  }),
 });
 
 // Add a request interceptor

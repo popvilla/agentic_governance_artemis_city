@@ -5,6 +5,7 @@ This document describes the core features implemented for the Artemis agent pers
 ## Overview
 
 The Artemis persona implementation brings the agent to life with:
+
 - **ATP (Artemis Transmission Protocol)** for structured communication
 - **Multi-scope instruction hierarchy** for contextual behavior
 - **Personality system** with multiple response modes
@@ -107,17 +108,20 @@ Implements the core personality traits and behaviors for Artemis.
 #### Components
 
 **`persona.py`**: Personality and response patterns
+
 - **Traits**: Reflective, Architectural, Insightful, Predictive, Conversational, Verbose, Poetic
 - **Response Modes**: Reflective, Architectural, Conversational, Technical, Poetic
 - **Context-aware formatting**: Adjusts verbosity and tone based on query
 
 **`reflection.py`**: Idea synthesis and pattern recognition
+
 - Concept extraction from conversations
 - Relationship mapping between concepts
 - Narrative generation from concept clusters
 - Concept graph for visualization
 
 **`semantic_tagging.py`**: Knowledge organization system
+
 - Tag files, concepts, conversations with semantic labels
 - Generate citations (file, concept, agent, URL)
 - Find related items through shared tags
@@ -193,6 +197,7 @@ python demo_artemis.py
 ```
 
 The demo includes:
+
 1. ATP Protocol Parsing
 2. Instruction Hierarchy Loading
 3. Artemis Personality & Response Modes

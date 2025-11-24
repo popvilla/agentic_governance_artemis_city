@@ -117,6 +117,7 @@ Artemis-City/
 ├── memory/                    # Memory management frameworks
 │   ├── trust_decay_model.md  # Trust scoring and decay mechanics
 │   ├── memory_lawyer.md      # Memory validation protocols
+│   └── validation_simulations.md # Testing frameworks
 │   ├── validation_simulations.md # Testing frameworks
 │   └── integration/          # Memory integration Python implementation
 │       ├── __init__.py       # Exports MemoryClient, TrustInterface, ContextLoader

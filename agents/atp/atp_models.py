@@ -5,13 +5,14 @@ structured communication between agents and users with clear intent signals.
 """
 
 from dataclasses import dataclass, field
-from enum import Enum
-from typing import Optional, Dict, Any
 from datetime import datetime
+from enum import Enum
+from typing import Any, Dict, Optional
 
 
 class ATPMode(Enum):
     """ATP Mode values defining overall intent."""
+
     BUILD = "Build"
     REVIEW = "Review"
     ORGANIZE = "Organize"
@@ -24,6 +25,7 @@ class ATPMode(Enum):
 
 class ATPPriority(Enum):
     """ATP Priority levels for task urgency."""
+
     CRITICAL = "Critical"
     HIGH = "High"
     NORMAL = "Normal"
@@ -33,6 +35,7 @@ class ATPPriority(Enum):
 
 class ATPActionType(Enum):
     """ATP Action types defining expected response."""
+
     SUMMARIZE = "Summarize"
     SCAFFOLD = "Scaffold"
     EXECUTE = "Execute"
@@ -43,7 +46,7 @@ class ATPActionType(Enum):
 @dataclass
 class ATPMessage:
     """Structured ATP message with protocol-defined fields.
-    
+
     Attributes:
         mode: Overall intent of the message
         context: Brief mission goal or purpose
@@ -56,6 +59,7 @@ class ATPMessage:
         timestamp: When the message was created
         metadata: Additional contextual data
     """
+
     mode: ATPMode = ATPMode.UNKNOWN
     context: Optional[str] = None
     priority: ATPPriority = ATPPriority.NORMAL
@@ -66,26 +70,26 @@ class ATPMessage:
     raw_input: str = ""
     timestamp: datetime = field(default_factory=datetime.now)
     metadata: Dict[str, Any] = field(default_factory=dict)
-    
+
     @property
     def has_atp_headers(self) -> bool:
         """Check if message has any ATP headers parsed."""
         return (
-            self.mode != ATPMode.UNKNOWN or
-            self.context is not None or
-            self.action_type != ATPActionType.UNKNOWN or
-            self.target_zone is not None
+            self.mode != ATPMode.UNKNOWN
+            or self.context is not None
+            or self.action_type != ATPActionType.UNKNOWN
+            or self.target_zone is not None
         )
-    
+
     @property
     def is_complete(self) -> bool:
         """Check if message has minimum required ATP fields."""
         return (
-            self.mode != ATPMode.UNKNOWN and
-            self.context is not None and
-            self.action_type != ATPActionType.UNKNOWN
+            self.mode != ATPMode.UNKNOWN
+            and self.context is not None
+            and self.action_type != ATPActionType.UNKNOWN
         )
-    
+
     def to_dict(self) -> Dict[str, Any]:
         """Convert ATP message to dictionary format."""
         return {
@@ -99,9 +103,9 @@ class ATPMessage:
             "timestamp": self.timestamp.isoformat(),
             "metadata": self.metadata,
             "has_atp_headers": self.has_atp_headers,
-            "is_complete": self.is_complete
+            "is_complete": self.is_complete,
         }
-    
+
     def __str__(self) -> str:
         """Human-readable string representation."""
         parts = []
@@ -117,6 +121,10 @@ class ATPMessage:
             parts.append(f"Target: {self.target_zone}")
         if self.special_notes:
             parts.append(f"Notes: {self.special_notes}")
-        
+
         header = " | ".join(parts) if parts else "No ATP headers"
-        return f"[ATP] {header}\nContent: {self.content[:100]}..." if len(self.content) > 100 else f"[ATP] {header}\nContent: {self.content}"
+        return (
+            f"[ATP] {header}\nContent: {self.content[:100]}..."
+            if len(self.content) > 100
+            else f"[ATP] {header}\nContent: {self.content}"
+        )

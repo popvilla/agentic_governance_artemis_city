@@ -112,7 +112,7 @@ def demo_trust_interface():
     
     print(f"  test_agent after 2 successes: {updated_test.score:.3f}")
     print(f"  low_trust after 1 failure:    {updated_low.score:.3f}")
-    
+
     # Trust report
     print("\n" + "-" * 70)
     print("\n[Trust Report]")
@@ -122,7 +122,7 @@ def demo_trust_interface():
         print(f"\n  {level.upper()}:")
         for entity in entities:
             print(f"    - {entity['id']} (score: {entity['score']})")
-    
+
     print()
 
 
@@ -174,7 +174,7 @@ def demo_context_loader(client: MemoryClient):
         print(f"  ✓ Context stored: {response.message}")
     else:
         print(f"  ✗ Failed to store: {response.error}")
-    
+
     print()
 
 
@@ -273,7 +273,7 @@ def demo_trust_decay():
             print(f"    Day {day}: Reinforced +0.02")
         score_value = score.apply_decay()
         print(f"    Day {day}: Score = {score_value:.3f}")
-    
+
     print()
 
 

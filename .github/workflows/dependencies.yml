@@ -44,7 +44,7 @@ jobs:
         continue-on-error: true
       
       - name: Upload safety report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: python-security-report
           path: safety-report.json
@@ -76,7 +76,7 @@ jobs:
         continue-on-error: true
       
       - name: Upload audit report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: node-security-report
           path: npm-audit.json

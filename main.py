@@ -7,7 +7,7 @@ from pathlib import Path
 # Add parent directory to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from agents.atp import ATPParser, ATPValidator
+from agents.atp import ATPParser
 from core.instructions import get_global_cache
 from agents.artemis import ArtemisPersona
 
@@ -65,7 +65,6 @@ def handle_command(command, agent_router, atp_parser, instruction_cache, artemis
         print()
     
     # Load instructions for current context
-    current_agent = None
     instruction_set = instruction_cache.get(agent_name=None)
     
     if instruction_set.scopes:

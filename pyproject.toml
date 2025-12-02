@@ -3,7 +3,7 @@ name = "artemis-city"
 version = "0.1.0"
 description = "Architectural framework for agentic reasoning with transparent, accountable action across distributed intelligence systems"
 readme = "README.md"
-requires-python = ">=3.8,<3.13"
+requires-python = ">=3.8,<3.14"
 
 authors = [
     {name = "Prinston Palmer", email = "prinstonpalmer879@gmail.com"}

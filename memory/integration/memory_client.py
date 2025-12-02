@@ -340,10 +340,11 @@ class MemoryClient:
         try:
             url = f"{self.base_url}/health"
             req = urllib.request.Request(url, method='GET')
-            
+
             with urllib.request.urlopen(req, timeout=5) as response:
                 return response.status == 200
-        except:
+        except Exception:
+            # Catch all exceptions during health check (network, timeout, etc.)
             return False
     
     def get_agent_context(

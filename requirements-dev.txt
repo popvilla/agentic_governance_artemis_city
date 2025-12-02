@@ -2,7 +2,7 @@
 # ARTEMIS CITY - DEVELOPMENT DEPENDENCIES
 # ============================================
 # Additional tools for development, testing, and code quality
-pip install -r requirements-dev.txt
+# Install with: pip install -r requirements-dev.txt
 
 # First install core dependencies
 -r requirements.txt

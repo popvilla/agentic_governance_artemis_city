@@ -33,6 +33,11 @@ secrets.*
 .secrets
 api-keys/
 *.secret
+*.token
+.token
+api_key.txt
+api_keys.txt
+API_KEY*
 
 # Cloud provider credentials
 .aws/
@@ -62,6 +67,15 @@ token.json
 database.yml
 *.sql.gz
 *.dump
+
+# Configuration files that may contain secrets
+config.local.*
+config.secret.*
+.config.local
+settings.local.*
+local.settings.json
+appsettings.local.json
+appsettings.Development.json
 
 # R environment (contains API tokens)
 .Renviron
@@ -473,6 +487,13 @@ _output/
 
 # Memory Layer cache
 Artemis Agentic Memory Layer/ModuleAnalysisCache-*
+Artemis Agentic Memory Layer/dist/
+Artemis Agentic Memory Layer/build/
+
+# MCP Server secrets
+Artemis Agentic Memory Layer/.env
+Artemis Agentic Memory Layer/.env.*
+!Artemis Agentic Memory Layer/.env.example
 
 # Agent state files (if they contain runtime secrets)
 # agents/*/state.json
@@ -482,6 +503,15 @@ Artemis Agentic Memory Layer/ModuleAnalysisCache-*
 
 # Test outputs
 # test_output/
+
+# Python cache in project
+*.pyc
+**/__pycache__/
+.pytest_cache/
+
+# TypeScript build artifacts
+*.tsbuildinfo
+*.js.map
 
 # Lock files
 .lock

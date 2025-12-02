@@ -5,7 +5,8 @@ Tests the ATP message parser, validator, and models.
 """
 
 import pytest
-from agents.atp import ATPMessage, ATPParser, ATPValidator, ATPMode, ATPPriority, ATPActionType
+
+from agents.atp import ATPActionType, ATPMessage, ATPMode, ATPParser, ATPPriority, ATPValidator
 
 
 class TestATPMessage:
@@ -19,7 +20,7 @@ class TestATPMessage:
             priority=ATPPriority.NORMAL,
             action_type=ATPActionType.EXECUTE,
             target_zone="test/",
-            special_notes=""
+            special_notes="",
         )
         assert message.mode == ATPMode.BUILD
         assert message.context == "Test task"
@@ -33,7 +34,7 @@ class TestATPMessage:
             priority=ATPPriority.CRITICAL,
             action_type=ATPActionType.REFLECT,
             target_zone="security/",
-            special_notes="Urgent review needed"
+            special_notes="Urgent review needed",
         )
         assert message.priority == ATPPriority.CRITICAL
         assert message.action_type == ATPActionType.REFLECT
@@ -88,7 +89,7 @@ class TestATPValidator:
             priority=ATPPriority.NORMAL,
             action_type=ATPActionType.EXECUTE,
             target_zone="test/",
-            content="This is the message content"  # Need content for validation to pass
+            content="This is the message content",  # Need content for validation to pass
         )
         result = validator.validate(message)
         assert result.is_valid is True
@@ -102,7 +103,7 @@ class TestATPValidator:
             priority=ATPPriority.NORMAL,
             action_type=ATPActionType.EXECUTE,
             target_zone="test/",
-            special_notes=""
+            special_notes="",
         )
         result = validator.validate(message)
         # Context should be required

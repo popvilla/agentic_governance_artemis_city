@@ -119,6 +119,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     if: false  # Enable when Dockerfile is added
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v4
       

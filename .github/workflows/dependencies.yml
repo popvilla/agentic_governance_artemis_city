@@ -17,6 +17,8 @@ jobs:
   check-python-deps:
     name: Check Python Dependencies
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v4
       

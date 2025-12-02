@@ -549,3 +549,6 @@ Artemis Agentic Memory Layer/.env.*
 !WARP.md
 !*.md
 WARP.md
+core/instructions/instruction_cache.py
+agents/atp/__init__.py
+core/instructions/__init__.py

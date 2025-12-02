@@ -17,7 +17,8 @@ export const authenticateMCP = (req: Request, res: Response, next: NextFunction)
 
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
     logger.warn('Authentication failed: Missing or malformed Bearer token.');
-    return res.status(401).json({ success: false, error: 'Unauthorized: Bearer token required.' });
+    res.status(401).json({ success: false, error: 'Unauthorized: Bearer token required.' });
+    return;
   }
 
   const token = authHeader.split(' ')[1];
@@ -25,7 +26,8 @@ export const authenticateMCP = (req: Request, res: Response, next: NextFunction)
   // Ensure MCP_API_KEY is not empty, though config validation should prevent this.
   if (!MCP_API_KEY) {
     logger.error('Server configuration error: MCP_API_KEY is not set.');
-    return res.status(500).json({ success: false, error: 'Server configuration error.' });
+    res.status(500).json({ success: false, error: 'Server configuration error.' });
+    return;
   }
 
   if (token === MCP_API_KEY) {
@@ -33,6 +35,7 @@ export const authenticateMCP = (req: Request, res: Response, next: NextFunction)
     next();
   } else {
     logger.warn('Authentication failed: Invalid MCP_API_KEY provided.');
-    return res.status(403).json({ success: false, error: 'Forbidden: Invalid API Key.' });
+    res.status(403).json({ success: false, error: 'Forbidden: Invalid API Key.' });
+    return;
   }
 };

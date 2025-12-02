@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
 import { MCP_LOG_LEVEL } from '../config';
 
-// Use a const enum for better tree-shaking and performance.
+// Use a regular enum to allow runtime string-to-value lookups.
 // The values are explicitly assigned for clarity and to ensure numerical order.
-const enum LogLevel {
+enum LogLevel {
   DEBUG = 0,
   INFO = 1,
   WARN = 2,

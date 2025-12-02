@@ -1,7 +1,9 @@
 import argparse
-import yaml
 import os
 import re
+
+import yaml
+
 
 def normalize_agent_router_config(cfg):
     """Normalize the agent router configuration (lowercase keywords, ensure structure)."""
@@ -18,6 +20,7 @@ def normalize_agent_router_config(cfg):
     cfg['agents'] = agents
     return cfg
 
+
 def validate_agent_router_config(cfg):
     """Validate the basic shape of the agent router configuration."""
     if not isinstance(cfg, dict):
@@ -27,6 +30,7 @@ def validate_agent_router_config(cfg):
         print("[Warning] agent_router.yaml is missing an 'agents' dictionary. Using empty config.")
         return {'agents': {}}
     return cfg
+
 
 def load_agent_router_config(config_path):
     """Loads agent routing configurations from a specified YAML file.
@@ -54,9 +58,11 @@ def load_agent_router_config(config_path):
     cfg = validate_agent_router_config(raw)
     return normalize_agent_router_config(cfg)
 
+
 def matches_command(command_lower, keywords):
     """Return True if any keyword matches as a whole word/phrase in the command."""
     return any(re.search(rf'\b{re.escape(k)}\b', command_lower) for k in keywords)
+
 
 def handle_command(command, agent_router):
     """Routes a command to the appropriate agent based on predefined keywords.
@@ -80,7 +86,10 @@ def handle_command(command, agent_router):
             print(f"  - Input: '{command}'")
             print(f"  - Expected action: {config.get('action_description', 'processing...')}")
             return
-    print("[Router] No specific agent found for this command. Defaulting to general system processing.")
+    print(
+        "[Router] No specific agent found for this command. Defaulting to general system processing."
+    )
+
 
 def main():
     """Initializes and runs the Agentic Codex Command-Line Interface (CLI).
@@ -91,7 +100,11 @@ def main():
     router configuration to correctly handle command routing.
     """
     parser = argparse.ArgumentParser(description="Agentic Codex CLI Interface")
-    parser.add_argument("command", nargs="?", help="The command to send to the Codex (e.g., 'status', 'ask artemis')")
+    parser.add_argument(
+        "command",
+        nargs="?",
+        help="The command to send to the Codex (e.g., 'status', 'ask artemis')",
+    )
     parser.add_argument("--config", help="Path to agent router YAML", default=None)
     args = parser.parse_args()
 
@@ -122,6 +135,7 @@ def main():
                 break
             except Exception as e:
                 print(f"[Error] An error occurred: {e}")
+
 
 if __name__ == "__main__":
     main()

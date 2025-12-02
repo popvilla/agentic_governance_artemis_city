@@ -5,7 +5,8 @@ Tests the ArtemisPersona, ReflectionEngine, and SemanticTagger components.
 """
 
 import pytest
-from agents.artemis import ArtemisPersona, ReflectionEngine, SemanticTagger, ResponseMode
+
+from agents.artemis import ArtemisPersona, ReflectionEngine, ResponseMode, SemanticTagger
 
 
 class TestArtemisPersona:
@@ -43,12 +44,14 @@ class TestReflectionEngine:
     def test_concept_graph_creation(self):
         """Test creating a concept graph."""
         from agents.artemis import ConceptGraph
+
         graph = ConceptGraph()
         assert graph is not None
 
     def test_add_concept_node(self):
         """Test adding concept nodes to graph."""
         from agents.artemis import ConceptGraph, ConceptNode
+
         graph = ConceptGraph()
         node = ConceptNode(concept="Test Concept", frequency=1)
         # Test that graph can accept nodes
@@ -68,11 +71,8 @@ class TestSemanticTagger:
     def test_semantic_tag_creation(self):
         """Test creating semantic tags."""
         from agents.artemis import SemanticTag
-        tag = SemanticTag(
-            tag="governance",
-            category="system",
-            description="System governance"
-        )
+
+        tag = SemanticTag(tag="governance", category="system", description="System governance")
         assert tag.tag == "governance"
         assert tag.category == "system"
         assert tag.description == "System governance"
@@ -95,11 +95,12 @@ class TestCitationSystem:
     def test_citation_creation(self):
         """Test creating citations."""
         from agents.artemis import Citation
+
         citation = Citation(
             target="memory/trust_decay_model.md",
             citation_type="file",
             line_number=42,
-            context="Trust decays over time"
+            context="Trust decays over time",
         )
         assert citation.target == "memory/trust_decay_model.md"
         assert citation.citation_type == "file"

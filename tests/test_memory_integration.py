@@ -4,10 +4,12 @@ Unit tests for Memory Integration layer.
 Tests the MemoryClient, TrustInterface, and ContextLoader components.
 """
 
-import pytest
 import os
 from datetime import datetime
-from memory.integration import MemoryClient, TrustInterface, TrustScore, TrustLevel
+
+import pytest
+
+from memory.integration import MemoryClient, TrustInterface, TrustLevel, TrustScore
 
 
 class TestMemoryClient:
@@ -41,7 +43,7 @@ class TestTrustInterface:
             entity_type="agent",
             score=0.85,
             level=TrustLevel.HIGH,
-            last_updated=datetime.now()
+            last_updated=datetime.now(),
         )
         assert score.score == 0.85
         assert score.level == TrustLevel.HIGH
@@ -67,6 +69,7 @@ class TestContextLoader:
     def test_context_loader_initialization(self):
         """Test that ContextLoader can be initialized."""
         from memory.integration import ContextLoader
+
         # Set API key for MemoryClient initialization
         os.environ['MCP_API_KEY'] = 'test-api-key'
         loader = ContextLoader()
@@ -75,6 +78,7 @@ class TestContextLoader:
     def test_load_empty_context(self):
         """Test loading empty folder context."""
         from memory.integration import ContextLoader
+
         # Set API key for MemoryClient initialization
         os.environ['MCP_API_KEY'] = 'test-api-key'
         loader = ContextLoader()

@@ -91,27 +91,27 @@ python-dotenv>=1.0.0  # .env file support (optional, we use os.environ)
 # ============================================
 #
 # Install all dev dependencies:
-pip install -r requirements-dev.txt
+#   pip install -r requirements-dev.txt
 #
 # Run tests:
-pytest
-pytest --cov=. --cov-report=html
+#   pytest
+#   pytest --cov=. --cov-report=html
 #
 # Format code:
-black .
-isort .
+#   black .
+#   isort .
 #
 # Lint code:
-flake8 .
-pylint agents/ core/ memory/ interface/
+#   flake8 .
+#   pylint agents/ core/ memory/ interface/
 #
 # Type check:
-mypy .
+#   mypy .
 #
 # Security check:
-bandit -r .
-safety check
+#   bandit -r .
+#   safety check
 #
 # Build documentation:
-mkdocs serve  # Local preview
-mkdocs build  # Build static site
+#   mkdocs serve  # Local preview
+#   mkdocs build  # Build static site

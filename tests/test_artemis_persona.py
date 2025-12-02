@@ -20,13 +20,16 @@ class TestArtemisPersona:
         """Test response mode enum values."""
         assert ResponseMode.TECHNICAL is not None
         assert ResponseMode.CONVERSATIONAL is not None
-        assert ResponseMode.GOVERNANCE is not None
+        assert ResponseMode.REFLECTIVE is not None
+        assert ResponseMode.ARCHITECTURAL is not None
+        assert ResponseMode.POETIC is not None
 
     def test_persona_with_mode(self):
         """Test creating persona with specific mode."""
-        persona = ArtemisPersona(mode=ResponseMode.GOVERNANCE)
+        persona = ArtemisPersona()
+        persona.set_mode(ResponseMode.REFLECTIVE)
         assert persona is not None
-        assert persona.mode == ResponseMode.GOVERNANCE
+        assert persona.current_mode == ResponseMode.REFLECTIVE
 
 
 class TestReflectionEngine:
@@ -47,10 +50,11 @@ class TestReflectionEngine:
         """Test adding concept nodes to graph."""
         from agents.artemis import ConceptGraph, ConceptNode
         graph = ConceptGraph()
-        node = ConceptNode(id="test-1", label="Test Concept", value="Test value")
+        node = ConceptNode(concept="Test Concept", frequency=1)
         # Test that graph can accept nodes
         assert node is not None
-        assert node.id == "test-1"
+        assert node.concept == "Test Concept"
+        assert node.frequency == 1
 
 
 class TestSemanticTagger:
@@ -65,21 +69,24 @@ class TestSemanticTagger:
         """Test creating semantic tags."""
         from agents.artemis import SemanticTag
         tag = SemanticTag(
-            name="governance",
+            tag="governance",
             category="system",
-            confidence=0.95
+            description="System governance"
         )
-        assert tag.name == "governance"
+        assert tag.tag == "governance"
         assert tag.category == "system"
-        assert tag.confidence == 0.95
+        assert tag.description == "System governance"
 
     def test_tag_text(self):
         """Test tagging text content."""
         tagger = SemanticTagger()
-        text = "This is a test of the governance system."
-        # Should be able to tag text
-        result = tagger.tag(text)
-        assert result is not None or result == []
+        item = "test-document.md"
+        tags = ["governance", "system"]
+        # Should be able to tag items
+        tagger.tag_item(item, tags, category="file")
+        result = tagger.get_tags_for_item(item)
+        assert result is not None
+        assert len(result) == 2
 
 
 class TestCitationSystem:
@@ -89,12 +96,15 @@ class TestCitationSystem:
         """Test creating citations."""
         from agents.artemis import Citation
         citation = Citation(
-            source="memory/trust_decay_model.md",
+            target="memory/trust_decay_model.md",
+            citation_type="file",
             line_number=42,
-            text="Trust decays over time"
+            context="Trust decays over time"
         )
-        assert citation.source == "memory/trust_decay_model.md"
+        assert citation.target == "memory/trust_decay_model.md"
+        assert citation.citation_type == "file"
         assert citation.line_number == 42
+        assert citation.context == "Trust decays over time"
 
 
 if __name__ == "__main__":

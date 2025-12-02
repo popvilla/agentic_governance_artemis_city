@@ -82,7 +82,6 @@ def handle_command(command, agent_router, atp_parser, instruction_cache, artemis
     routed = False
     for agent_name, config in agent_router.get('agents', {}).items():
         if any(keyword in command_text.lower() for keyword in config.get('keywords', [])):
-            current_agent = agent_name
             print(f"\n→ Routing to {agent_name} ({config.get('role', 'unknown role')}):")
             print(f"  Expected action: {config.get('action_description', 'processing...')}")
             routed = True

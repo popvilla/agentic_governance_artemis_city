@@ -20,16 +20,18 @@ class TestInstructionLoader:
     def test_load_agent_instructions(self):
         """Test loading agent instructions from markdown files."""
         loader = InstructionLoader()
-        # Try to load Artemis agent instructions
-        instructions = loader.load_agent("artemis")
-        assert instructions is not None or instructions == InstructionSet()
+        # Try to load instructions with agent name
+        instructions = loader.load(current_dir=os.getcwd(), agent_name="artemis")
+        assert instructions is not None
+        assert isinstance(instructions, InstructionSet)
 
     def test_load_nonexistent_agent(self):
         """Test loading instructions for non-existent agent."""
         loader = InstructionLoader()
-        instructions = loader.load_agent("nonexistent-agent-12345")
-        # Should handle gracefully
-        assert instructions is not None or instructions is None
+        # Load with non-existent agent (should still return InstructionSet)
+        instructions = loader.load(current_dir=os.getcwd(), agent_name="nonexistent-agent-12345")
+        assert instructions is not None
+        assert isinstance(instructions, InstructionSet)
 
 
 class TestInstructionSet:
@@ -37,14 +39,16 @@ class TestInstructionSet:
 
     def test_instruction_set_creation(self):
         """Test creating an instruction set."""
-        instruction_set = InstructionSet(
-            agent_name="test-agent",
-            role="Test Role",
-            access_scope="Limited",
-            protocols=[]
+        from core.instructions import InstructionScope
+        scope = InstructionScope(
+            level="test",
+            path="/test/path.md",
+            content="Test instructions",
+            priority=1
         )
-        assert instruction_set.agent_name == "test-agent"
-        assert instruction_set.role == "Test Role"
+        instruction_set = InstructionSet(scopes=[scope])
+        assert len(instruction_set.scopes) == 1
+        assert instruction_set.scopes[0].level == "test"
 
     def test_empty_instruction_set(self):
         """Test creating an empty instruction set."""
@@ -62,24 +66,41 @@ class TestInstructionCache:
         assert cache is not None
 
     def test_cache_set_get(self):
-        """Test setting and getting cached instructions."""
+        """Test cache auto-population on get."""
         from core.instructions import InstructionCache
+        import tempfile
+
         cache = InstructionCache()
 
-        instruction_set = InstructionSet(agent_name="test", role="Test")
-        cache.set("test", instruction_set)
+        # Use a temporary directory that exists
+        with tempfile.TemporaryDirectory() as tmpdir:
+            # First get populates cache
+            result1 = cache.get(current_dir=tmpdir, agent_name="test")
+            assert result1 is not None
+            assert isinstance(result1, InstructionSet)
 
-        result = cache.get("test")
-        assert result is not None
-        assert result.agent_name == "test"
+            # Second get should hit cache
+            result2 = cache.get(current_dir=tmpdir, agent_name="test")
+            assert result2 is result1  # Should be same object from cache
 
     def test_cache_miss(self):
-        """Test cache miss scenario."""
+        """Test cache behavior with different keys."""
         from core.instructions import InstructionCache
+        import tempfile
+
         cache = InstructionCache()
 
-        result = cache.get("nonexistent")
-        assert result is None
+        # Use a temporary directory that exists
+        with tempfile.TemporaryDirectory() as tmpdir:
+            # Get with one agent name
+            result1 = cache.get(current_dir=tmpdir, agent_name="agent1")
+            # Get with different agent name should load new set
+            result2 = cache.get(current_dir=tmpdir, agent_name="agent2")
+            # Both should return InstructionSet instances
+            assert result1 is not None
+            assert result2 is not None
+            assert isinstance(result1, InstructionSet)
+            assert isinstance(result2, InstructionSet)
 
 
 if __name__ == "__main__":

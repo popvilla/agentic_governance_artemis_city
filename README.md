@@ -311,22 +311,59 @@ Structured communication system with signal tags:
 
 ### Setting Up Development Environment
 
+**Prerequisites:**
+- Python 3.8+ (3.10 recommended for CI compatibility)
+- Node.js 18+ (for Memory Layer)
+- Git
+
+**Quick Setup:**
+
 ```bash
 # 1. Clone repository
 git clone <repository-url>
 cd Artemis-City
 
-# 2. Create virtual environment
-python -m venv venv
+# 2. Create and activate virtual environment
+python -m venv .venv
+source .venv/bin/activate  # macOS/Linux
+# OR
+.venv\Scripts\activate     # Windows
 
-# 3. Activate virtual environment
-# On macOS/Linux:
-source venv/bin/activate
-# On Windows:
-.\venv\Scripts\activate
-
-# 4. Install dependencies
+# 3. Upgrade pip and install core dependencies
+python -m pip install --upgrade pip
 pip install -r requirements.txt
+
+# 4. (Optional) Install development dependencies
+pip install -r requirements-dev.txt
+# OR install with extras:
+# pip install -e '.[dev]'        # For development tools
+# pip install -e '.[enhanced]'   # For enhanced features
+# pip install -e '.[docs]'       # For documentation tools
+
+# 5. Verify installation
+python -c "import yaml; print('PyYAML:', yaml.__version__)"
+python -c "from agents.atp import ATPParser; print('ATP module loaded')"
+
+# 6. Run tests (optional)
+pytest tests/ -v
+```
+
+**Memory Layer Setup:**
+
+```bash
+# Navigate to Memory Layer directory
+cd "Artemis Agentic Memory Layer"
+
+# Install Node dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# In another terminal, run the CLI
+cd ..
+source .venv/bin/activate
+python interface/codex_cli.py
 ```
 
 ### Running the CLI
@@ -349,12 +386,55 @@ python sandbox_city/networked_scripts/mail_delivery_sim.py
 
 ### Testing Workflow
 
-Currently, the project uses manual testing:
-- Test CLI routing with various commands
-- Run simulations to verify agent interactions
-- Validate protocol compliance manually
+Run the test suite with pytest:
 
-**Note:** Test infrastructure is pending (`package.json` shows "no test specified")
+```bash
+# Run all tests
+pytest tests/ -v
+
+# Run with coverage report
+pytest tests/ -v --cov=. --cov-report=html
+
+# Run specific test file
+pytest tests/test_atp.py -v
+
+# Run tests matching a pattern
+pytest tests/ -k "memory" -v
+```
+
+**Test Coverage:**
+- ATP (Artemis Transmission Protocol) - Message parsing and validation
+- Memory Integration - MemoryClient, TrustInterface, ContextLoader
+- Artemis Persona - Reflection engine, semantic tagging
+- Instruction Loader - Agent instruction loading and caching
+
+### Troubleshooting
+
+**Common Issues:**
+
+1. **Import errors:** Make sure you're in the virtual environment
+   ```bash
+   source .venv/bin/activate  # macOS/Linux
+   ```
+
+2. **Module not found:** Ensure dependencies are installed
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Permission denied (Memory Layer):** Check directory name has no trailing space
+   ```bash
+   ls -la | grep "Artemis Agentic Memory Layer"
+   # Should show: "Artemis Agentic Memory Layer" (no trailing space)
+   ```
+
+4. **Python version mismatch:** Check your Python version
+   ```bash
+   python --version  # Should be 3.8 or higher
+   ```
+
+5. **Tests failing:** Some tests may fail due to API differences - this is expected
+   during development. Focus on tests relevant to your changes.
 
 ---
 

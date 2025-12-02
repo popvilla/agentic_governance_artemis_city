@@ -1,3 +1,7 @@
+# Memory Layer Integration
+
+This document describes the integration between **Artemis City** core and the **Artemis Agentic Memory Layer** (MCP Server), enabling agents to interact with Obsidian vault as a persistent knowledge base.
+
 ``` # Memory Layer Integration
 
 This document describes the integration between **Artemis City** core and the **Artemis Agentic Memory Layer** (MCP Server), enabling agents to interact with Obsidian vault as a persistent knowledge base.
@@ -146,6 +150,7 @@ print(f"Total entities: {report['total_entities']}")
 High-level interface for loading and organizing context from vault.
 
 **Features:**
+
 - Load notes as ContextEntry objects
 - Search vault with relevance scoring
 - Load by tags or folders
@@ -415,6 +420,7 @@ python demo_memory_integration.py
 ```
 
 The demo covers:
+
 1. Memory client connection and health check
 2. Trust interface and permission matrix
 3. Context loading from Obsidian vault
@@ -439,6 +445,7 @@ else:
 ```
 
 Common error scenarios:
+
 - `status_code: 0` - Connection failed (MCP server not running)
 - `status_code: 401` - Authentication failed (invalid API key)
 - `status_code: 404` - Note not found
@@ -487,6 +494,7 @@ trust.record_failure("agent_name", amount=0.05)  # -5%
 **Problem**: `Connection error: Connection refused`
 
 **Solution**:
+
 1. Check MCP server is running: `curl http://localhost:3000/health`
 2. Verify `MCP_BASE_URL` environment variable
 3. Check firewall isn't blocking port 3000
@@ -496,6 +504,7 @@ trust.record_failure("agent_name", amount=0.05)  # -5%
 **Problem**: `HTTP 401: Unauthorized`
 
 **Solution**:
+
 1. Verify `MCP_API_KEY` matches server configuration
 2. Check `.env` file in MCP server directory
 3. Restart MCP server after changing API key
@@ -505,6 +514,7 @@ trust.record_failure("agent_name", amount=0.05)  # -5%
 **Problem**: MCP server can't reach Obsidian
 
 **Solution**:
+
 1. Ensure Obsidian is running
 2. Verify Local REST API plugin is enabled
 3. Check `OBSIDIAN_BASE_URL` in MCP `.env`
@@ -515,6 +525,7 @@ trust.record_failure("agent_name", amount=0.05)  # -5%
 **Problem**: Operations blocked by trust interface
 
 **Solution**:
+
 1. Check agent trust score: `trust.get_trust_score(agent_name)`
 2. Verify operation is allowed for trust level
 3. Record successful operations to build trust

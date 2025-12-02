@@ -7,7 +7,7 @@ on:
   workflow_dispatch:  # Allow manual trigger
 
 env:
-  PYTHON_VERSION: '3.13'
+  PYTHON_VERSION: '3.10'
 
 jobs:
   # ============================================
@@ -19,6 +19,8 @@ jobs:
     permissions:
       contents: read
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v4
       
@@ -60,6 +62,8 @@ jobs:
     permissions:
       contents: read
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v4
       
@@ -69,12 +73,12 @@ jobs:
           node-version: '18'
       
       - name: Check for updates
-        working-directory: 'Artemis Agentic Memory Layer '
+        working-directory: 'Artemis Agentic Memory Layer'
         run: |
           npm outdated || true
       
       - name: Run npm audit
-        working-directory: 'Artemis Agentic Memory Layer '
+        working-directory: 'Artemis Agentic Memory Layer'
         run: |
           npm audit --json > ../npm-audit.json || true
         continue-on-error: true

@@ -4,8 +4,10 @@ Unit tests for Instruction Loader.
 Tests the InstructionLoader and InstructionCache components.
 """
 
-import pytest
 import os
+
+import pytest
+
 from core.instructions import InstructionLoader, InstructionSet
 
 
@@ -40,11 +42,9 @@ class TestInstructionSet:
     def test_instruction_set_creation(self):
         """Test creating an instruction set."""
         from core.instructions import InstructionScope
+
         scope = InstructionScope(
-            level="test",
-            path="/test/path.md",
-            content="Test instructions",
-            priority=1
+            level="test", path="/test/path.md", content="Test instructions", priority=1
         )
         instruction_set = InstructionSet(scopes=[scope])
         assert len(instruction_set.scopes) == 1
@@ -62,13 +62,15 @@ class TestInstructionCache:
     def test_cache_initialization(self):
         """Test that InstructionCache can be initialized."""
         from core.instructions import InstructionCache
+
         cache = InstructionCache()
         assert cache is not None
 
     def test_cache_set_get(self):
         """Test cache auto-population on get."""
-        from core.instructions import InstructionCache
         import tempfile
+
+        from core.instructions import InstructionCache
 
         cache = InstructionCache()
 
@@ -85,8 +87,9 @@ class TestInstructionCache:
 
     def test_cache_miss(self):
         """Test cache behavior with different keys."""
-        from core.instructions import InstructionCache
         import tempfile
+
+        from core.instructions import InstructionCache
 
         cache = InstructionCache()
 

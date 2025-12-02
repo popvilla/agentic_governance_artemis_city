@@ -16,6 +16,8 @@ jobs:
   
   check-python-deps:
     name: Check Python Dependencies
+    permissions:
+      contents: read
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -44,7 +46,7 @@ jobs:
         continue-on-error: true
       
       - name: Upload safety report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: python-security-report
           path: safety-report.json
@@ -55,6 +57,8 @@ jobs:
   
   check-node-deps:
     name: Check Node Dependencies
+    permissions:
+      contents: read
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -76,7 +80,7 @@ jobs:
         continue-on-error: true
       
       - name: Upload audit report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: node-security-report
           path: npm-audit.json

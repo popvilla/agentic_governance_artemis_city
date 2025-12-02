@@ -17,45 +17,50 @@ sys.path.insert(0, str(Path(__file__).parent))
 
 try:
     from memory.integration import get_post_office, get_trust_interface
+
     MEMORY_AVAILABLE = True
 except ImportError:
     MEMORY_AVAILABLE = False
     print("⚠️  Memory integration not available - running in demo mode")
-    
+
     # Create mock functions for demo purposes
     class MockPostOffice:
         def send_mail(self, sender, recipient, subject, content, priority="normal"):
             return f"📧 Mail from {sender} to {recipient}: {subject}"
-        
+
         def check_mailbox(self, agent):
             return []
-        
+
         def send_to_archives(self, sender, archive_section, title, content):
             class MockResponse:
                 success = True
+
             return MockResponse()
-        
+
         def request_from_archives(self, requester, query, section):
             return []
-        
+
         def get_postal_report(self):
             return "Mock postal report"
-    
+
     class MockTrust:
         def get_trust_score(self, citizen):
             class MockScore:
                 score = 0.75
+
                 class MockLevel:
                     value = "TRUSTED"
+
                 level = MockLevel()
+
             return MockScore()
-        
+
         def can_perform_operation(self, citizen, operation):
             return True
-    
+
     def get_post_office():
         return MockPostOffice()
-    
+
     def get_trust_interface():
         return MockTrust()
 
@@ -84,12 +89,12 @@ def demo_mail_delivery():
     print("=" * 70)
     print()
     print("Artemis wants to send a governance update to all agents...")
-    
+
     post_office = get_post_office()
-    
+
     # Artemis sends mail to multiple recipients
     recipients = ["pack_rat", "copilot", "codex_daemon"]
-    
+
     for recipient in recipients:
         packet = post_office.send_mail(
             sender="artemis",
@@ -108,12 +113,12 @@ The city thrives through our collaboration.
 
 — Artemis, Mayor of Artemis City
             """.strip(),
-            priority="normal"
+            priority="normal",
         )
 
         print(f"\n   {packet}")
         input("\n   Press Enter to continue to next delivery...")
-    
+
     print("\n All mail delivered successfully!")
 
 
@@ -124,18 +129,18 @@ def demo_mailbox_check():
     print("=" * 70)
     print()
     print("Pack Rat checks their mailbox for new deliveries...")
-    
+
     post_office = get_post_office()
-    
+
     # Check Pack Rat's mailbox
     mail = post_office.check_mailbox("pack_rat")
-    
+
     if mail:
         print(f"\n    Pack Rat has mail!")
         print(f"   Review the items above for details")
     else:
         print(f"\n   📭 No mail yet (vault may be empty or MCP not connected)")
-    
+
     input("\n   Press Enter to continue...")
 
 
@@ -146,9 +151,9 @@ def demo_archival_system():
     print("=" * 70)
     print()
     print("Artemis files a reflection in the City Archives...")
-    
+
     post_office = get_post_office()
-    
+
     reflection = """
 # Weekly Reflection - City Operations
 
@@ -170,17 +175,17 @@ def demo_archival_system():
 
 The city is alive and thriving.
     """.strip()
-    
+
     response = post_office.send_to_archives(
         sender="artemis",
         archive_section="Reflections",
         title="Weekly_Operations_Report",
-        content=reflection
+        content=reflection,
     )
-    
+
     if response.success:
         print("\n    Reflection successfully archived!")
-    
+
     input("\n   Press Enter to continue...")
 
 
@@ -191,22 +196,20 @@ def demo_archive_search():
     print("=" * 70)
     print()
     print("Copilot searches archives for governance information...")
-    
+
     post_office = get_post_office()
-    
+
     results = post_office.request_from_archives(
-        requester="copilot",
-        query="governance",
-        section="Reflections"
+        requester="copilot", query="governance", section="Reflections"
     )
-    
+
     if results:
         print(f"\n    Research successful!")
         print(f"   Copilot can now reference historical documents")
     else:
         print(f"\n   📭 No archived documents found yet")
         print(f"   (This is expected on first run)")
-    
+
     input("\n   Press Enter to continue...")
 
 
@@ -217,35 +220,35 @@ def demo_trust_clearances():
     print("=" * 70)
     print()
     print("The Trust Office manages citizen clearances...")
-    
+
     trust = get_trust_interface()
-    
+
     print("\n     CURRENT CITIZEN CLEARANCES")
     print("   " + "=" * 60)
-    
+
     citizens = ["artemis", "pack_rat", "codex_daemon", "copilot"]
-    
+
     for citizen in citizens:
         score = trust.get_trust_score(citizen)
-        
+
         # Visualize trust level
         bar_length = int(score.score * 20)
         trust_bar = "█" * bar_length + "░" * (20 - bar_length)
-        
+
         print(f"\n   {citizen:15}")
         print(f"     Level: {score.level.value:10} [{trust_bar}] {score.score:.2f}")
         print(f"     Clearances: ", end="")
-        
+
         # Show what they can do
         can_read = "📖 Read" if trust.can_perform_operation(citizen, 'read') else ""
         can_write = "✍️  Write" if trust.can_perform_operation(citizen, 'write') else ""
         can_delete = "🗑️  Delete" if trust.can_perform_operation(citizen, 'delete') else ""
-        
+
         clearances = [c for c in [can_read, can_write, can_delete] if c]
         print(" | ".join(clearances))
-    
+
     print("\n   " + "=" * 60)
-    
+
     input("\n   Press Enter to continue...")
 
 
@@ -256,10 +259,10 @@ def demo_postal_report():
     print("=" * 70)
     print()
     print("Generating city-wide activity report...")
-    
+
     post_office = get_post_office()
     report = post_office.get_postal_report()
-    
+
     print("\n End of Day Summary")
     print("=" * 70)
     print()
@@ -275,9 +278,9 @@ def demo_postal_report():
 
 def main():
     """Run the Artemis City postal service demonstration."""
-    
+
     city_welcome()
-    
+
     print("This demo showcases the living city theme where:")
     print("  • Agents communicate through postal mail")
     print("  • Pack Rat delivers all messages securely")
@@ -287,10 +290,10 @@ def main():
     print("Note: MCP server must be running for full functionality.")
     print("      Demo will work offline with simulated responses.")
     print()
-    
+
     try:
         input("Press Enter to begin the city tour...")
-        
+
         # Run scenarios
         demo_mail_delivery()
         demo_mailbox_check()
@@ -298,7 +301,7 @@ def main():
         demo_archive_search()
         demo_trust_clearances()
         demo_postal_report()
-        
+
         # Closing
         print("\n\n" + "=" * 70)
         print("  THANK YOU FOR VISITING ARTEMIS CITY")

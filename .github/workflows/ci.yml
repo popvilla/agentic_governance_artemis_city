@@ -29,7 +29,14 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r src/launch/requirements-dev.txt
+          # Install dev requirements if present
+          if [ -f src/launch/requirements-dev.txt ]; then
+            pip install -r src/launch/requirements-dev.txt
+          elif [ -f requirements-dev.txt ]; then
+            pip install -r requirements-dev.txt
+          fi
+          # Install the project so imports work correctly for linting
+          pip install -e .
       - name: Run Black (format check)
         run: black --check .
       - name: Run isort (import check)
@@ -37,7 +44,7 @@ jobs:
       - name: Run Flake8
         run: flake8 .
       - name: Run Pylint
-        run: pylint agents/ core/ interface/ memory/ || true
+        run: pylint src/agents/ src/core/ src/interface/ src/integration/ || true
         continue-on-error: true
   type-check-python:
     name: Type Check Python
@@ -52,9 +59,16 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r src/launch/requirements-dev.txt
+          # Install dev requirements if present
+          if [ -f src/launch/requirements-dev.txt ]; then
+            pip install -r src/launch/requirements-dev.txt
+          elif [ -f requirements-dev.txt ]; then
+            pip install -r requirements-dev.txt
+          fi
+          # Install the project so type checking works correctly
+          pip install -e .
       - name: Run MyPy
-        run: mypy . || true
+        run: mypy src/ || true
         continue-on-error: true
   security-python:
     name: Security Scan Python
@@ -92,8 +106,16 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r src/launch/requirements.txt
+          # Install project requirements if present
+          if [ -f src/launch/requirements.txt ]; then
+            pip install -r src/launch/requirements.txt
+          elif [ -f requirements.txt ]; then
+            pip install -r requirements.txt
+          fi
+          # Ensure tests & coverage tools are available
           pip install pytest pytest-cov
+          # Install the project so top-level packages are importable
+          pip install -e .
       - name: Run tests
         run: |
           if [ -d "tests" ]; then
@@ -201,7 +223,14 @@ jobs:
       - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r src/launch/requirements.txt
+          # Install project requirements if present
+          if [ -f src/launch/requirements.txt ]; then
+            pip install -r src/launch/requirements.txt
+          elif [ -f requirements.txt ]; then
+            pip install -r requirements.txt
+          fi
+          # Install the project so top-level packages are importable
+          pip install -e .
       - name: Install Node dependencies
         working-directory: 'src/Artemis Agentic Memory Layer'
         run: npm ci
@@ -210,8 +239,8 @@ jobs:
         run: npm run build
       - name: Test Python imports
         run: |
-          cd src && python -c "from agents.atp import ATPParser; print('ATP OK')"
-          cd src && python -c "from integration import MemoryClient; print('Memory OK')"
-          cd src && python -c "from agents.artemis import ArtemisPersona; print('Artemis OK')"
+          python -c "from agents.atp import ATPParser; print('ATP OK')"
+          python -c "from integration import MemoryClient; print('Memory OK')"
+          python -c "from agents.artemis import ArtemisPersona; print('Artemis OK')"
       - name: CLI smoke test
         run: python interface/codex_cli.py "help" || true

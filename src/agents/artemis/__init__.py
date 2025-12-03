@@ -5,8 +5,8 @@ and semantic tagging system.
 """
 
 from .persona import ArtemisPersona, ResponseMode
-from .reflection import ReflectionEngine, ConceptGraph, ConceptNode
-from .semantic_tagging import SemanticTagger, SemanticTag, Citation
+from .reflection import ConceptGraph, ConceptNode, ReflectionEngine
+from .semantic_tagging import Citation, SemanticTag, SemanticTagger
 
 __all__ = [
     'ArtemisPersona',

@@ -5,7 +5,6 @@ narrative building from multiple conversation threads.
 """
 
 import re
-from collections import defaultdict
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Set, Tuple
 

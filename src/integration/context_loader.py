@@ -7,7 +7,7 @@ the Obsidian vault via the MCP server.
 from dataclasses import dataclass
 from typing import Dict, List, Optional
 
-from .memory_client import MCPResponse, MemoryClient
+from .memory_client import MemoryClient
 
 
 @dataclass

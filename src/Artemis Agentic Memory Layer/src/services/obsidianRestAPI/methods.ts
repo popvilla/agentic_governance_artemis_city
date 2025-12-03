@@ -6,7 +6,7 @@ interface ObsidianNote {
   // Add other potential properties from Obsidian API like frontmatter, tags, etc.
 }
 
-interface SearchResult {
+export interface SearchResult {
   path: string;
   excerpt: string;
   // Add other potential properties

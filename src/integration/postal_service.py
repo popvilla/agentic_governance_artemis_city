@@ -12,7 +12,7 @@ from typing import Dict, List, Optional
 
 from .context_loader import ContextEntry, ContextLoader
 from .memory_client import MCPResponse, MemoryClient
-from .trust_interface import TrustLevel, get_trust_interface
+from .trust_interface import get_trust_interface
 
 
 class MailPacket:

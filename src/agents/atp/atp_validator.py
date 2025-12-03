@@ -3,7 +3,7 @@
 This module validates ATP messages for completeness, consistency, and quality.
 """
 
-from typing import List, Optional
+from typing import List
 
 from .atp_models import ATPActionType, ATPMessage, ATPMode
 

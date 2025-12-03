@@ -7,10 +7,10 @@ The Postal Service provides a living city theme where agents send mail through
 Pack Rat and store documents in the City Archives.
 """
 
-from .memory_client import MemoryClient, MCPResponse, MCPOperation
-from .trust_interface import TrustInterface, TrustScore, TrustLevel, get_trust_interface
-from .context_loader import ContextLoader, ContextEntry
-from .postal_service import PostOffice, MailPacket, get_post_office
+from .context_loader import ContextEntry, ContextLoader
+from .memory_client import MCPOperation, MCPResponse, MemoryClient
+from .postal_service import MailPacket, PostOffice, get_post_office
+from .trust_interface import TrustInterface, TrustLevel, TrustScore, get_trust_interface
 
 __all__ = [
     # Core memory components

@@ -166,7 +166,9 @@ class ArtemisPersona:
         if mode in self.RESPONSE_PATTERNS:
             import random
 
-            return random.choice(self.RESPONSE_PATTERNS[mode]["opening_phrases"])
+            return random.choice(
+                self.RESPONSE_PATTERNS[mode]["opening_phrases"]
+            )
         return ""
 
     def get_transition_phrase(self, mode: Optional[ResponseMode] = None) -> str:
@@ -182,7 +184,9 @@ class ArtemisPersona:
         if mode in self.RESPONSE_PATTERNS:
             import random
 
-            return random.choice(self.RESPONSE_PATTERNS[mode]["transition_phrases"])
+            return random.choice(
+                self.RESPONSE_PATTERNS[mode]["transition_phrases"]
+            )
         return ""
 
     def get_closing_phrase(self, mode: Optional[ResponseMode] = None) -> str:
@@ -198,7 +202,9 @@ class ArtemisPersona:
         if mode in self.RESPONSE_PATTERNS:
             import random
 
-            return random.choice(self.RESPONSE_PATTERNS[mode]["closing_phrases"])
+            return random.choice(
+                self.RESPONSE_PATTERNS[mode]["closing_phrases"]
+            )
         return ""
 
     def should_be_verbose(self, context: Dict) -> bool:

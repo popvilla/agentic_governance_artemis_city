@@ -66,6 +66,7 @@ Discussion = "https://github.com/popvilla/artemis-city/discussions"
 Funding = "https://github.com/sponsors/popvilla"
 
 [project.scripts]
+codex = "codex.codex_cli:main"
 artemis = "interface.codex_cli:main"
 
 [build-system]

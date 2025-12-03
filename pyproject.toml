@@ -72,8 +72,11 @@ artemis = "interface.codex_cli:main"
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
+[tool.hatch.build]
+packages = ["src"]
+
 [tool.hatch.build.targets.wheel]
-packages = ["src/agents", "src/core", "src/integration", "src/interface", "src/launch", "src/memory", "src/sandbox_city"]
+sources = ["src"]
 
 [tool.black]
 line-length = 100

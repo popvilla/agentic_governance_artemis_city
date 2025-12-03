@@ -4,6 +4,7 @@ This module defines the core personality, tone, and response patterns
 for the Artemis agent based on the agent card specification.
 """
 
+import random
 from enum import Enum
 from typing import Dict, List, Optional
 
@@ -164,14 +165,14 @@ class ArtemisPersona:
         """
         mode = mode or self.current_mode
         if mode in self.RESPONSE_PATTERNS:
-            import random
-
             return random.choice(
                 self.RESPONSE_PATTERNS[mode]["opening_phrases"]
             )
         return ""
 
-    def get_transition_phrase(self, mode: Optional[ResponseMode] = None) -> str:
+    def get_transition_phrase(
+        self, mode: Optional[ResponseMode] = None
+    ) -> str:
         """Get an appropriate transition phrase.
 
         Args:
@@ -182,8 +183,6 @@ class ArtemisPersona:
         """
         mode = mode or self.current_mode
         if mode in self.RESPONSE_PATTERNS:
-            import random
-
             return random.choice(
                 self.RESPONSE_PATTERNS[mode]["transition_phrases"]
             )
@@ -200,8 +199,6 @@ class ArtemisPersona:
         """
         mode = mode or self.current_mode
         if mode in self.RESPONSE_PATTERNS:
-            import random
-
             return random.choice(
                 self.RESPONSE_PATTERNS[mode]["closing_phrases"]
             )

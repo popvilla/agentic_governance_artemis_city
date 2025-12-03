@@ -34,7 +34,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install -r src/launch/requirements.txt
           pip install pytest pytest-cov
       
       - name: Run tests with coverage
@@ -142,7 +142,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements-dev.txt
+          pip install -r src/launch/requirements-dev.txt
           pip install vulture  # Dead code detector
       
       - name: Run Vulture (dead code)

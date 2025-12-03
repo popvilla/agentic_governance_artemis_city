@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from 'express';
-import { MCP_LOG_LEVEL } from '../config';
 
 // Use a regular enum to allow runtime string-to-value lookups.
 // The values are explicitly assigned for clarity and to ensure numerical order.
@@ -10,11 +9,14 @@ enum LogLevel {
   ERROR = 3,
 }
 
-// Determine the current logging level from environment configuration.
-// MCP_LOG_LEVEL is guaranteed to be one of 'debug', 'info', 'warn', 'error' by config validation.
-// Using .toUpperCase() to match enum keys. The 'as keyof typeof LogLevel' cast is safe
-// because MCP_LOG_LEVEL is strictly typed in config/index.ts.
-const currentLogLevel: LogLevel = LogLevel[MCP_LOG_LEVEL.toUpperCase() as keyof typeof LogLevel] || LogLevel.INFO;
+// Determine the current logging level from environment variable directly to avoid circular dependency.
+// Defaults to INFO if not set or invalid.
+const getLogLevel = (): LogLevel => {
+  const level = (process.env.MCP_LOG_LEVEL || 'info').toUpperCase();
+  return LogLevel[level as keyof typeof LogLevel] ?? LogLevel.INFO;
+};
+
+const currentLogLevel: LogLevel = getLogLevel();
 
 /**
  * Internal logging function that handles log level filtering and formatting.

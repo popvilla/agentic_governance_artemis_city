@@ -1,5 +1,5 @@
 # Stage 1: Builder - Install dependencies and build the application
-FROM node:18-alpine AS builder
+FROM node:20-alpine AS builder
 
 # Set the working directory in the container
 WORKDIR /app
@@ -19,7 +19,7 @@ COPY . .
 RUN npm run build
 
 # Stage 2: Production - Create a lean image with only the necessary files
-FROM node:18-alpine
+FROM node:20-alpine
 
 # Set the working directory in the container
 WORKDIR /app

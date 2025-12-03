@@ -99,6 +99,7 @@ class ArtemisPersona:
                 "Let's explore this further if needed.",
                 "Ready to take the next step?",
             ],
+        },
         ResponseMode.TECHNICAL: {
             "opening_phrases": [
                 "Let's get technical...",

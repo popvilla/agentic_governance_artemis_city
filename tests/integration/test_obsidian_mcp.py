@@ -5,6 +5,7 @@ import json
 import os
 import sys
 
+
 class TestObsidianMCP(unittest.TestCase):
     BASE_URL = "http://localhost:3000"
     API_KEY = None

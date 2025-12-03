@@ -73,12 +73,12 @@ jobs:
           node-version: '18'
       
       - name: Check for updates
-        working-directory: 'Artemis Agentic Memory Layer'
+        working-directory: 'src/Artemis Agentic Memory Layer'
         run: |
           npm outdated || true
       
       - name: Run npm audit
-        working-directory: 'Artemis Agentic Memory Layer'
+        working-directory: 'src/Artemis Agentic Memory Layer'
         run: |
           npm audit --json > ../npm-audit.json || true
         continue-on-error: true

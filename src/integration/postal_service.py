@@ -313,9 +313,9 @@ status: {packet.delivery_status}
 
 # Mail: {packet.subject}
 
-**From:** {packet.sender}  
-**To:** {packet.recipient}  
-**Date:** {packet.timestamp.strftime('%Y-%m-%d %H:%M:%S')}  
+**From:** {packet.sender}
+**To:** {packet.recipient}
+**Date:** {packet.timestamp.strftime('%Y-%m-%d %H:%M:%S')}
 **Tracking:** {packet.tracking_id}
 
 ---
@@ -324,7 +324,7 @@ status: {packet.delivery_status}
 
 ---
 
-*Delivered by Pack Rat Postal Service*  
+*Delivered by Pack Rat Postal Service*
 *Archives maintained by Artemis City Library*
 """
 

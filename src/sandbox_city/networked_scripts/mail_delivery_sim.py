@@ -1,27 +1,11 @@
+"""This module simulates a secure mail delivery process within Sandbox City."""
 import random
 import time
 
 
 def simulate_mail_delivery(sender, recipient, message):
-    """Simulates a secure mail delivery process within Sandbox City.
-
-    This function models a mail delivery from a sender to a recipient,
-    introducing a variable network delay to simulate transfer time. It also
-    incorporates a random chance of failure to represent potential network
-    issues or security compromises. The outcome of the simulation is printed
-    to the console.
-
-    Args:
-        sender (str): The identifier for the agent or user sending the message.
-        recipient (str): The identifier for the agent or user receiving the
-                         message.
-        message (str): The content of the message being sent.
-
-    Returns:
-        bool: True if the message is delivered successfully, False if the
-              delivery fails.
-    """
-    print(f"\n--- Mail Delivery Simulation ---")
+    """Simulate a secure mail delivery process within Sandbox City."""
+    print("\n--- Mail Delivery Simulation ---")
     print(f"Sender: {sender}, Recipient: {recipient}")
     print(f"Message: '{message}'")
     print("Pack Rat is initiating secure transfer...")

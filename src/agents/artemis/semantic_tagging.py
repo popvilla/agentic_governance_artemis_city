@@ -1,8 +1,8 @@
-"""Semantic tagging system for Artemis.
+"Semantic tagging system for Artemis.
 
 This module provides semantic tagging and citation capabilities for
 organizing knowledge and referencing files, concepts, and conversations.
-"""
+"
 
 import re
 from dataclasses import dataclass, field
@@ -31,6 +31,7 @@ class SemanticTag:
         self.references.add(reference)
 
     def __str__(self) -> str:
+        """Return a string representation of the semantic tag."""
         return f"#{self.tag} ({self.category}) [{len(self.references)} refs]"
 
 
@@ -223,7 +224,7 @@ class SemanticTagger:
                 Citation(
                     target=path,
                     citation_type="file",
-                    context=text[max(0, match.start() - 20) : match.end() + 20],
+                    context=text[max(0, match.start() - 20):match.end() + 20],
                 )
             )
 
@@ -235,7 +236,7 @@ class SemanticTagger:
                 Citation(
                     target=agent_name,
                     citation_type="agent",
-                    context=text[max(0, match.start() - 20) : match.end() + 20],
+                    context=text[max(0, match.start() - 20):match.end() + 20],
                 )
             )
 

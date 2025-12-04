@@ -20,6 +20,7 @@ Centralized, append-only log for cross-agent actions. Use structured, low-noise 
 | 2025-12-04T01:52:22Z | Pack Rat | Organize | Created centralized agent activity tracker | `docs/AGENT_ACTIVITY_LOG.md` | Added append-only table with logging rules and seeded entries | Append new actions from Claude/others as they occur |
 | 2025-12-04T04:42:00Z | Claude | Build | Created CLAUDE.md guide for future Claude Code instances | `CLAUDE.md` | Comprehensive guide covering architecture, dev commands, testing, code conventions, ATP/Trust models, security practices, and common patterns | Keep synchronized with codebase changes; update when agents/protocols/dependencies change |
 | 2025-12-04T01:57:21Z | Developer_Agent | Synthesize | Provide architectural viewpoint on Artemis City project | `README.md`, `GEMINI.md`, `.github/workflows/ci.yml` | Delivered a comprehensive analysis of the project's architecture, development practices, and vision. | Awaiting next user directive. |
+| 2025-12-04T02:06:45Z | Developer_Agent | Build | Implemented Artemis-City Kernel architecture from specification | `src/codex/`, `docs/kernel.md`, `pyproject.toml` | Created full kernel execution pipeline: CLI (`codex_cli.py`), Kernel orchestrator with state management, AgentRouter with YAML config, MemoryBus with file backend, Agent base class and implementations (CodexAgent, PlannerAgent). Added formal specification document. | Test with restored Python environment; extend with additional agents (Artemis, PackRat); integrate with existing memory layer |
 
 ## How to Append
 

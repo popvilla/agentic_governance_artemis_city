@@ -1,4 +1,5 @@
 {
+  // TypeScript configuration for Artemis Agentic Memory Layer
   "compilerOptions": {
     "target": "es2021",
     "module": "commonjs",

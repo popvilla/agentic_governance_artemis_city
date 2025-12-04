@@ -1,9 +1,9 @@
-"Artemis City Postal Service - Memory delivery system.
+"""Artemis City Postal Service - Memory delivery system.
 
 This module provides a postal-themed interface for memory operations,
 treating the Obsidian vault as the City Archives and memory operations
 as mail delivery between agents.
-"
+"""
 
 import random
 import time

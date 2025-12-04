@@ -460,3 +460,4 @@ agents/atp/__init__.py
 core/instructions/instruction_cache.py
 Dockerfile
 retro-os
+the_oracle

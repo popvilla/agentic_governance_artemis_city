@@ -1,4 +1,5 @@
 """This module simulates a secure mail delivery process within Sandbox City."""
+
 import random
 import time
 

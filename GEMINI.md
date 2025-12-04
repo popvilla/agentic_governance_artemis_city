@@ -1,83 +1,99 @@
-# GEMINI.md: AI Assistant Guide for Artemis-City
+# Artemis City GEMINI.md
 
-This document provides a comprehensive guide for AI assistants working with the Artemis-City codebase. It outlines the project's architecture, development workflows, and core concepts to ensure effective and consistent collaboration.
+This document provides a comprehensive overview of the Artemis City project, its architecture, and development practices, intended for use by AI assistants and new developers.
 
 ## Project Overview
 
-Artemis-City is a sophisticated framework for building and managing distributed agentic systems. It combines a Python-based agent kernel with a Node.js/TypeScript memory layer, enabling agents to reason, communicate, and interact with a persistent knowledge base stored in an Obsidian vault.
+Artemis City is an architectural framework for creating and managing AI agents. It emphasizes transparent, accountable, and secure interactions between agents and with external systems. The project's philosophy is detailed in the `codex/manifesto.md` file, which outlines principles like "Iterative Clarity," "Net Good Over Noise," and "Transparent Accountability."
 
-The project's mission is to facilitate "net good over noise" by enabling transparent, accountable, and collaborative action among AI agents.
+The project is a hybrid system:
 
-### Core Technologies
+*   **Python:** The core agent framework, CLI, and agent definitions are written in Python.
+*   **Node.js/TypeScript:** A service named "Artemis Agentic Memory Layer" is built with Node.js, Express, and TypeScript. This service acts as a "Model Context Protocol (MCP) server for Obsidian vaults," providing a REST API to interact with a knowledge base.
 
-*   **Python:** The core agent framework, including the kernel, agent router, and agent implementations.
-*   **Node.js/TypeScript:** The "Artemis Agentic Memory Layer" (MCP Server), which provides a REST API for interacting with the Obsidian vault.
-*   **Obsidian:** A powerful knowledge base used for persistent agent memory.
-*   **Docker:** For containerizing and orchestrating the MCP server.
-*   **Pytest:** For testing the Python components.
-*   **Hatch:** For building and managing the Python project.
+### Key Components
 
-### Architecture
-
-The project follows a modular, agent-based architecture:
-
-*   **Agent Kernel (`src/codex/kernel.py`):** The central component of the Python application. It's responsible for orchestrating command processing, routing commands to the appropriate agents, and managing the application's state.
-*   **Agents:** The project includes several agents with distinct roles, such as the "Artemis" governance agent, the "Copilot" assistant agent, and the "Pack Rat" data transfer agent.
-*   **Artemis Transmission Protocol (ATP):** A structured communication protocol that enables agents to exchange messages with clear intent and context.
-*   **Memory Layer:** A Node.js/TypeScript application that provides a REST API for interacting with an Obsidian vault. This allows agents to store and retrieve information, effectively giving them a persistent memory.
-*   **Trust Interface:** A system for managing trust scores for agents, which are used to control access to the memory layer.
+*   **Agents:** The system is composed of several agents, each with a specific role and set of keywords. These are defined in `src/interface/agent_router.yaml`. The current agents are:
+    *   `artemis`: Governance and policy.
+    *   `pack_rat`: Secure data transfer.
+    *   `codex_daemon`: System status and memory interface.
+    *   `copilot`: Contextual assistance.
+*   **CLI:** The primary user interface is a command-line interface (`src/interface/codex_cli.py`) that can be run interactively or used to execute single commands.
+*   **Memory Layer:** The Node.js service provides a memory and knowledge base for the agents, integrating with Obsidian.
+*   **Personas:** Agents have "personas" (e.g., `src/agents/artemis/persona.py`) that define their communication style and response patterns, making them more interactive and conversational.
+*   **Artemis Transmission Protocol (ATP):** A structured communication protocol for agents.
 
 ## Building and Running
 
-### 1. Set up the Environment
+### Python Environment
 
-1.  **Install Python dependencies:**
+1.  **Create and activate a virtual environment:**
     ```bash
     python -m venv .venv
     source .venv/bin/activate
-    pip install -r requirements.txt
     ```
-2.  **Install Node.js dependencies for the Memory Layer:**
+2.  **Install dependencies:**
+    ```bash
+    pip install -r src/launch/requirements.txt
+    ```
+    For development, install the dev dependencies:
+    ```bash
+    pip install -r src/launch/requirements-dev.txt
+    ```
+
+### Node.js Environment (Memory Layer)
+
+1.  **Navigate to the memory layer directory:**
     ```bash
     cd "src/Artemis Agentic Memory Layer"
-    npm install
-    cd ../..
     ```
-3.  **Set up environment variables:**
-    *   Copy `.env.example` to `.env` and fill in the required values, including API keys for the MCP server and Obsidian.
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
 
-### 2. Run the Application
+### Running the Application
 
-1.  **Start the MCP Memory Server:**
+1.  **Start the Memory Layer server:**
     ```bash
     cd "src/Artemis Agentic Memory Layer"
     npm run dev
     ```
-2.  **Run the CLI (in another terminal):**
+2.  **Run the Python CLI (in a separate terminal):**
     ```bash
     source .venv/bin/activate
-    python src/codex/codex_cli.py
+    python src/interface/codex_cli.py
     ```
-
-### 3. Run the tests
-
-*   **Run all python tests:**
-    ```bash
-    pytest
-    ```
-*   **Run python tests with coverage:**
-    ```bash
-    pytest --cov=src
-    ```
+    You can also run the CLI with the `artemis` command after installing the project in editable mode (`pip install -e .`).
 
 ## Development Conventions
 
-*   **Coding Style:** The project follows the PEP 8 style guide for Python code and uses `black`, `isort`, and `flake8` to enforce it.
-*   **Testing:** The project has a strong emphasis on testing. All new features should be accompanied by unit and/or integration tests.
-*   **Documentation:** The `docs` directory contains a wealth of information about the project's architecture, features, and APIs. All new features should be documented.
-*   **Commit Messages:** Follow the conventional commit format.
-*   **Branching:** Use feature branches for all new work.
-*   **Pull Requests:** All pull requests must be reviewed and approved before being merged.
-*   **Security:** The project has a strong focus on security. All secrets should be stored in environment variables and never committed to the repository.
+### Python
 
-This guide should provide a solid foundation for any AI assistant working on the Artemis-City project. For more detailed information, please refer to the documents in the `docs` directory.
+*   **Formatting:** The project uses `black` for code formatting and `isort` for import sorting.
+*   **Linting:** `flake8` and `pylint` are used for linting.
+*   **Type Checking:** `mypy` is used for static type checking.
+*   **Testing:** `pytest` is the testing framework. Tests are located in the `tests/` directory.
+*   **Security:** `bandit` and `safety` are used for security scanning.
+
+### Node.js/TypeScript
+
+*   **Linting:** `eslint` is used for linting.
+*   **Build:** The TypeScript code is compiled to JavaScript using `tsc`.
+
+### CI/CD
+
+The project has a comprehensive CI/CD pipeline in `.github/workflows/ci.yml` that automates formatting, linting, testing, and security scanning for both the Python and Node.js code.
+
+### Key Files
+
+*   `README.md`: The main entry point for understanding the project.
+*   `pyproject.toml`: Python project configuration and dependencies.
+*   `src/interface/codex_cli.py`: The main entry point for the Python CLI.
+*   `src/Artemis Agentic Memory Layer/package.json`: Node.js project configuration and dependencies.
+*   `src/interface/agent_router.yaml`: Defines the agents and their keywords for routing commands.
+*   `src/agents/artemis/persona.py`: An example of an agent's persona, defining its communication style.
+*   `tests/`: Contains the Python tests.
+*   `.github/workflows/ci.yml`: The CI/CD pipeline definition.
+*   `docs/`: Contains additional documentation about the project's features and architecture.
+*   `SECURITY.md`: Outlines the security best practices for the project.

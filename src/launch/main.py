@@ -8,9 +8,10 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 import yaml
-from core.instructions import get_global_cache
+
 from agents.artemis import ArtemisPersona
 from agents.atp import ATPParser
+from core.instructions import get_global_cache
 
 
 def load_agent_router_config(config_path):

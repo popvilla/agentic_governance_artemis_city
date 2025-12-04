@@ -1,9 +1,9 @@
-"""Artemis City Postal Service - Memory delivery system.
+"Artemis City Postal Service - Memory delivery system.
 
 This module provides a postal-themed interface for memory operations,
 treating the Obsidian vault as the City Archives and memory operations
 as mail delivery between agents.
-"""
+"
 
 import random
 import time
@@ -32,7 +32,7 @@ class MailPacket:
     def __init__(
         self, sender: str, recipient: str, subject: str, content: str, priority: str = "normal"
     ):
-        """Initialize mail packet."""
+        """Initialize a mail packet."""
         self.sender = sender
         self.recipient = recipient
         self.subject = subject
@@ -43,7 +43,7 @@ class MailPacket:
         self.tracking_id = f"{sender[:3].upper()}-{int(time.time() * 1000) % 100000}"
 
     def __str__(self) -> str:
-        """String representation of mail packet."""
+        """Return a string representation of the mail packet."""
         return (
             f"[Mail #{self.tracking_id}]\n"
             f"  From: {self.sender}\n"
@@ -63,7 +63,7 @@ class PostOffice:
     """
 
     def __init__(self):
-        """Initialize Post Office."""
+        """Initialize the Post Office."""
         self.memory_client = MemoryClient()
         self.trust_office = get_trust_interface()
         self.context_loader = ContextLoader(self.memory_client)
@@ -93,7 +93,7 @@ class PostOffice:
         """
         packet = MailPacket(sender, recipient, subject, content, priority)
 
-        print(f"\n NEW MAIL at Post Office")
+        print("\n NEW MAIL at Post Office")
         print(f"   Tracking ID: {packet.tracking_id}")
         print(f"   From: {sender} → To: {recipient}")
         print(f"   Subject: {subject}")
@@ -106,12 +106,12 @@ class PostOffice:
             return packet
 
         # Simulate Pack Rat handling
-        print(f"\n    Pack Rat is securing the mail...")
+        print("\n    Pack Rat is securing the mail...")
         time.sleep(random.uniform(0.3, 0.8))
 
         # Simulate potential delivery issues
         if random.random() < 0.05:  # 5% chance of delay
-            print(f"     Temporary postal delay detected...")
+            print("     Temporary postal delay detected...")
             time.sleep(random.uniform(0.5, 1.0))
 
         # Deliver to City Archives
@@ -123,7 +123,7 @@ class PostOffice:
 
         if response.success:
             packet.delivery_status = "delivered"
-            print(f"    DELIVERED to City Archives")
+            print("    DELIVERED to City Archives")
             print(f"   📍 Location: {vault_path}")
 
             # Update trust
@@ -146,7 +146,7 @@ class PostOffice:
 
         Args:
             agent_name: Agent whose mailbox to check
-            recipient: Whether to show only unread mail
+            unread_only: Whether to show only unread mail
 
         Returns:
             List of mail entries
@@ -162,14 +162,14 @@ class PostOffice:
             for i, item in enumerate(mail[:5], 1):
                 print(f"      {i}. {item.path}")
         else:
-            print(f"   📭 Mailbox is empty")
+            print("   📭 Mailbox is empty")
 
         return mail
 
     def send_to_archives(
         self, sender: str, archive_section: str, title: str, content: str
     ) -> MCPResponse:
-        """Send document to City Archives for permanent storage.
+        """Send a document to the City Archives for permanent storage.
 
         Args:
             sender: Agent filing the document
@@ -180,19 +180,19 @@ class PostOffice:
         Returns:
             MCPResponse with delivery status
         """
-        print(f"\n  ARCHIVAL REQUEST")
+        print("\n  ARCHIVAL REQUEST")
         print(f"   From: {sender}")
         print(f"   Section: {archive_section}")
         print(f"   Title: {title}")
 
         # Check clearance
         if not self.trust_office.can_perform_operation(sender, 'write'):
-            print(f"    DENIED: Insufficient archival clearance")
+            print("    DENIED: Insufficient archival clearance")
             return MCPResponse(
                 success=False, error="Insufficient clearance for archival operations"
             )
 
-        print(f"\n    Pack Rat is processing archival request...")
+        print("\n    Pack Rat is processing archival request...")
         time.sleep(random.uniform(0.4, 0.9))
 
         # Store in archives
@@ -203,7 +203,7 @@ class PostOffice:
 
         if response.success:
             print(f"    ARCHIVED at: {path}")
-            print(f"    Available for future reference")
+            print("    Available for future reference")
             self.trust_office.record_success(sender)
         else:
             print(f"    ARCHIVAL FAILED: {response.error}")
@@ -214,7 +214,7 @@ class PostOffice:
     def request_from_archives(
         self, requester: str, query: str, section: Optional[str] = None
     ) -> List[ContextEntry]:
-        """Request documents from City Archives.
+        """Request documents from the City Archives.
 
         Args:
             requester: Agent requesting documents
@@ -224,7 +224,7 @@ class PostOffice:
         Returns:
             List of matching archive documents
         """
-        print(f"\n📖 ARCHIVE REQUEST")
+        print("\n📖 ARCHIVE REQUEST")
         print(f"   Requester: {requester}")
         print(f"   Query: '{query}'")
         if section:
@@ -232,14 +232,14 @@ class PostOffice:
 
         # Check read clearance
         if not self.trust_office.can_perform_operation(requester, 'read'):
-            print(f"    DENIED: No archive access clearance")
+            print("    DENIED: No archive access clearance")
             return []
 
-        print(f"\n    City Librarian is searching...")
+        print("\n    City Librarian is searching...")
         time.sleep(random.uniform(0.5, 1.0))
 
         # Search archives
-        search_query = f"{query}"
+        search_query = query
         if section:
             search_query = f"#Archives #{section} {query}"
 
@@ -250,18 +250,18 @@ class PostOffice:
             for i, doc in enumerate(results[:5], 1):
                 print(f"      {i}. {doc.path}")
         else:
-            print(f"   📭 No documents found matching query")
+            print("   📭 No documents found matching query")
 
         self.trust_office.record_success(requester)
         return results
 
     def get_postal_report(self) -> Dict:
-        """Generate postal service activity report.
+        """Generate a postal service activity report.
 
         Returns:
             Dictionary with postal statistics
         """
-        print(f"\n POSTAL SERVICE REPORT")
+        print("\n POSTAL SERVICE REPORT")
         print(f"   Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
         print("=" * 60)
 
@@ -278,7 +278,7 @@ class PostOffice:
             print(f"   📈 Success Rate: {success_rate:.1f}%")
 
         # Trust report
-        print(f"\n     CITIZEN CLEARANCE STATUS")
+        print("\n     CITIZEN CLEARANCE STATUS")
         trust_report = self.trust_office.get_trust_report()
         for level, entities in trust_report['by_level'].items():
             if entities:
@@ -294,7 +294,7 @@ class PostOffice:
         }
 
     def _format_mail_note(self, packet: MailPacket) -> str:
-        """Format mail packet as markdown note.
+        """Format a mail packet as a markdown note.
 
         Args:
             packet: MailPacket to format
@@ -302,7 +302,8 @@ class PostOffice:
         Returns:
             Formatted markdown content
         """
-        return f"""---
+        return f"""
+--- 
 from: {packet.sender}
 to: {packet.recipient}
 tracking_id: {packet.tracking_id}
@@ -329,7 +330,7 @@ status: {packet.delivery_status}
 """
 
     def _log_delivery(self, packet: MailPacket, success: bool, reason: Optional[str] = None):
-        """Log delivery attempt."""
+        """Log a delivery attempt."""
         self.delivery_log.append(
             {
                 'tracking_id': packet.tracking_id,

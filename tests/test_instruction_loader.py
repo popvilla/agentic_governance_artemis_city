@@ -7,6 +7,7 @@ Tests the InstructionLoader and InstructionCache components.
 import os
 
 import pytest
+
 from core.instructions import InstructionLoader, InstructionSet
 
 

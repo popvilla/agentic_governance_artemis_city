@@ -96,6 +96,7 @@ pytest tests/ -m integration -v
 ```
 
 **Test organization:**
+
 - `tests/test_atp.py`: ATP protocol parsing and validation
 - `tests/test_memory_integration.py`: Memory client and trust interface
 - `tests/test_artemis_persona.py`: Artemis persona reflection engine
@@ -212,6 +213,7 @@ src/
 ### Artemis Transmission Protocol (ATP)
 
 Structured communication format with signal tags:
+
 - `#Mode:` - Intent (Build, Review, Organize, Capture, Synthesize, Commit)
 - `#Context:` - Mission goal or purpose
 - `#Priority:` - Urgency (Critical, High, Normal, Low)
@@ -224,6 +226,7 @@ Structured communication format with signal tags:
 ### Trust Decay Model
 
 Dynamic trust evaluation for agents, memories, and protocols:
+
 - Initial trust scores decay over time without reinforcement
 - Positive events (successful tasks, validations) increase trust
 - Negative events (failures, violations) decrease trust
@@ -234,6 +237,7 @@ Dynamic trust evaluation for agents, memories, and protocols:
 ### Agent Routing
 
 Keywords in user commands map to agents via `src/interface/agent_router.yaml`:
+
 1. User inputs command
 2. Extract keywords from input
 3. Match against agent keyword lists
@@ -253,9 +257,10 @@ Keywords in user commands map to agents via `src/interface/agent_router.yaml`:
 - Load in code: `os.environ.get('VAR_NAME')`
 
 **Protected patterns** (via .gitignore):
+
 - `.env*`, `*.key`, `*.pem`, `secrets/`
 - Credentials files, SSH keys, cloud configs
-- Database files (*.sqlite, *.db)
+- Database files (*.sqlite,*.db)
 
 See `SECURITY.md` for comprehensive security guidelines.
 
@@ -325,6 +330,7 @@ instructions = loader.load_agent_instructions("artemis")
 ## CI/CD
 
 Workflows in `.github/workflows/`:
+
 - `ci.yml`: Main CI pipeline (format, lint, test)
 - `code-quality.yml`: Extended quality checks
 - `dependencies.yml`: Dependency management

@@ -1,7 +1,0 @@
-{
-  "access_token": "238d872b-594c-813d-8fa0-00021f1d21cd:mzAlY6YligzFfm2n:qHi4bC5lmT3X6qUAofjj4fmuF8i8HNC9",
-  "token_type": "bearer",
-  "expires_in": 3600,
-  "scope": "openid email profile",
-  "refresh_token": "238d872b-594c-813d-8fa0-00021f1d21cd:mzAlY6YligzFfm2n:b0IhJynEvOD1ArsJOgQHeGyB4RCG0EM5"
-}

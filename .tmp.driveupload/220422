@@ -1,7 +1,0 @@
-{
-    "installOptions": {
-        "installFromRepository": true,
-        "libraryPath": "/Users/prinstonpalmer/Library/R/arm64/4.5/library",
-        "installDependencies": true
-    }
-}

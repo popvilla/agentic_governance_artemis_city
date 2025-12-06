@@ -1,33 +1,21 @@
+"""This module provides a command-line interface for interacting with the Agentic Codex."""
+
 import argparse
 import os
 import sys
 from pathlib import Path
 
-import yaml
-
-# Add parent directory to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from core.instructions import get_global_cache
+import yaml
 
 from agents.artemis import ArtemisPersona
 from agents.atp import ATPParser
 
 
 def load_agent_router_config(config_path):
-    """Loads agent routing configurations from a specified YAML file.
-
-    This function reads a YAML file that defines the routing logic for different
-    agents based on command keywords. It's designed to fail gracefully by
-    returning an empty dictionary if the file doesn't exist.
-
-    Args:
-        config_path (str): The full path to the agent router YAML config file.
-
-    Returns:
-        dict: A dictionary containing the agent router configuration. Returns an
-              empty dictionary if the configuration file cannot be found.
-    """
+    """Load agent routing configurations from a specified YAML file."""
     if not os.path.exists(config_path):
         print(f"Error: Agent router config not found at {config_path}")
         return {}
@@ -36,21 +24,7 @@ def load_agent_router_config(config_path):
 
 
 def handle_command(command, agent_router, atp_parser, instruction_cache, artemis_persona):
-    """Routes a command to the appropriate agent with ATP parsing and instruction loading.
-
-    This function:
-    1. Parses ATP headers from the command
-    2. Loads relevant instructions for the current context
-    3. Routes to the appropriate agent
-    4. Formats response with Artemis personality if applicable
-
-    Args:
-        command (str): The user-provided command string to be processed.
-        agent_router (dict): The configuration dictionary that maps agents to keywords and roles.
-        atp_parser (ATPParser): ATP parser instance
-        instruction_cache: Instruction cache instance
-        artemis_persona (ArtemisPersona): Artemis persona instance
-    """
+    """Route a command to the appropriate agent with ATP parsing and instruction loading."""
     # Parse ATP message
     atp_message = atp_parser.parse(command)
 
@@ -93,7 +67,7 @@ def handle_command(command, agent_router, atp_parser, instruction_cache, artemis
             # If routing to artemis, show persona context
             if agent_name == "artemis":
                 artemis_persona.add_context_memory(command_text)
-                print(f"\n[Artemis Context]")
+                print("\n[Artemis Context]")
                 print(f"  Mode: {artemis_persona.current_mode.value}")
                 recent_contexts = artemis_persona.get_recent_context(3)
                 if recent_contexts:
@@ -106,11 +80,7 @@ def handle_command(command, agent_router, atp_parser, instruction_cache, artemis
 
 
 def main():
-    """Initializes and runs the Agentic Codex Command-Line Interface (CLI).
-
-    This function serves as the main entry point for the application with
-    enhanced ATP protocol support, instruction loading, and Artemis persona.
-    """
+    """Initialize and run the Agentic Codex Command-Line Interface (CLI)."""
     parser = argparse.ArgumentParser(description="Agentic Codex CLI Interface with ATP Support")
     parser.add_argument(
         "command",

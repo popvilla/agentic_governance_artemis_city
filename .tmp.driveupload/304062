@@ -1,1 +1,3 @@
-Update .gitignore
+Update .gitignore and sync temp drive metadata
+
+Updated .gitignore to include /.tmp.driveupload. Synchronized temp drive metadata and branch references in .tmp.driveupload files.

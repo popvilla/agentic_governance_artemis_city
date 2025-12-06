@@ -1,3 +1,17 @@
+---
+tags:
+  - "#Python"
+  - "#typescript"
+  - "#DevOps"
+  - "#SoftwareEngineering"
+  - "#Infrastructure"
+  - "#DevTools"
+  - "#AI"
+  - "#MachineLearning"
+  - "#repository-guidelines"
+  - "#coding-style"
+  - "#testing-guidelines"
+---
 # Repository Guidelines
 
 ## Project Structure & Module Organization

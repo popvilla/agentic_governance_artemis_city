@@ -1,0 +1,10 @@
+export declare function manageFrontmatter(path: string, key: string, value: any): Promise<{
+    success: boolean;
+    message: string;
+    error?: undefined;
+} | {
+    success: boolean;
+    error: any;
+    message?: undefined;
+}>;
+//# sourceMappingURL=obsidianManageFrontmatterTool.d.ts.map

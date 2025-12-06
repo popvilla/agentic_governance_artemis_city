@@ -1,0 +1,84 @@
+
+
+import React from 'react';
+import { Preview } from './Preview';
+import ChatPanel from './ChatPanel';
+import FeedbackPanel from './FeedbackPanel';
+import { Folder, ChatMessage, ReviewResult } from '../types';
+import { EyeIcon, BotIcon, LightbulbIcon } from './icons';
+
+interface SplitViewPanelProps {
+  fileTree: Folder;
+  messages: ChatMessage[];
+  onSendMessage: (message: string) => void;
+  isChatLoading: boolean;
+  reviewResult: ReviewResult | null;
+  isLoading: boolean;
+  error: string | null;
+  onApplySuggestion: (code: string) => void;
+  onMakeItRun: (code: string) => Promise<void>;
+  isMakingItRun: boolean;
+  onReviewCustomCode: (code: string, language: string) => Promise<void>;
+  activePanel: 'preview' | 'chat' | 'review';
+  onSelectPanel: (panel: 'preview' | 'chat' | 'review') => void;
+}
+
+const SplitViewPanel: React.FC<SplitViewPanelProps> = ({
+  fileTree,
+  messages,
+  onSendMessage,
+  isChatLoading,
+  reviewResult,
+  isLoading,
+  error,
+  onApplySuggestion,
+  onMakeItRun,
+  isMakingItRun,
+  onReviewCustomCode,
+  activePanel,
+  onSelectPanel,
+}) => {
+  const renderPanelContent = () => {
+    switch (activePanel) {
+      case 'preview':
+        return <Preview fileTree={fileTree} />;
+      case 'chat':
+        return <ChatPanel messages={messages} onSendMessage={onSendMessage} isLoading={isChatLoading} />;
+      case 'review':
+        return (
+          <FeedbackPanel
+            reviewResult={reviewResult}
+            isLoading={isLoading}
+            error={error}
+            onApplySuggestion={onApplySuggestion}
+            onMakeItRun={onMakeItRun}
+            isMakingItRun={isMakingItRun}
+            onReviewCustomCode={onReviewCustomCode}
+          />
+        );
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <div className="flex flex-col bg-slate-200/50 dark:bg-slate-800/50 border border-slate-300 dark:border-slate-700 overflow-hidden">
+      <div className="flex-shrink-0 p-2 border-b border-slate-300 dark:border-slate-700 flex items-center space-x-1">
+        {[{id: 'preview', icon: EyeIcon}, {id: 'chat', icon: BotIcon}, {id: 'review', icon: LightbulbIcon}].map(tab => (
+          <button
+            key={tab.id}
+            onClick={() => onSelectPanel(tab.id as 'preview' | 'chat' | 'review')}
+            className={`p-2 rounded-md ${activePanel === tab.id ? 'bg-slate-300 dark:bg-slate-700 text-slate-800 dark:text-white' : 'text-slate-500 dark:text-slate-400 hover:bg-slate-300/50 dark:hover:bg-slate-700/50 hover:text-slate-800 dark:hover:text-white'}`}
+          >
+            <tab.icon className="w-5 h-5" />
+          </button>
+        ))}
+      </div>
+      <div className="flex-grow overflow-hidden">
+        {renderPanelContent()}
+      </div>
+    </div>
+  );
+};
+
+export default SplitViewPanel;

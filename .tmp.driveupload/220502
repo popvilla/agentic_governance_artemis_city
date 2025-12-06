@@ -1,0 +1,144 @@
+import React, { useState } from 'react';
+import FormattedFeedback from './FormattedFeedback';
+import { ReviewResult } from '../types';
+import { Spinner, LightbulbIcon, CodeIcon } from './icons';
+import { SUPPORTED_LANGUAGES } from './constants';
+
+interface FeedbackPanelProps {
+  reviewResult: ReviewResult | null;
+  isLoading: boolean;
+  error: string | null;
+  onApplySuggestion: (code: string) => void;
+  onMakeItRun: (code: string) => Promise<void>;
+  isMakingItRun: boolean;
+  onReviewCustomCode: (code: string, language: string) => Promise<void>;
+}
+
+const Loader: React.FC = () => (
+  <div className="flex flex-col items-center justify-center h-full text-center text-slate-500 dark:text-slate-400">
+     <Spinner className="h-10 w-10 text-cyan-500 dark:text-cyan-400 mb-4" />
+    <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-200">Analyzing Code</h3>
+    <p>Gemini is reviewing your submission. Please wait a moment...</p>
+  </div>
+);
+
+interface InitialStateProps {
+    onReviewCustomCode: (code: string, language: string) => Promise<void>;
+    isReviewLoading: boolean;
+}
+
+const InitialState: React.FC<InitialStateProps> = ({ onReviewCustomCode, isReviewLoading }) => {
+    const [customCodeInput, setCustomCodeInput] = useState('');
+    const [selectedLanguage, setSelectedLanguage] = useState('javascript');
+
+    const handleReviewClick = async () => {
+        if (customCodeInput.trim()) {
+            await onReviewCustomCode(customCodeInput, selectedLanguage);
+        }
+    };
+
+    return (
+        <div className="flex flex-col items-center justify-center h-full text-center text-slate-500 dark:text-slate-500 px-4">
+            <LightbulbIcon className="w-12 h-12 mb-4 text-cyan-500 dark:text-cyan-400" />
+            <h3 className="text-lg font-semibold text-slate-700 dark:text-slate-300">Awaiting Review</h3>
+            <p className="max-w-md mb-6">
+                Click the **"Review Code"** button in the header to get AI feedback on the currently active file,
+                or paste your code below for an instant review.
+            </p>
+
+            <div className="w-full max-w-lg mb-4">
+                 <div className="mb-2">
+                    <label htmlFor="language-select" className="block text-left text-sm font-medium text-slate-600 dark:text-slate-400 mb-1">
+                        Language
+                    </label>
+                    <select
+                        id="language-select"
+                        value={selectedLanguage}
+                        onChange={(e) => setSelectedLanguage(e.target.value)}
+                        className="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-md p-2 text-slate-800 dark:text-slate-200 text-sm focus:ring-2 focus:ring-cyan-500 focus:outline-none"
+                        disabled={isReviewLoading}
+                    >
+                        {SUPPORTED_LANGUAGES.map(lang => (
+                            <option key={lang.value} value={lang.value}>{lang.label}</option>
+                        ))}
+                    </select>
+                </div>
+                <textarea
+                    value={customCodeInput}
+                    onChange={(e) => setCustomCodeInput(e.target.value)}
+                    placeholder="Paste code here to get feedback..."
+                    rows={8}
+                    className="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-md p-3 text-slate-800 dark:text-slate-200 font-mono text-sm resize-y focus:ring-2 focus:ring-cyan-500 focus:outline-none placeholder-slate-400 dark:placeholder-slate-500"
+                    disabled={isReviewLoading}
+                />
+                <button
+                    onClick={handleReviewClick}
+                    disabled={isReviewLoading || !customCodeInput.trim()}
+                    className="w-full flex items-center justify-center gap-2 bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-700 dark:hover:bg-cyan-600 text-white font-semibold py-2 px-4 rounded-md transition-colors duration-200 mt-4 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                    {isReviewLoading ? (
+                        <>
+                            <Spinner className="w-5 h-5" />
+                            Reviewing...
+                        </>
+                    ) : (
+                        <>
+                            <CodeIcon className="w-5 h-5" />
+                            Review this snippet
+                        </>
+                    )}
+                </button>
+            </div>
+        </div>
+    );
+};
+
+const ErrorState: React.FC<{ message: string }> = ({ message }) => (
+  <div className="flex flex-col items-center justify-center h-full text-center text-red-500 dark:text-red-400 bg-red-100 dark:bg-red-900/20 rounded-lg p-4 m-4">
+      <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+      <h3 className="text-lg font-semibold text-red-700 dark:text-red-300">An Error Occurred</h3>
+      <p className="text-sm break-words">{message}</p>
+  </div>
+);
+
+const FeedbackPanel: React.FC<FeedbackPanelProps> = ({
+  reviewResult,
+  isLoading,
+  error,
+  onApplySuggestion,
+  onMakeItRun,
+  isMakingItRun,
+  onReviewCustomCode,
+}) => {
+  const renderContent = () => {
+    if (isLoading) {
+      return <Loader />;
+    }
+    if (error) {
+      return <ErrorState message={error} />;
+    }
+    if (reviewResult) {
+      return (
+        <FormattedFeedback
+          reviewResult={reviewResult}
+          onApplySuggestion={onApplySuggestion}
+          onMakeItRun={onMakeItRun}
+          isMakingItRun={isMakingItRun}
+        />
+      );
+    }
+    return <InitialState onReviewCustomCode={onReviewCustomCode} isReviewLoading={isLoading} />;
+  };
+
+  return (
+    <div className="flex flex-col h-full">
+      <div className="flex-grow overflow-y-auto p-4">
+        {renderContent()}
+      </div>
+    </div>
+  );
+};
+
+export default FeedbackPanel;

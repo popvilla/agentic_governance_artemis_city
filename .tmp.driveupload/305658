@@ -1,0 +1,10 @@
+export declare function listNotes(): Promise<{
+    success: boolean;
+    data: string[];
+    error?: undefined;
+} | {
+    success: boolean;
+    error: any;
+    data?: undefined;
+}>;
+//# sourceMappingURL=obsidianListNotesTool.d.ts.map

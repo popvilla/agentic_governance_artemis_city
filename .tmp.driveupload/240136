@@ -1,0 +1,74 @@
+
+import { Folder, File, Change } from './types';
+
+// Helper to find a file in the tree by its path
+const findFile = (path: string, tree: Folder): File | null => {
+  const parts = path.split('/').filter(p => p && p !== '.');
+  let current: Folder | File | undefined = tree;
+  
+  for (const part of parts) {
+    if (current && 'children' in current) {
+      current = current.children.find(c => c.name === part);
+    } else {
+      return null;
+    }
+  }
+
+  return current && 'content' in current ? current : null;
+};
+
+// Creates a self-contained HTML string for the preview iframe
+export const createPreviewHtml = (fileTree: Folder): { html: string | null; warnings: string[] } => {
+  const warnings: string[] = [];
+  const indexHtmlFile = findFile('index.html', fileTree);
+
+  if (!indexHtmlFile) {
+    return { html: null, warnings };
+  }
+
+  let htmlContent = indexHtmlFile.content;
+
+  // Basic regex to find relative paths for CSS
+  htmlContent = htmlContent.replace(/<link.*?href="([^"]+)"/g, (match, path) => {
+    if (path.startsWith('http') || path.startsWith('//')) return match;
+    const cssFile = findFile(path, fileTree);
+    if (cssFile) {
+      return `<style>${cssFile.content}</style>`;
+    }
+    warnings.push(`CSS file not found: ${path}`);
+    return ''; // Remove link if not found
+  });
+
+  // Basic regex to find relative paths for JS
+  htmlContent = htmlContent.replace(/<script.*?src="([^"]+)"/g, (match, path) => {
+    if (path.startsWith('http') || path.startsWith('//')) return match;
+    const jsFile = findFile(path, fileTree);
+    if (jsFile) {
+      // Inlined scripts need to be handled carefully. This is a simple case.
+      return `<script>${jsFile.content}<\/script>`;
+    }
+    warnings.push(`JS file not found: ${path}`);
+    return ''; // Remove script if not found
+  });
+
+  return { html: htmlContent, warnings };
+};
+
+export const calculateChanges = (baseFiles: Record<string, string>, currentFiles: Record<string, string>): Change[] => {
+    const changes: Change[] = [];
+    const allPaths = new Set([...Object.keys(baseFiles), ...Object.keys(currentFiles)]);
+
+    allPaths.forEach(path => {
+        const inBase = path in baseFiles;
+        const inCurrent = path in currentFiles;
+
+        if (inBase && !inCurrent) {
+            changes.push({ path, type: 'deleted' });
+        } else if (!inBase && inCurrent) {
+            changes.push({ path, type: 'added' });
+        } else if (inBase && inCurrent && baseFiles[path] !== currentFiles[path]) {
+            changes.push({ path, type: 'modified' });
+        }
+    });
+    return changes;
+};

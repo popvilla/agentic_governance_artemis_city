@@ -1,0 +1,18 @@
+{
+  "mcpServers": {
+    "notion": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "INTERNAL_INTEGRATION_TOKEN",
+        "mcp/notion"
+      ],
+      "env": {
+        "INTERNAL_INTEGRATION_TOKEN": "ntn_****"
+      }
+    }
+  }
+}

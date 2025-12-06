@@ -1,0 +1,31 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.appendContext = appendContext;
+exports.updateNote = updateNote;
+const methods_1 = require("../../services/obsidianRestAPI/methods");
+const logger_1 = require("../../utils/logger");
+async function appendContext(path, content) {
+    try {
+        logger_1.logger.debug(`Attempting to append context to note: ${path}`);
+        await (0, methods_1.updateNote)(path, content, { append: true });
+        logger_1.logger.info(`Successfully appended context to note: ${path}`);
+        return { success: true, message: `Content appended to note '${path}'.` };
+    }
+    catch (error) {
+        logger_1.logger.error(`Error appending context to note '${path}': ${error.message}`);
+        return { success: false, error: error.message };
+    }
+}
+async function updateNote(path, content) {
+    try {
+        logger_1.logger.debug(`Attempting to update note: ${path}`);
+        await (0, methods_1.updateNote)(path, content, { append: false });
+        logger_1.logger.info(`Successfully updated note: ${path}`);
+        return { success: true, message: `Note '${path}' updated.` };
+    }
+    catch (error) {
+        logger_1.logger.error(`Error updating note '${path}': ${error.message}`);
+        return { success: false, error: error.message };
+    }
+}
+//# sourceMappingURL=obsidianUpdateNoteTool.js.map

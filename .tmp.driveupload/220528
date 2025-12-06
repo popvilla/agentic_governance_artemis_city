@@ -1,0 +1,61 @@
+import React from 'react';
+import { File, Folder } from '../types';
+import { FileIcon } from './icons';
+
+interface FileExplorerProps {
+  node: Folder;
+  onSelectFile: (path: string) => void;
+  activeFile: string | null;
+  level?: number;
+}
+
+const FileExplorer: React.FC<FileExplorerProps> = ({ node, onSelectFile, activeFile, level = 0 }) => {
+  const [isOpen, setIsOpen] = React.useState(true);
+
+  const sortedChildren = [...node.children].sort((a, b) => {
+    const aIsFolder = 'children' in a;
+    const bIsFolder = 'children' in b;
+    if (aIsFolder !== bIsFolder) {
+      return aIsFolder ? -1 : 1;
+    }
+    return a.name.localeCompare(b.name);
+  });
+
+  return (
+    <div>
+      {level > 0 && (
+        <div
+          onClick={() => setIsOpen(!isOpen)}
+          className="flex items-center cursor-pointer px-2 py-1 rounded-md hover:bg-slate-300/50 dark:hover:bg-slate-700/50"
+          style={{ paddingLeft: `${level * 1}rem` }}
+        >
+          <svg className={`w-4 h-4 mr-1 transition-transform ${isOpen ? 'rotate-90' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+          <span className="font-semibold text-sm">{node.name}</span>
+        </div>
+      )}
+      {isOpen && (
+        <div>
+          {sortedChildren.map(child =>
+            'children' in child ? (
+              <FileExplorer key={child.path} node={child} onSelectFile={onSelectFile} activeFile={activeFile} level={level + 1} />
+            ) : (
+              <div
+                key={child.path}
+                onClick={() => onSelectFile(child.path)}
+                className={`flex items-center cursor-pointer px-2 py-1.5 rounded-md ${activeFile === child.path ? 'bg-cyan-200/50 dark:bg-cyan-900/50 text-slate-900 dark:text-white' : 'hover:bg-slate-300/50 dark:hover:bg-slate-700/50 text-slate-700 dark:text-slate-300'}`}
+                style={{ paddingLeft: `${(level + 1) * 1}rem` }}
+              >
+                <FileIcon className="w-4 h-4 mr-2 flex-shrink-0" />
+                <span className="text-sm truncate">{child.name}</span>
+              </div>
+            )
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default FileExplorer;

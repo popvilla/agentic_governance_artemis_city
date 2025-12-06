@@ -1,0 +1,32 @@
+[pytest]
+# Test discovery
+testpaths = tests
+python_files = test_*.py
+python_classes = Test*
+python_functions = test_*
+
+# Output settings
+addopts =
+    -v
+    --tb=short
+    --strict-markers
+    --color=yes
+
+# Custom markers
+markers =
+    unit: Unit tests (fast, isolated)
+    integration: Integration tests (module interaction)
+    e2e: End-to-end tests (full workflow)
+    slow: Slow running tests
+    requires_server: Tests requiring MCP server
+
+# Warning filters
+filterwarnings =
+    ignore::DeprecationWarning
+    ignore::PendingDeprecationWarning
+
+# Timeout for individual tests (seconds)
+timeout = 30
+
+# Minimum coverage thresholds (used with pytest-cov)
+# Run with: pytest --cov=. --cov-fail-under=85

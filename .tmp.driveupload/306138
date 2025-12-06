@@ -1,0 +1,20 @@
+# Defines which agent handles what type of input based on keywords or patterns.
+# This is a simplified routing mechanism for the Codex CLI.
+
+agents:
+  artemis:
+    role: "Mayor protocol, governance"
+    keywords: ["artemis", "governance", "policy", "audit", "dispute", "review"]
+    action_description: "Initiating governance review or policy query."
+  pack_rat:
+    role: "Courier role, safe transfer"
+    keywords: ["transfer", "send", "receive", "courier", "data", "secure"]
+    action_description: "Preparing secure data transfer."
+  codex_daemon:
+    role: "System anchor, memory interface"
+    keywords: ["memory", "system", "daemon", "config", "status", "health"]
+    action_description: "Querying system status or memory interface."
+  copilot:
+    role: "Companion, elastic augmentation"
+    keywords: ["help", "assist", "explain", "augment", "clarify", "suggest"]
+    action_description: "Providing contextual assistance or augmentation."

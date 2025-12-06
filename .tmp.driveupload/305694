@@ -1,0 +1,13 @@
+import { Request, Response, NextFunction } from 'express';
+/**
+ * Middleware to authenticate requests using a Bearer token.
+ * It checks for an 'Authorization' header with a 'Bearer' token
+ * and validates it against the configured MCP_API_KEY.
+ *
+ * @param req The Express request object.
+ * @param res The Express response object.
+ * @param next The next middleware function in the stack.
+ * @returns void
+ */
+export declare const authenticateMCP: (req: Request, res: Response, next: NextFunction) => void;
+//# sourceMappingURL=auth.d.ts.map

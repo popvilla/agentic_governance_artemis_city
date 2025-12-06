@@ -1,0 +1,10 @@
+export declare function deleteNote(path: string): Promise<{
+    success: boolean;
+    message: string;
+    error?: undefined;
+} | {
+    success: boolean;
+    error: any;
+    message?: undefined;
+}>;
+//# sourceMappingURL=obsidianDeleteNoteTool.d.ts.map

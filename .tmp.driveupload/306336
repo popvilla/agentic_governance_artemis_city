@@ -1,0 +1,246 @@
+name: CI
+permissions:
+  contents: read
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+env:
+  PYTHON_VERSION: '3.10'
+  NODE_VERSION: '18'
+
+jobs:
+  # ============================================
+  # PYTHON QUALITY CHECKS
+  # ============================================
+  lint-python:
+    name: Lint Python Code
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          # Install dev requirements if present
+          if [ -f src/launch/requirements-dev.txt ]; then
+            pip install -r src/launch/requirements-dev.txt
+          elif [ -f requirements-dev.txt ]; then
+            pip install -r requirements-dev.txt
+          fi
+          # Install the project so imports work correctly for linting
+          pip install -e .
+      - name: Run Black (format check)
+        run: black --check .
+      - name: Run isort (import check)
+        run: isort --check-only .
+      - name: Run Flake8
+        run: flake8 .
+      - name: Run Pylint
+        run: pylint src/agents/ src/core/ src/interface/ src/integration/ || true
+        continue-on-error: true
+  type-check-python:
+    name: Type Check Python
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          # Install dev requirements if present
+          if [ -f src/launch/requirements-dev.txt ]; then
+            pip install -r src/launch/requirements-dev.txt
+          elif [ -f requirements-dev.txt ]; then
+            pip install -r requirements-dev.txt
+          fi
+          # Install the project so type checking works correctly
+          pip install -e .
+      - name: Run MyPy
+        run: mypy src/ || true
+        continue-on-error: true
+  security-python:
+    name: Security Scan Python
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install bandit safety
+      - name: Run Bandit
+        run: bandit -r . -c pyproject.toml
+        continue-on-error: true
+      - name: Run Safety
+        run: safety check
+        continue-on-error: true
+  test-python:
+    name: Test Python
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.10']
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: 'pip'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          # Install project requirements if present
+          if [ -f src/launch/requirements.txt ]; then
+            pip install -r src/launch/requirements.txt
+          elif [ -f requirements.txt ]; then
+            pip install -r requirements.txt
+          fi
+          # Ensure tests & coverage tools are available
+          pip install pytest pytest-cov
+          # Install the project so top-level packages are importable
+          pip install -e .
+      - name: Run tests
+        run: |
+          if [ -d "tests" ]; then
+            pytest tests/ -v --cov=. --cov-report=xml
+          else
+            echo "No tests directory found, skipping"
+          fi
+      - name: Upload coverage
+        if: matrix.python-version == env.PYTHON_VERSION
+        uses: codecov/codecov-action@v3
+        with:
+          file: ./coverage.xml
+          fail_ci_if_error: false
+  # ============================================
+  # NODE.JS QUALITY CHECKS
+  # ============================================
+  lint-typescript:
+    name: Lint TypeScript/JavaScript
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: 'src/Artemis Agentic Memory Layer/package-lock.json'
+      - name: Install dependencies
+        working-directory: 'src/Artemis Agentic Memory Layer'
+        run: npm ci
+      - name: Run lint
+        working-directory: 'src/Artemis Agentic Memory Layer'
+        run: npm run lint || true
+        continue-on-error: true
+  build-typescript:
+    name: Build TypeScript
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: 'src/Artemis Agentic Memory Layer/package-lock.json'
+      - name: Install dependencies
+        working-directory: 'src/Artemis Agentic Memory Layer'
+        run: npm ci
+      - name: Build
+        working-directory: 'src/Artemis Agentic Memory Layer'
+        run: npm run build
+  # ============================================
+  # SECRET SCANNING
+  # ============================================
+  secret-scan:
+    name: Scan for Secrets
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Run Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  # ============================================
+  # DOCUMENTATION
+  # ============================================
+  docs:
+    name: Build Documentation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install mkdocs mkdocs-material
+      - name: Build docs
+        run: mkdocs build || echo "MkDocs not configured, skipping"
+        continue-on-error: true
+  # ============================================
+  # INTEGRATION CHECK
+  # ============================================
+  integration:
+    name: Integration Check
+    runs-on: ubuntu-latest
+    needs: [lint-python, test-python, lint-typescript, build-typescript]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: 'src/Artemis Agentic Memory Layer/package-lock.json'
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          # Install project requirements if present
+          if [ -f src/launch/requirements.txt ]; then
+            pip install -r src/launch/requirements.txt
+          elif [ -f requirements.txt ]; then
+            pip install -r requirements.txt
+          fi
+          # Install the project so top-level packages are importable
+          pip install -e .
+      - name: Install Node dependencies
+        working-directory: 'src/Artemis Agentic Memory Layer'
+        run: npm ci
+      - name: Build Node project
+        working-directory: 'src/Artemis Agentic Memory Layer'
+        run: npm run build
+      - name: Test Python imports
+        run: |
+          python -c "from agents.atp import ATPParser; print('ATP OK')"
+          python -c "from integration import MemoryClient; print('Memory OK')"
+          python -c "from agents.artemis import ArtemisPersona; print('Artemis OK')"
+      - name: CLI smoke test
+        run: python interface/codex_cli.py "help" || true

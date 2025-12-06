@@ -1,0 +1,15 @@
+export declare function searchReplace(path: string, search: string, replace: string): Promise<{
+    success: boolean;
+    data: {
+        path: string;
+        content: string;
+    };
+    message: string;
+    error?: undefined;
+} | {
+    success: boolean;
+    error: any;
+    data?: undefined;
+    message?: undefined;
+}>;
+//# sourceMappingURL=obsidianSearchReplaceTool.d.ts.map

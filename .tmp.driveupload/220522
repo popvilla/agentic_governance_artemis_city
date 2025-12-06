@@ -1,0 +1,14 @@
+
+export const SUPPORTED_LANGUAGES = [
+  { value: 'javascript', label: 'JavaScript', extensions: ['js', 'mjs', 'cjs'] },
+  { value: 'typescript', label: 'TypeScript', extensions: ['ts', 'tsx'] },
+  { value: 'python', label: 'Python', extensions: ['py'] },
+  { value: 'java', label: 'Java', extensions: ['java'] },
+  { value: 'csharp', label: 'C#', extensions: ['cs'] },
+  { value: 'go', label: 'Go', extensions: ['go'] },
+  { value: 'rust', label: 'Rust', extensions: ['rs'] },
+  { value: 'html', label: 'HTML', extensions: ['html', 'htm'] },
+  { value: 'css', label: 'CSS', extensions: ['css'] },
+  { value: 'sql', label: 'SQL', extensions: ['sql'] },
+  { value: 'shell', label: 'Shell', extensions: ['sh', 'bash', 'zsh'] },
+];

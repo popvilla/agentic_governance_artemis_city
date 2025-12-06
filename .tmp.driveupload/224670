@@ -1,0 +1,91 @@
+{
+  "hash": "a0fb4ff8",
+  "configHash": "c8804a49",
+  "lockfileHash": "e5d148bb",
+  "browserHash": "ee2fff35",
+  "optimized": {
+    "react": {
+      "src": "../../react/index.js",
+      "file": "react.js",
+      "fileHash": "4c63c7fd",
+      "needsInterop": true
+    },
+    "react-dom": {
+      "src": "../../react-dom/index.js",
+      "file": "react-dom.js",
+      "fileHash": "b06562d7",
+      "needsInterop": true
+    },
+    "react/jsx-dev-runtime": {
+      "src": "../../react/jsx-dev-runtime.js",
+      "file": "react_jsx-dev-runtime.js",
+      "fileHash": "09d5996a",
+      "needsInterop": true
+    },
+    "react/jsx-runtime": {
+      "src": "../../react/jsx-runtime.js",
+      "file": "react_jsx-runtime.js",
+      "fileHash": "94b78122",
+      "needsInterop": true
+    },
+    "@google/genai": {
+      "src": "../../@google/genai/dist/web/index.mjs",
+      "file": "@google_genai.js",
+      "fileHash": "56bbd683",
+      "needsInterop": false
+    },
+    "file-saver": {
+      "src": "../../file-saver/dist/FileSaver.min.js",
+      "file": "file-saver.js",
+      "fileHash": "0149e434",
+      "needsInterop": true
+    },
+    "highlight.js": {
+      "src": "../../highlight.js/es/index.js",
+      "file": "highlight__js.js",
+      "fileHash": "3e46b4ee",
+      "needsInterop": false
+    },
+    "jszip": {
+      "src": "../../jszip/dist/jszip.min.js",
+      "file": "jszip.js",
+      "fileHash": "99271e97",
+      "needsInterop": true
+    },
+    "lucide-react": {
+      "src": "../../lucide-react/dist/esm/lucide-react.js",
+      "file": "lucide-react.js",
+      "fileHash": "d6b7047a",
+      "needsInterop": false
+    },
+    "marked": {
+      "src": "../../marked/lib/marked.esm.js",
+      "file": "marked.js",
+      "fileHash": "2e2a0878",
+      "needsInterop": false
+    },
+    "react-dom/client": {
+      "src": "../../react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "9cbb6a31",
+      "needsInterop": true
+    },
+    "uuid": {
+      "src": "../../uuid/dist/index.js",
+      "file": "uuid.js",
+      "fileHash": "1b719f7b",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-GXIZKR52": {
+      "file": "chunk-GXIZKR52.js"
+    },
+    "chunk-DVZKGG2T": {
+      "file": "chunk-DVZKGG2T.js"
+    },
+    "chunk-2TUXWMP5": {
+      "file": "chunk-2TUXWMP5.js"
+    }
+  }
+}

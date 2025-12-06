@@ -1,0 +1,97 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.mcpRouter = void 0;
+const express_1 = require("express");
+const auth_1 = require("./middleware/auth");
+const obsidianReadNoteTool_1 = require("./tools/obsidianReadNoteTool");
+const obsidianUpdateNoteTool_1 = require("./tools/obsidianUpdateNoteTool");
+const obsidianGlobalSearchTool_1 = require("./tools/obsidianGlobalSearchTool");
+const obsidianListNotesTool_1 = require("./tools/obsidianListNotesTool");
+const obsidianDeleteNoteTool_1 = require("./tools/obsidianDeleteNoteTool");
+const obsidianManageFrontmatterTool_1 = require("./tools/obsidianManageFrontmatterTool");
+const obsidianManageTagsTool_1 = require("./tools/obsidianManageTagsTool");
+const obsidianSearchReplaceTool_1 = require("./tools/obsidianSearchReplaceTool");
+const logger_1 = require("../utils/logger");
+const mcpRouter = (0, express_1.Router)();
+exports.mcpRouter = mcpRouter;
+// All MCP routes require authentication
+mcpRouter.use(auth_1.authenticateMCP);
+// Define MCP endpoints
+mcpRouter.post('/getContext', async (req, res) => {
+    const { path } = req.body;
+    if (!path) {
+        return res.status(400).json({ success: false, error: 'Missing note path.' });
+    }
+    logger_1.logger.debug(`Received getContext request for path: ${path}`);
+    const result = await (0, obsidianReadNoteTool_1.getContext)(path);
+    res.status(result.success ? 200 : 500).json(result);
+});
+mcpRouter.post('/appendContext', async (req, res) => {
+    const { path, content } = req.body;
+    if (!path || content === undefined) {
+        return res.status(400).json({ success: false, error: 'Missing note path or content.' });
+    }
+    logger_1.logger.debug(`Received appendContext request for path: ${path}`);
+    const result = await (0, obsidianUpdateNoteTool_1.appendContext)(path, content);
+    res.status(result.success ? 200 : 500).json(result);
+});
+mcpRouter.post('/updateNote', async (req, res) => {
+    const { path, content } = req.body;
+    if (!path || content === undefined) {
+        return res.status(400).json({ success: false, error: 'Missing note path or content.' });
+    }
+    logger_1.logger.debug(`Received updateNote request for path: ${path}`);
+    const result = await (0, obsidianUpdateNoteTool_1.updateNote)(path, content);
+    res.status(result.success ? 200 : 500).json(result);
+});
+mcpRouter.post('/searchNotes', async (req, res) => {
+    const { query } = req.body;
+    if (!query) {
+        return res.status(400).json({ success: false, error: 'Missing search query.' });
+    }
+    logger_1.logger.debug(`Received searchNotes request for query: ${query}`);
+    const result = await (0, obsidianGlobalSearchTool_1.searchNotes)(query);
+    res.status(result.success ? 200 : 500).json(result);
+});
+mcpRouter.post('/listNotes', async (req, res) => {
+    logger_1.logger.debug('Received listNotes request.');
+    const result = await (0, obsidianListNotesTool_1.listNotes)();
+    res.status(result.success ? 200 : 500).json(result);
+});
+mcpRouter.post('/deleteNote', async (req, res) => {
+    const { path } = req.body;
+    if (!path) {
+        return res.status(400).json({ success: false, error: 'Missing note path.' });
+    }
+    logger_1.logger.debug(`Received deleteNote request for path: ${path}`);
+    const result = await (0, obsidianDeleteNoteTool_1.deleteNote)(path);
+    res.status(result.success ? 200 : 500).json(result);
+});
+mcpRouter.post('/manageFrontmatter', async (req, res) => {
+    const { path, key, value } = req.body;
+    if (!path || !key || value === undefined) {
+        return res.status(400).json({ success: false, error: 'Missing note path, frontmatter key, or value.' });
+    }
+    logger_1.logger.debug(`Received manageFrontmatter request for path: ${path}, key: ${key}`);
+    const result = await (0, obsidianManageFrontmatterTool_1.manageFrontmatter)(path, key, value);
+    res.status(result.success ? 200 : 500).json(result);
+});
+mcpRouter.post('/manageTags', async (req, res) => {
+    const { path, tags, action } = req.body;
+    if (!path || !Array.isArray(tags) || !['add', 'remove'].includes(action)) {
+        return res.status(400).json({ success: false, error: 'Missing note path, tags (array), or invalid action (add/remove).' });
+    }
+    logger_1.logger.debug(`Received manageTags request for path: ${path}, action: ${action}, tags: ${tags.join(', ')}`);
+    const result = await (0, obsidianManageTagsTool_1.manageTags)(path, tags, action);
+    res.status(result.success ? 200 : 500).json(result);
+});
+mcpRouter.post('/searchReplace', async (req, res) => {
+    const { path, search, replace } = req.body;
+    if (!path || !search || replace === undefined) {
+        return res.status(400).json({ success: false, error: 'Missing note path, search string, or replace string.' });
+    }
+    logger_1.logger.debug(`Received searchReplace request for path: ${path}, search: ${search}`);
+    const result = await (0, obsidianSearchReplaceTool_1.searchReplace)(path, search, replace);
+    res.status(result.success ? 200 : 500).json(result);
+});
+//# sourceMappingURL=index.js.map

@@ -1,0 +1,171 @@
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { getCodeCompletion } from '../services/geminiService';
+import hljs from 'highlight.js';
+
+interface CodeEditorProps {
+  content: string;
+  onChange: (newContent: string) => void;
+  snippetToInsert: { id: string, code: string } | null;
+  onSnippetInserted: () => void;
+  language: string;
+}
+
+function useDebounce(callback: (...args: any[]) => void, delay: number) {
+  const timeoutRef = useRef<number | null>(null);
+  const debouncedCallback = useCallback((...args: any[]) => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    timeoutRef.current = window.setTimeout(() => callback(...args), delay);
+  }, [callback, delay]);
+  useEffect(() => () => { if (timeoutRef.current) clearTimeout(timeoutRef.current); }, []);
+  return debouncedCallback;
+}
+
+const CodeEditor: React.FC<CodeEditorProps> = ({ content, onChange, snippetToInsert, onSnippetInserted, language }) => {
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const preRef = useRef<HTMLPreElement>(null);
+  const codeRef = useRef<HTMLElement>(null);
+  const [isSuggesting, setIsSuggesting] = useState(false);
+  const preSuggestionContent = useRef<string>(content);
+  const suggestionTriggerPos = useRef<number>(0);
+
+  useEffect(() => {
+    if (codeRef.current) {
+      codeRef.current.textContent = content;
+      if (hljs.getLanguage(language)) {
+        codeRef.current.className = `language-${language}`;
+        hljs.highlightElement(codeRef.current);
+      } else {
+        codeRef.current.className = '';
+      }
+    }
+  }, [content, language]);
+
+  const handleScroll = () => {
+    if (textareaRef.current && preRef.current) {
+      preRef.current.scrollTop = textareaRef.current.scrollTop;
+      preRef.current.scrollLeft = textareaRef.current.scrollLeft;
+    }
+  };
+
+  useEffect(() => {
+    if (snippetToInsert && textareaRef.current) {
+      const ta = textareaRef.current;
+      const start = ta.selectionStart;
+      const end = ta.selectionEnd;
+      const newContent = ta.value.substring(0, start) + snippetToInsert.code + ta.value.substring(end);
+      onChange(newContent);
+      const newCursorPos = start + snippetToInsert.code.length;
+      setTimeout(() => {
+        if (textareaRef.current) {
+          textareaRef.current.focus();
+          textareaRef.current.setSelectionRange(newCursorPos, newCursorPos);
+        }
+      }, 0);
+      onSnippetInserted();
+    }
+  }, [snippetToInsert, onChange, onSnippetInserted]);
+
+  const fetchSuggestion = useCallback(async () => {
+    if (!textareaRef.current || isSuggesting) return;
+    const { value, selectionStart, selectionEnd } = textareaRef.current;
+    if (selectionStart !== selectionEnd) return;
+    const currentLine = value.substring(0, selectionStart).split('\n').pop();
+    if (!currentLine?.trim()) return;
+
+    preSuggestionContent.current = value;
+    suggestionTriggerPos.current = selectionStart;
+
+    const codeBeforeCursor = value.substring(0, selectionStart);
+    const codeAfterCursor = value.substring(selectionStart);
+
+    try {
+      const suggestion = await getCodeCompletion(codeBeforeCursor, codeAfterCursor);
+      if (suggestion?.trim().length > 0 && textareaRef.current && textareaRef.current.selectionStart === suggestionTriggerPos.current) {
+        onChange(codeBeforeCursor + suggestion + codeAfterCursor);
+        setIsSuggesting(true);
+      }
+    } catch (error) {
+      console.error("Code completion error:", error);
+    }
+  }, [onChange, isSuggesting]);
+
+  const debouncedFetchSuggestion = useDebounce(fetchSuggestion, 1000);
+
+  useEffect(() => {
+    if (isSuggesting && textareaRef.current) {
+      const suggestionLength = textareaRef.current.value.length - preSuggestionContent.current.length;
+      if (suggestionLength > 0) {
+        const selectionStart = suggestionTriggerPos.current;
+        const selectionEnd = selectionStart + suggestionLength;
+        textareaRef.current.setSelectionRange(selectionStart, selectionEnd);
+      } else {
+        setIsSuggesting(false);
+      }
+    }
+  }, [content, isSuggesting]);
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (isSuggesting) {
+      if (e.key === 'Tab') {
+        e.preventDefault();
+        if (textareaRef.current) {
+          const endOfSelection = textareaRef.current.selectionEnd;
+          textareaRef.current.setSelectionRange(endOfSelection, endOfSelection);
+        }
+        setIsSuggesting(false);
+      } else if (e.key === 'Escape') {
+        e.preventDefault();
+        onChange(preSuggestionContent.current);
+        setIsSuggesting(false);
+      }
+    } else if (e.key === 'Tab') {
+      e.preventDefault();
+      const ta = e.currentTarget;
+      const start = ta.selectionStart;
+      const end = ta.selectionEnd;
+      const newContent = ta.value.substring(0, start) + '  ' + ta.value.substring(end);
+      onChange(newContent);
+      const newCursorPos = start + 2;
+      setTimeout(() => {
+        if (textareaRef.current) {
+          textareaRef.current.setSelectionRange(newCursorPos, newCursorPos);
+        }
+      }, 0);
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    if (isSuggesting) setIsSuggesting(false);
+    onChange(e.target.value);
+    debouncedFetchSuggestion();
+  };
+  
+  useEffect(() => {
+    setIsSuggesting(false);
+  }, [content]);
+
+  return (
+    <div className="relative h-full w-full bg-white dark:bg-slate-900 font-mono text-sm leading-6">
+      <textarea
+        ref={textareaRef}
+        value={content}
+        onChange={handleChange}
+        onKeyDown={handleKeyDown}
+        onScroll={handleScroll}
+        className="absolute inset-0 w-full h-full p-4 resize-none bg-transparent text-transparent caret-slate-800 dark:caret-slate-200 focus:outline-none whitespace-pre-wrap break-words"
+        spellCheck="false"
+      />
+      <pre
+        ref={preRef}
+        aria-hidden="true"
+        className="absolute inset-0 w-full h-full p-4 pointer-events-none overflow-auto whitespace-pre-wrap break-words"
+      >
+        <code ref={codeRef} className={`language-${language}`}>
+          {content}
+        </code>
+      </pre>
+    </div>
+  );
+};
+
+export default CodeEditor;

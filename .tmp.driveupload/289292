@@ -1,0 +1,16 @@
+__pycache__/pdbpp.cpython-314.pyc,,
+_pdbpp_path_hack/__pycache__/pdb.cpython-314.pyc,,
+_pdbpp_path_hack/pdb.py,sha256=flXdtHqJvT1siZgoyCQt9yASMIsVa57wC3IPOzzo5YI,693
+pdbpp-0.11.7.dist-info/INSTALLER,sha256=zuuue4knoyJ-UwPPXg8fezS7VCrXJQrAP7zeNuwvFQg,4
+pdbpp-0.11.7.dist-info/METADATA,sha256=A-_0PdPEAc4F_66MxxwJhf4WLDFk0c77sdp4YxC4gEE,16208
+pdbpp-0.11.7.dist-info/RECORD,,
+pdbpp-0.11.7.dist-info/REQUESTED,sha256=47DEQpj8HBSa-_TImW-5JCeuQeRkm5NMpJWZG3hSuFU,0
+pdbpp-0.11.7.dist-info/WHEEL,sha256=_zCd3N1l69ArxyTb8rzEoP9TpbYXkqRFSNOD5OuxnTs,91
+pdbpp-0.11.7.dist-info/licenses/LICENSE.txt,sha256=BhfFkBtFAkxYtujbJP-xCEpnmGGGg6I_0IlKW9bOQio,1512
+pdbpp-0.11.7.dist-info/top_level.txt,sha256=DnW7j2k-I7gma89UqJh4azUzIcxcY2yOY5cbsJRnAx0,35
+pdbpp.py,sha256=fy0-MU9MrH-62oPGVi6-b5nzNZeDsXFNF9mMiigN4hc,77644
+pdbpp_hijack_pdb.pth,sha256=FFN-1G_g38YiPI5vlTAgWoveUXe7RlkR574hmwe0MrA,737
+pdbpp_utils/__init__.py,sha256=Zj4I008kn9R6fYr0lVBzcQSnvckLpX2s1ljCOOqV1c8,87
+pdbpp_utils/__pycache__/__init__.cpython-314.pyc,,
+pdbpp_utils/__pycache__/_version.cpython-314.pyc,,
+pdbpp_utils/_version.py,sha256=2ku8JxhHCPcRUz-WlcyuGX1CME73ntl3unXosfNGFPE,513

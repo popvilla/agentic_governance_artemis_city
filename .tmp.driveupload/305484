@@ -1,0 +1,13 @@
+export declare function getContext(path: string): Promise<{
+    success: boolean;
+    data: {
+        path: string;
+        content: string;
+    };
+    error?: undefined;
+} | {
+    success: boolean;
+    error: any;
+    data?: undefined;
+}>;
+//# sourceMappingURL=obsidianReadNoteTool.d.ts.map

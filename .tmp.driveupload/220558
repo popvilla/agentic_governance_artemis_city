@@ -1,0 +1,326 @@
+
+
+import { GoogleGenAI, Type } from "@google/genai";
+import { ReviewResult, Citation } from '../types';
+
+const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+
+type AppFile = Record<string, string>;
+
+export async function generateAppFromPrompt(prompt: string): Promise<AppFile> {
+  if (!process.env.API_KEY) {
+    throw new Error("API_KEY environment variable not set");
+  }
+
+  const systemInstruction = `
+    You are an expert web developer. Your task is to generate a complete, runnable project structure for a web application based on the user's prompt.
+
+    The output must be a JSON array of objects, where each object represents a file and has "path" and "content" properties.
+    - The "path" is the relative file path (e.g., "index.html", "src/style.css").
+    - The "content" is the string content of the file.
+    - The project should be self-contained. For example, for a React app, generate a simple \`index.html\` that loads the script from a CDN.
+    - Create a simple, clean, and functional application. Include an \`index.html\` file at the root.
+  `;
+
+  try {
+    const response = await ai.models.generateContent({
+      model: 'gemini-2.5-flash',
+      contents: `User prompt: "${prompt}"`,
+      config: {
+        systemInstruction: systemInstruction,
+        responseMimeType: "application/json",
+        responseSchema: {
+          type: Type.ARRAY,
+          items: {
+            type: Type.OBJECT,
+            properties: {
+              path: { type: Type.STRING },
+              content: { type: Type.STRING },
+            },
+            required: ["path", "content"],
+          },
+        },
+      },
+    });
+
+    let responseText = response.text.trim();
+    if (responseText.startsWith('```json')) {
+      responseText = responseText.substring(7);
+    } else if (responseText.startsWith('```')) {
+        responseText = responseText.substring(3);
+    }
+    if (responseText.endsWith('```')) {
+      responseText = responseText.slice(0, -3);
+    }
+
+    const jsonResponse = JSON.parse(responseText);
+
+    if (!Array.isArray(jsonResponse)) {
+      throw new Error("API returned an invalid structure. Expected an array of files.");
+    }
+
+    const files: AppFile = {};
+    for (const item of jsonResponse) {
+      if (item && typeof item.path === 'string' && typeof item.content === 'string') {
+        files[item.path] = item.content;
+      }
+    }
+
+    if (Object.keys(files).length === 0) {
+        throw new Error("No valid files were generated.");
+    }
+
+    return files;
+  } catch (error) {
+    console.error("Error calling Gemini API for app generation:", error);
+    if (error instanceof Error && error.message.includes('JSON')) {
+      throw new Error("Failed to get a valid JSON app bundle from the API. The AI's response was not valid JSON.");
+    }
+    throw error;
+  }
+}
+
+export async function getChatResponse(
+  conversation: { role: 'user' | 'model', parts: { text: string }[] }[],
+  contextUrls: string[]
+): Promise<string> {
+  if (!process.env.API_KEY) {
+    throw new Error("API_KEY environment variable not set");
+  }
+
+  const latestUserMessage = conversation[conversation.length - 1].parts[0].text;
+
+  const urlContext = contextUrls.length > 0
+    ? `\n\nCRITICALLY IMPORTANT: Base your answer on the following URLs. Do not use your general knowledge unless the URLs do not provide the answer.\n\nReference URLs:\n${contextUrls.map(u => `- ${u}`).join('\n')}`
+    : '';
+
+  const prompt = `${latestUserMessage}${urlContext}`;
+
+  try {
+    const chat = ai.chats.create({
+        model: 'gemini-2.5-flash',
+        history: conversation.slice(0, -1),
+    });
+    const response = await chat.sendMessage({ message: prompt });
+    return response.text;
+  } catch (error) {
+    console.error("Error calling Gemini API for chat:", error);
+    throw new Error("Failed to get chat response from Gemini API.");
+  }
+}
+
+export async function getReviewFeedback(files: Record<string, string>, activeFilePath: string | null): Promise<ReviewResult> {
+  if (!process.env.API_KEY) {
+    throw new Error("API_KEY environment variable not set");
+  }
+
+  // Sanitize files to prevent circular structure errors during stringify if state is corrupted
+  const sanitizedFiles: Record<string, string> = {};
+  for (const [key, value] of Object.entries(files)) {
+      if (typeof value === 'string') {
+          sanitizedFiles[key] = value;
+      } else {
+          sanitizedFiles[key] = `[Invalid Content: ${typeof value}]`;
+      }
+  }
+
+  const projectContext = JSON.stringify(sanitizedFiles, null, 2);
+
+  const fileContext = activeFilePath
+    ? `The user is currently viewing the file \`${activeFilePath}\`. Please focus your review on this file, but use the full project context to inform your feedback about dependencies, overall architecture, and potential integration issues.`
+    : `The user has provided a custom code snippet for review. Use the full project context to inform your feedback.`;
+
+  const reviewPrompt = `
+    You are an expert code reviewer and senior software engineer assisting a web developer in their IDE. Your task is to provide a detailed, constructive review of their code.
+    Use Google Search to find the most up-to-date best practices, security vulnerabilities, and official documentation for libraries being used.
+
+    **Project Context:**
+    The entire project structure and file contents are provided below as a JSON object.
+    \`\`\`json
+    ${projectContext}
+    \`\`\`
+
+    **Review Task:**
+    ${fileContext}
+
+    **Output Format:**
+    Your response MUST be structured using the following special delimiter blocks. Do NOT output a single JSON object.
+
+    1.  **[--TEXT-START--]**: Start of the main feedback.
+        Provide your review here in Markdown format. Explain your findings clearly. Focus on quality, performance, security, best practices, and potential bugs.
+        **[--TEXT-END--]**
+
+    2.  **[--CODE-START--]**: Start of the corrected code.
+        If you have improvements for the file in focus (\`${activeFilePath || 'the provided snippet'}\`), provide the full corrected code for that file as a single raw string. If there are no code corrections, leave this block empty.
+        **[--CODE-END--]**
+
+    3.  **[--CITATIONS-START--]**: Start of the citations.
+        Provide a valid JSON array of objects with "uri" and "title" keys. These are relevant URLs (e.g., documentation, blog posts) that support your feedback, including results from your web search. If there are no citations, provide an empty array \`[]\`.
+        **[--CITATIONS-END--]**
+
+    Example Response:
+    [--TEXT-START--]
+    ## Code Review
+    Your code looks good overall, but here are a few suggestions...
+    [--TEXT-END--]
+    [--CODE-START--]
+    const a = 'corrected code';
+    console.log(a);
+    [--CODE-END--]
+    [--CITATIONS-START--]
+    [
+      {"uri": "https://example.com", "title": "Example Documentation"}
+    ]
+    [--CITATIONS-END--]
+
+    CRITICAL: Adhere strictly to this multi-part format. Do not add any text outside of these blocks.
+  `;
+  
+  let responseText = '';
+  try {
+    const response = await ai.models.generateContent({
+      model: 'gemini-2.5-flash',
+      contents: reviewPrompt,
+      config: {
+        tools: [{googleSearch: {}}],
+      },
+    });
+
+    responseText = response.text.trim();
+    
+    const textResult = responseText.match(/\[--TEXT-START--\]([\s\S]*?)\[--TEXT-END--\]/);
+    const codeResult = responseText.match(/\[--CODE-START--\]([\s\S]*?)\[--CODE-END--\]/);
+    const citationsResult = responseText.match(/\[--CITATIONS-START--\]([\s\S]*?)\[--CITATIONS-END--\]/);
+
+    if (!textResult) {
+        throw new Error("AI response was not in the expected multi-part format (missing TEXT block).");
+    }
+
+    const feedbackText = textResult ? textResult[1].trim() : "AI response was not in the expected format.";
+    const correctedCodeText = codeResult ? codeResult[1].trim() : null;
+    const citationsJson = citationsResult ? citationsResult[1].trim() : '[]';
+
+    let modelCitations: Citation[] = [];
+    try {
+        const parsedCitations = JSON.parse(citationsJson);
+        if (Array.isArray(parsedCitations)) {
+            modelCitations = parsedCitations.filter(c => typeof c.uri === 'string' && typeof c.title === 'string');
+        }
+    } catch (e) {
+        console.error("Failed to parse citations JSON from model:", e, citationsJson);
+    }
+    
+    const jsonResponse: ReviewResult = {
+        text: feedbackText,
+        correctedCode: (correctedCodeText && correctedCodeText.length > 0) ? correctedCodeText : null,
+        citations: modelCitations,
+    };
+    
+    // Process grounding metadata from Google Search
+    const searchCitations: Citation[] = [];
+    const groundingChunks = response.candidates?.[0]?.groundingMetadata?.groundingChunks;
+    if (groundingChunks) {
+      for (const chunk of groundingChunks) {
+        if (chunk.web) {
+          searchCitations.push({
+            uri: chunk.web.uri,
+            title: chunk.web.title || 'Web Search Result',
+          });
+        }
+      }
+    }
+    
+    // Combine citations from model and from search grounding, removing duplicates
+    const combinedCitations = [...jsonResponse.citations, ...searchCitations];
+    const uniqueCitations = Array.from(new Map(combinedCitations.map(c => [c.uri, c])).values());
+    jsonResponse.citations = uniqueCitations;
+
+    return jsonResponse;
+  } catch (error) {
+    console.error("Error calling Gemini API for code review:", error);
+    let fallbackText = `Failed to get structured feedback from the AI. This is likely due to an invalid JSON response format from the model.`;
+    if (error instanceof Error) {
+      fallbackText += `\n\n**Error details:** \`${error.message}\``;
+    }
+    if (responseText) {
+        fallbackText += `\n\n---\n\n**Raw AI Response:**\n\`\`\`\n${responseText}\n\`\`\``;
+    }
+
+    return {
+      text: fallbackText,
+      correctedCode: null,
+      citations: [],
+    };
+  }
+}
+
+export async function getCodeCompletion(codeBeforeCursor: string, codeAfterCursor: string): Promise<string> {
+  if (!process.env.API_KEY) {
+    throw new Error("API_KEY environment variable not set");
+  }
+
+  const prompt = `You are an expert code completion AI. Given the code before the user's cursor and the code after, provide a code completion suggestion. Only return the code to be inserted. Do not add any explanations or formatting like markdown backticks.
+
+Code before cursor:
+\`\`\`
+${codeBeforeCursor}
+\`\`\`
+
+Code after cursor:
+\`\`\`
+${codeAfterCursor}
+\`\`\`
+
+Completion:`;
+  
+  try {
+    const response = await ai.models.generateContent({
+      model: 'gemini-2.5-flash',
+      contents: prompt,
+    });
+    return response.text.trim();
+  } catch (error) {
+    console.error("Error calling Gemini API for code completion:", error);
+    return ""; // Return empty string on error
+  }
+}
+
+export async function formatCode(code: string, language: string): Promise<string> {
+  if (!process.env.API_KEY) {
+    throw new Error("API_KEY environment variable not set");
+  }
+
+  const systemInstruction = `
+    You are an expert code formatter. Your task is to reformat the provided code snippet to adhere to the most common and widely accepted style guide for its language.
+    - The output MUST be only the raw, formatted code.
+    - Do NOT include any markdown fences (like \`\`\`), explanations, or any text whatsoever besides the code itself.
+  `;
+
+  const userContent = `
+    Language: ${language}
+    Code to format:
+    \`\`\`${language}
+    ${code}
+    \`\`\`
+  `;
+
+  try {
+    const response = await ai.models.generateContent({
+      model: 'gemini-2.5-flash',
+      contents: userContent,
+      config: {
+        systemInstruction: systemInstruction,
+      },
+    });
+    // The model might still wrap it in markdown, so we defensively clean it.
+    let formattedCode = response.text.trim();
+    const langRegex = new RegExp(`^\`\`\`(${language})?`, 'i');
+    if (formattedCode.startsWith('```')) {
+        formattedCode = formattedCode.replace(langRegex, '').replace(/```$/, '').trim();
+    }
+    return formattedCode;
+  } catch (error) {
+    console.error("Error calling Gemini API for code formatting:", error);
+    throw new Error("Failed to format code using Gemini API.");
+  }
+}

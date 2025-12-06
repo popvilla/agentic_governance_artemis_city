@@ -1,0 +1,19 @@
+export declare function appendContext(path: string, content: string): Promise<{
+    success: boolean;
+    message: string;
+    error?: undefined;
+} | {
+    success: boolean;
+    error: any;
+    message?: undefined;
+}>;
+export declare function updateNote(path: string, content: string): Promise<{
+    success: boolean;
+    message: string;
+    error?: undefined;
+} | {
+    success: boolean;
+    error: any;
+    message?: undefined;
+}>;
+//# sourceMappingURL=obsidianUpdateNoteTool.d.ts.map

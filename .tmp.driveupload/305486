@@ -1,0 +1,18 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.deleteNote = deleteNote;
+const methods_1 = require("../../services/obsidianRestAPI/methods");
+const logger_1 = require("../../utils/logger");
+async function deleteNote(path) {
+    try {
+        logger_1.logger.debug(`Attempting to delete note: ${path}`);
+        await (0, methods_1.deleteNote)(path);
+        logger_1.logger.info(`Successfully deleted note: ${path}`);
+        return { success: true, message: `Note '${path}' deleted successfully.` };
+    }
+    catch (error) {
+        logger_1.logger.error(`Error deleting note '${path}': ${error.message}`);
+        return { success: false, error: error.message };
+    }
+}
+//# sourceMappingURL=obsidianDeleteNoteTool.js.map

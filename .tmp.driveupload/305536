@@ -1,0 +1,4 @@
+import { AxiosInstance } from 'axios';
+declare const obsidianAPI: AxiosInstance;
+export { obsidianAPI };
+//# sourceMappingURL=index.d.ts.map

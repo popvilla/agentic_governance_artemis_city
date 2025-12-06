@@ -1,0 +1,18 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.manageTags = manageTags;
+const methods_1 = require("../../services/obsidianRestAPI/methods");
+const logger_1 = require("../../utils/logger");
+async function manageTags(path, tags, action) {
+    try {
+        logger_1.logger.debug(`Managing tags for note: ${path}, action: ${action}, tags: ${tags.join(', ')}`);
+        await (0, methods_1.manageTags)(path, tags, action);
+        logger_1.logger.info(`Successfully ${action}ed tags for note '${path}': ${tags.join(', ')}.`);
+        return { success: true, message: `Tags for '${path}' ${action}ed successfully.` };
+    }
+    catch (error) {
+        logger_1.logger.error(`Error managing tags for note '${path}': ${error.message}`);
+        return { success: false, error: error.message };
+    }
+}
+//# sourceMappingURL=obsidianManageTagsTool.js.map

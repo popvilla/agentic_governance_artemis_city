@@ -1,0 +1,25 @@
+{
+  "hash": "c209d339",
+  "configHash": "26d35b78",
+  "lockfileHash": "496bbfaf",
+  "browserHash": "b07c983c",
+  "optimized": {
+    "@google/genai": {
+      "src": "../../@google/genai/dist/web/index.mjs",
+      "file": "@google_genai.js",
+      "fileHash": "caae6333",
+      "needsInterop": false
+    },
+    "@tailwindcss/browser": {
+      "src": "../../@tailwindcss/browser/dist/index.global.js",
+      "file": "@tailwindcss_browser.js",
+      "fileHash": "46ab1b63",
+      "needsInterop": true
+    }
+  },
+  "chunks": {
+    "chunk-Y3YMTSHA": {
+      "file": "chunk-Y3YMTSHA.js"
+    }
+  }
+}

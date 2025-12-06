@@ -453,23 +453,6 @@ Artemis Agentic Memory Layer/.env.*
 !WARP.md
 !*.md
 WARP.md
-core/instructions/instruction_cache.py
-agents/atp/__init__.py
-core/instructions/__init__.py
-agents/atp/__init__.py
-core/instructions/instruction_cache.py
-Dockerfile
 retro-os
 the_oracle
-obsidianconfig.json
-NotionMCPconfig.json
-src/_Index_of_src.md
-src/agents/_Index_of_agents.md
-src/agents/codex/_Index_of_codex.md
-src/Artemis Agentic Memory Layer/_Index_of_Artemis Agentic Memory Layer.md
-src/sandbox_city/_Index_of_sandbox_city.md
-tests/_Index_of_tests.md
-src/_Index_of_src.md
-src/agents/_Index_of_agents.md
-src/agents/codex/_Index_of_codex.md
-artemis-city-blog
+

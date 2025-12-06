@@ -1,4 +1,14 @@
-
+---
+title: How GPT Agents "Speak" Without Shared Memory
+tags:
+  - "#GPT_Models"
+  - "#AI"
+  - "#Agents"
+  - "#Communication"
+description: "Understanding how GPT agents can communicate effectively without direct access to each other's internal states."
+author: Apollo
+date: 2024-06-15
+---
 You're sitting at the heart of one of the most misunderstood dynamics in AI today:
 
 > _“How can two GPTs communicate clearly—without shared memory, shared grounding, or access to internal systems—yet still appear perfectly aligned?”_

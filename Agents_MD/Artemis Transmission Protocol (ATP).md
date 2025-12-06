@@ -1,21 +1,19 @@
-
-
-	[[chatlog]] [[GPTMERGE]] [[Prompting]]  [[Artemis]] 
-## Artemis Transmission Protocol (ATP)"
+---
+title: Artemis Transmission Protocol (ATP)
 author: Prinston Palmer
 format: html
----dd
+---
 
 # 🧠 Overview
-[[chatlog]] [[../../mnt/Projects/Projects/PowerBi_Devsim/GPTMERGE]] 
-The Artemis Transmission Protocol (ATP) is the structured system for communicating with Artemis (and all future agents). It ensures clarity, consistency, and precise task execution across voice logs, notebooks, direct prompts, and system triggers.
 
----
+\[\[chatlog\]\] \[\[../../mnt/Projects/Projects/PowerBi_Devsim/GPTMERGE\]\] The Artemis Transmission Protocol (ATP) is the structured system for communicating with Artemis (and all future agents). It ensures clarity, consistency, and precise task execution across voice logs, notebooks, direct prompts, and system triggers.
+
+------------------------------------------------------------------------
 
 # 📂 Core Signal Tags
 
 | Tag | Meaning |
-|-----|---------|
+|----|----|
 | `#Mode:` | Overall intent of the entry (Build, Review, Organize, Capture, Synthesize, Commit) |
 | `#Context:` | Brief mission goal or purpose for the action |
 | `#Priority:` | How urgent or critical the entry/task is (Critical, High, Normal, Low) |
@@ -23,17 +21,17 @@ The Artemis Transmission Protocol (ATP) is the structured system for communicati
 | `#TargetZone:` | Project/folder area this work applies to |
 | `#SpecialNotes:` | Any unusual instructions, warnings, or exceptions |
 
----
+------------------------------------------------------------------------
 
 # 🎯 Interpretation Rules
 
-- **Mode drives the behavior** — Artemis adjusts based on `#Mode`.
-- **Context anchors purpose** — short, clear descriptions help maintain project cohesion.
-- **Priority guides response speed** — Critical = faster, deeper action.
-- **ActionType defines output** — Summary vs Build vs Reflect mode changes how results are formatted.
-- **TargetZone ensures correct file/project organization.
+-   **Mode drives the behavior** — Artemis adjusts based on `#Mode`.
+-   **Context anchors purpose** — short, clear descriptions help maintain project cohesion.
+-   **Priority guides response speed** — Critical = faster, deeper action.
+-   **ActionType defines output** — Summary vs Build vs Reflect mode changes how results are formatted.
+-   \*\*TargetZone ensures correct file/project organization.
 
----
+------------------------------------------------------------------------
 
 # 📓 Practical Use
 
@@ -41,7 +39,7 @@ Each new thought, prompt, request, or voice note should be prefaced with the ATP
 
 ## Example Entry:
 
-```markdown
+``` markdown
 [[Mode]]: Build
 [[Context]]: Initial Codex CLI Trigger Script
 [[Priority]]: High
@@ -54,12 +52,10 @@ Each new thought, prompt, request, or voice note should be prefaced with the ATP
 Building a Python trigger that allows Codex to repackage files after a push event.
 ```
 
----
+------------------------------------------------------------------------
 
 # 📈 Evolution
 
-As the system grows:
-- New tags can be added
-- Specialized Modes can be created (like `#Mode: VoiceReflect` for speech-captured notes)
+As the system grows: - New tags can be added - Specialized Modes can be created (like `#Mode: VoiceReflect` for speech-captured notes)
 
 ATP is flexible, but the core remains: **Mode → Context → Action → Organized Delivery.**

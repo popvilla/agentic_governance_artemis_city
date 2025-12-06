@@ -1,3 +1,5 @@
+"This module provides a command-line interface for interacting with the Agentic Codex."
+
 import argparse
 import os
 import re
@@ -6,7 +8,7 @@ import yaml
 
 
 def normalize_agent_router_config(cfg):
-    """Normalize the agent router configuration (lowercase keywords, ensure structure)."""
+    """Normalize the agent router configuration."""
     cfg = cfg or {}
     agents = cfg.get('agents', {})
     if not isinstance(agents, dict):
@@ -33,19 +35,7 @@ def validate_agent_router_config(cfg):
 
 
 def load_agent_router_config(config_path):
-    """Loads agent routing configurations from a specified YAML file.
-
-    This function reads a YAML file that defines the routing logic for different
-    agents based on command keywords. It's designed to fail gracefully by
-    returning an empty dictionary if the file doesn't exist or is malformed.
-
-    Args:
-        config_path (str): The full path to the agent router YAML config file.
-
-    Returns:
-        dict: A dictionary containing the agent router configuration. Returns an
-              empty dictionary if the configuration file cannot be found.
-    """
+    """Load agent routing configurations from a specified YAML file."""
     if not os.path.exists(config_path):
         print(f"[Error] Agent router config not found at {config_path}")
         return {'agents': {}}
@@ -65,18 +55,7 @@ def matches_command(command_lower, keywords):
 
 
 def handle_command(command, agent_router):
-    """Routes a command to the appropriate agent based on predefined keywords.
-
-    This function simulates routing by matching keywords in the command string
-    against the patterns defined in the agent router configuration. If a keyword
-    match is found, it prints the details of the agent that would handle the
-    command. If no agent matches, it defaults to a general system response.
-
-    Args:
-        command (str): The user-provided command string to be processed.
-        agent_router (dict): The configuration dictionary that maps agents to
-                             keywords and roles.
-    """
+    """Route a command to the appropriate agent based on predefined keywords."""
     print(f"[CLI] Received command: '{command}'")
     command_lower = command.lower()
     for agent_name, config in agent_router.get('agents', {}).items():
@@ -87,18 +66,13 @@ def handle_command(command, agent_router):
             print(f"  - Expected action: {config.get('action_description', 'processing...')}")
             return
     print(
-        "[Router] No specific agent found for this command. Defaulting to general system processing."
+        "[Router] No specific agent found for this command. "
+        "Defaulting to general system processing."
     )
 
 
 def main():
-    """Initializes and runs the Agentic Codex Command-Line Interface (CLI).
-
-    This function serves as the main entry point for the application. It sets
-    up an argument parser to handle commands passed at startup and enters an
-    interactive loop to accept commands from the user. It loads the agent
-    router configuration to correctly handle command routing.
-    """
+    """Initialize and run the Agentic Codex Command-Line Interface (CLI)."""
     parser = argparse.ArgumentParser(description="Agentic Codex CLI Interface")
     parser.add_argument(
         "command",

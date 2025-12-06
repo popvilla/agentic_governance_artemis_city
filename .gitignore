@@ -151,6 +151,8 @@ Pipfile.lock
 #   This is especially recommended for binary packages to ensure reproducibility, and is more
 #   commonly ignored for libraries.
 #uv.lock
+uv.lock
+
 # poetry
 poetry.lock
 # pdm
@@ -273,6 +275,8 @@ temp/
 *.temp
 __temp__/
 .cache/
+
+
 # Output directories
 outputs/
 _output/
@@ -451,8 +455,16 @@ Artemis Agentic Memory Layer/.env.*
 # Keep README and documentation
 !README.md
 !WARP.md
-!*.md
 WARP.md
 retro-os
 the_oracle
 
+core/instructions/instruction_cache.py
+agents/atp/__init__.py
+core/instructions/__init__.py
+agents/atp/__init__.py
+core/instructions/instruction_cache.py
+
+# Allow tracked Python sources under src/core (override core dump ignore rule)
+!src/core/
+!src/core/**

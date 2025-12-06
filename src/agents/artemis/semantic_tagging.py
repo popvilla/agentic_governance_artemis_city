@@ -31,6 +31,7 @@ class SemanticTag:
         self.references.add(reference)
 
     def __str__(self) -> str:
+        """Return a string representation of the semantic tag."""
         return f"#{self.tag} ({self.category}) [{len(self.references)} refs]"
 
 

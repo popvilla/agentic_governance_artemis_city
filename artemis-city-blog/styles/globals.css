@@ -1,0 +1,247 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  html,
+  body {
+    padding: 0;
+    margin: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+      Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    @apply antialiased;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  :root {
+    --surface-bg: #ffffff;
+    --surface-border: rgba(15, 23, 42, 0.05);
+    --surface-shadow: 0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04);
+    --surface-blur: 0px;
+    --surface-strong: #0f172a;
+    --surface-muted: #334155;
+  }
+
+  body.theme-default {
+    background: radial-gradient(circle at 15% 20%, rgba(14, 165, 233, 0.08), transparent 25%),
+      radial-gradient(circle at 80% 10%, rgba(251, 191, 36, 0.08), transparent 20%),
+      #f8fafc;
+  }
+
+  body.theme-glass {
+    --surface-bg: rgba(255, 255, 255, 0.06);
+    --surface-border: rgba(255, 255, 255, 0.18);
+    --surface-shadow: 0 25px 80px -30px rgba(56, 189, 248, 0.6);
+    --surface-blur: 18px;
+    --surface-strong: #e2e8f0;
+    --surface-muted: #cbd5e1;
+    background: radial-gradient(circle at 15% 20%, rgba(56, 189, 248, 0.16), transparent 28%),
+      radial-gradient(circle at 80% 0%, rgba(217, 70, 239, 0.18), transparent 24%),
+      #0b1224;
+    color: #e2e8f0;
+  }
+
+  body.theme-glass .text-secondary-900,
+  body.theme-glass .text-gray-900 {
+    color: #e2e8f0;
+  }
+
+  body.theme-glass .text-secondary-800,
+  body.theme-glass .text-secondary-700,
+  body.theme-glass .text-secondary-600,
+  body.theme-glass .text-gray-600 {
+    color: #cbd5e1;
+  }
+
+  body.theme-glass .text-secondary-500,
+  body.theme-glass .text-secondary-400,
+  body.theme-glass .text-gray-500 {
+    color: #94a3b8;
+  }
+
+  body.theme-glass .bg-white,
+  body.theme-glass .bg-secondary-50,
+  body.theme-glass .bg-secondary-100,
+  body.theme-glass .bg-primary-50 {
+    background-color: var(--surface-bg);
+    border-color: var(--surface-border);
+  }
+}
+
+@layer components {
+  /* Custom scrollbar for better UX */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-secondary-100;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-secondary-400 rounded-lg;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-secondary-500;
+  }
+
+  /* Smooth animations */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out;
+  }
+
+  /* Glass morphism effect */
+  .glass {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .themed-surface {
+    background: var(--surface-bg);
+    border: 1px solid var(--surface-border);
+    box-shadow: var(--surface-shadow);
+    backdrop-filter: blur(var(--surface-blur));
+    -webkit-backdrop-filter: blur(var(--surface-blur));
+  }
+
+  .gradient-surface {
+    background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+    border: 1px solid rgba(14, 165, 233, 0.08);
+    box-shadow: var(--surface-shadow);
+    backdrop-filter: blur(var(--surface-blur));
+    -webkit-backdrop-filter: blur(var(--surface-blur));
+  }
+
+  body.theme-glass .gradient-surface {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(168, 85, 247, 0.18));
+    border-color: rgba(255, 255, 255, 0.24);
+  }
+
+  .accent-bar {
+    background: linear-gradient(120deg, #0ea5e9, #38bdf8);
+  }
+
+  body.theme-glass .accent-bar {
+    background: linear-gradient(120deg, #22d3ee, #a855f7);
+    box-shadow: 0 8px 26px -18px rgba(168, 85, 247, 0.7);
+  }
+
+  /* Modern button styles */
+  .btn-primary {
+    @apply px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-500 text-white font-semibold rounded-lg hover:from-primary-700 hover:to-primary-600 transition-all duration-300 shadow-md hover:shadow-lg;
+  }
+
+  .btn-secondary {
+    @apply px-6 py-3 bg-secondary-100 text-secondary-700 font-semibold rounded-lg hover:bg-secondary-200 transition-all duration-300;
+  }
+
+  body.theme-glass .btn-primary {
+    background: linear-gradient(120deg, #22d3ee, #a855f7);
+    box-shadow: 0 10px 45px -15px rgba(34, 211, 238, 0.65);
+    border: 1px solid rgba(34, 211, 238, 0.35);
+  }
+
+  body.theme-glass .btn-secondary {
+    background: rgba(255, 255, 255, 0.08);
+    color: #e2e8f0;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    box-shadow: 0 12px 35px -18px rgba(255, 255, 255, 0.45);
+  }
+
+  /* Modern card styles */
+  .card {
+    @apply bg-white rounded-2xl shadow-soft p-6 hover:shadow-xl transition-all duration-300;
+  }
+
+  body.theme-glass .card,
+  body.theme-glass .shadow-soft {
+    box-shadow: 0 25px 80px -35px rgba(56, 189, 248, 0.65);
+  }
+
+  body.theme-glass .text-gradient {
+    background-image: linear-gradient(135deg, #5eead4, #60a5fa, #a855f7);
+  }
+
+  body.theme-glass .border-secondary-200 {
+    border-color: rgba(148, 163, 184, 0.35);
+  }
+
+  body.theme-glass .border-secondary-700 {
+    border-color: rgba(148, 163, 184, 0.35);
+  }
+
+  body.theme-glass .prose {
+    color: #e2e8f0;
+  }
+
+  body.theme-glass .prose h1,
+  body.theme-glass .prose h2,
+  body.theme-glass .prose h3,
+  body.theme-glass .prose h4 {
+    color: #f8fafc;
+  }
+
+  body.theme-glass .prose p,
+  body.theme-glass .prose li {
+    color: #cbd5e1;
+  }
+
+  body.theme-glass .prose a {
+    color: #67e8f9;
+  }
+
+  body.theme-glass .prose code {
+    background: rgba(255, 255, 255, 0.08);
+    color: #f8fafc;
+  }
+}
+
+@layer utilities {
+  /* Text gradient utilities */
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary-600 to-primary-400 bg-clip-text text-transparent;
+  }
+
+  .text-gradient-accent {
+    @apply bg-gradient-to-r from-accent-500 to-accent-300 bg-clip-text text-transparent;
+  }
+}

@@ -558,3 +558,4 @@ core/instructions/instruction_cache.py
 # Allow tracked Python sources under src/core (override core dump ignore rule)
 !src/core/
 !src/core/**
+/renv

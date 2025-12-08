@@ -1,7 +1,6 @@
 ---
-editor_options: 
-  markdown: 
-    wrap: 250
+title: "claude.md"
+date: "2025-12-06"
 ---
 
 # CLAUDE.md

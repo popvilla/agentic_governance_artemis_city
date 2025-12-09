@@ -142,5 +142,3 @@ Codex Prompt Journal Template | Pending — can integrate into Prompt_Playbook.q
 AI-integrated Git log timeline (qmd) | Not yet built
 Visual Git Branch Map (ASCII or .md) | Mentioned, not requested
 Agent reflection templates per run | Possible add-on to AgentZero/logs/ or notebooks/
-
-

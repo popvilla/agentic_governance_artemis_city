@@ -1,14 +1,17 @@
 {
   "name": "obsidian-mcp-server",
   "version": "1.0.0",
+  "type": "module",
   "description": "Model Context Protocol (MCP) server for Obsidian vaults.",
   "main": "dist/index.js",
   "scripts": {
     "start": "node dist/src/index.js",
     "build": "tsc",
-    "dev": "nodemon --exec ts-node src/src/index.ts",
-    "lint": "eslint . --ext .ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon --exec ts-node src/index.ts",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky"
   },
   "keywords": [
     "mcp",
@@ -27,14 +30,22 @@
     "express": "^5.2.1"
   },
   "devDependencies": {
+    "@eslint/js": "^9.18.0",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.6",
     "@types/node": "^24.10.1",
-    "@typescript-eslint/eslint-plugin": "^8.48.1",
-    "@typescript-eslint/parser": "^8.48.1",
     "eslint": "^9.39.1",
+    "globals": "^16.0.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.2.10",
     "nodemon": "^3.1.11",
+    "prettier": "^3.4.2",
     "ts-node": "^10.9.2",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.20.0"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": "eslint --fix",
+    "*.{json,yml,yaml}": "prettier --write"
   }
 }

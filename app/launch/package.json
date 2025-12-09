@@ -1,5 +1,5 @@
 {
-  "name":  "artemis-city",
+  "name": "artemis-city",
   "version": "0.1.0",
   "description": "An architectural framework for agentic reasoning and transparent action.",
   "main": "main.py",
@@ -13,7 +13,6 @@
     "pre-commit:uninstall": "pre-commit uninstall",
     "pre-commit:autoupdate": "pre-commit autoupdate",
     "test": "echo \"Error: no test specified\" && exit 1"
-
   },
   "keywords": [
     "agents",

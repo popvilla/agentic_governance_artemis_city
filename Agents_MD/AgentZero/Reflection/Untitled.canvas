@@ -1,0 +1,19 @@
+{
+	"nodes":[
+		{"id":"f44282dddf7c56e3","x":127,"y":301,"width":1330,"height":440,"type":"group","label":"Untitled group"},
+		{"id":"3c3d34f2e5510946","type":"file","file":"UNFILED/Arbitrage_Detection.mkd","x":147,"y":-124,"width":400,"height":400},
+		{"id":"702f1d330cfb63a8","type":"file","file":"chg","x":592,"y":-124,"width":400,"height":400},
+		{"id":"f0aea3afae96c41d","type":"file","file":"A_GIT_PROJECTS/control","x":1037,"y":-124,"width":400,"height":400},
+		{"id":"75f3ca756798c3cd","type":"file","file":"UNFILED/Fortknox_Da_Comp.mkd","x":1482,"y":-124,"width":400,"height":400},
+		{"id":"29b038beb6d36202","type":"file","file":"gis_FVBF62.mdml","x":1927,"y":-124,"width":400,"height":400},
+		{"id":"70909680539d54db","type":"file","file":"gis_N2WK62.mdml","x":2372,"y":-124,"width":400,"height":400},
+		{"id":"b0a41597619e2302","type":"file","file":"Language_Syntax_Sync_Summary.qmd","x":2817,"y":-124,"width":400,"height":400},
+		{"id":"be8e2c4f2cd09b44","type":"file","file":"part1_unfolding.qmd","x":3262,"y":-124,"width":400,"height":400},
+		{"id":"ee734a5d6a58a997","type":"file","file":"part2_layers.qmd","x":3707,"y":-124,"width":400,"height":400},
+		{"id":"3bab9bb05d18823f","type":"file","file":"part3_shifts.qmd","x":4152,"y":-124,"width":400,"height":400},
+		{"id":"a19e62e73dc056d7","type":"file","file":"part4_visualization.qmd","x":147,"y":321,"width":400,"height":400},
+		{"id":"dde76fefa5c6d2d9","type":"file","file":"UNFILED/quantum_harmony.qmd","x":592,"y":321,"width":400,"height":400},
+		{"id":"343cceb026b3a469","type":"file","file":"quantum_harmony.rmd","x":1037,"y":321,"width":400,"height":400}
+	],
+	"edges":[]
+}

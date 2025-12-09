@@ -52,7 +52,7 @@ class TestReflectionEngine:
         """Test adding concept nodes to graph."""
         from agents.artemis import ConceptGraph, ConceptNode
 
-        graph = ConceptGraph()
+        _ = ConceptGraph()  # Verify graph can be created
         node = ConceptNode(concept="Test Concept", frequency=1)
         # Test that graph can accept nodes
         assert node is not None

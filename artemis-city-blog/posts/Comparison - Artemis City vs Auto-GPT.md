@@ -516,9 +516,9 @@ Both are valuable. Choose based on your use case:
 
 ## Questions?
 
-**Discord:** [discord.gg/artemis-city](http://discord.gg/artemis-city)
+**Discord:** [discord.gg/T2Huqg4c](https://discord.gg/T2Huqg4c)
 
-**GitHub:** [github.com/popvilla/Artemis-City](http://github.com/popvilla/Artemis-City)
+**GitHub:** [github.com/popvilla/Artemis-City](https://github.com/popvilla/Artemis-City)
 
 ---
 

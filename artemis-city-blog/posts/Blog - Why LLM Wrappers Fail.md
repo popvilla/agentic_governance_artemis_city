@@ -378,10 +378,10 @@ Build a kernel. Let agents be compute resources, not decision-makers.
 
 ## Learn More
 
-- [**GitHub**](https://github.com/popvilla/Artemis-City) — Open-source kernel + router
+- [**GitHub**](https://github.com/popvilla/Artemis-City) — Production-ready kernel + router
 - [**Whitepaper**](533) — Full architecture details
 - [**5-Minute Quick Start**](534) — Get running in under 5 minutes
-- [**Discord**](https://discord.gg/artemis-city) — Join the community
+- [**Discord**](https://discord.gg/T2Huqg4c) — Join the community
 
 ---
 

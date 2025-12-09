@@ -1,9 +1,8 @@
-import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTheme } from './ThemeProvider';
 
-export default function Layout({ children, pageTitle, description }) {
+export default function Layout({ children }) {
   const router = useRouter();
   const { isGlass, toggleTheme } = useTheme();
 
@@ -27,10 +26,6 @@ export default function Layout({ children, pageTitle, description }) {
 
   return (
     <div className={containerClass}>
-      <Head>
-        <title>{pageTitle ? `${pageTitle} | Artemis City Blog` : 'Artemis City Blog'}</title>
-        {description && <meta name="description" content={description} />}
-      </Head>
 
       {isGlass && (
         <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
@@ -142,7 +137,7 @@ export default function Layout({ children, pageTitle, description }) {
             </div>
           </div>
           <div className="border-t border-secondary-700 pt-8 text-center text-sm text-secondary-400">
-            &copy; {new Date().getFullYear()} Artemis City. Open Source, MIT Licensed.
+            &copy; {new Date().getFullYear()} Artemis City. All rights reserved.
           </div>
         </div>
       </footer>

@@ -246,9 +246,9 @@ Follow prompts to enter your Supabase URL and API key.
 
 ## 🤝 Join the Community
 
-**Discord:** [discord.gg/artemis-city](http://discord.gg/artemis-city)
+**Discord:** [discord.gg/T2Huqg4c](https://discord.gg/T2Huqg4c)
 
-**GitHub Discussions:** [github.com/popvilla/Artemis-City/discussions](http://github.com/popvilla/Artemis-City/discussions)
+**GitHub Discussions:** [github.com/popvilla/Artemis-City/discussions](https://github.com/popvilla/Artemis-City/discussions)
 
 ------------------------------------------------------------------------
 

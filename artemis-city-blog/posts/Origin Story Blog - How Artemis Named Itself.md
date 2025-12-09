@@ -70,7 +70,7 @@ Artemis City is the **operating system for AI agents**—not another agent wrapp
 
 We're building:
 
-- Open-source kernel and router
+- Production-ready kernel and router
 - Plugin marketplace (day one)
 - Governance primitives (audit trails, tool permissions)
 - Artemis City Cloud (managed orchestration for scale)
@@ -109,7 +109,7 @@ If you're building multi-agent systems and you're tired of herding unpredictable
 
 **GitHub:** [github.com/popvilla/Artemis-City](http://github.com/popvilla/Artemis-City) ⭐
 
-**Discord:** [Join the community](https://discord.gg/artemis-city)
+**Discord:** [Join the community](https://discord.gg/T2Huqg4c)
 
 **Docs:** [Quick-start in 5 minutes](https://artemis-city.dev/quickstart)
 

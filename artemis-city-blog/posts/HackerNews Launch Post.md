@@ -283,9 +283,7 @@ For now, you can run multiple kernels with shared memory (Supabase).
 A:
 
 ```
-MIT for the kernel + router (open-source core).
-
-We'll add commercial governance features later (SSO, RBAC dashboard, compliance exports) but the core will always be open.
+Artemis City is proprietary software. We're building commercial governance features and a robust enterprise-ready platform.
 ```
 
 **Q: "How do I contribute?"**

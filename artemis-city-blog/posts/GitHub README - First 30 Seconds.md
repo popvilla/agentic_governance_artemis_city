@@ -18,8 +18,7 @@ description: "Crafting a README that immediately differentiates Artemis City fro
 > Not another LLM wrapper—a governance layer that makes agents production-ready.
 
 [![GitHub Stars]([<https://img.shields.io/github/stars/popvilla/Artemis-City?style=social>)](<https://github.com/popvilla/Artemis-City>)](<https://img.shields.io/github/stars/popvilla/Artemis-City?style=social>)](<https://github.com/popvilla/Artemis-City>))
-[![Discord]([<https://img.shields.io/discord/XXXXX?color=7289da&label=Discord&logo=discord>)](<https://discord.gg/artemis-city>)](<https://img.shields.io/discord/XXXXX?color=7289da&label=Discord&logo=discord>)](<https://discord.gg/artemis-city>))
-[![License]([<https://img.shields.io/badge/license-MIT-blue.svg>)](LICENSE)](<https://img.shields.io/badge/license-MIT-blue.svg>)](LICENSE))
+[![Discord]([<https://img.shields.io/discord/XXXXX?color=7289da&label=Discord&logo=discord>)](<https://discord.gg/T2Huqg4c>)](<https://img.shields.io/discord/XXXXX?color=7289da&label=Discord&logo=discord>)](<https://discord.gg/T2Huqg4c>))
 
 ---
 
@@ -198,7 +197,7 @@ Built for reliability, not demos. State management, error handling, observabilit
 
 ## 🤝 Community
 
-**Discord:** [Join the community](<https://discord.gg/artemis-city>)
+**Discord:** [Join the community](<https://discord.gg/T2Huqg4c>)
 **GitHub Discussions:** [Ask questions, share projects](<https://github.com/popvilla/Artemis-City/discussions>)
 **Twitter/X:** [@artemis_city](<https://twitter.com/artemis_city>)
 
@@ -233,12 +232,6 @@ The name came from an AI-human collaboration. When asked what to call an agentic
 That moment crystallized our philosophy: **AI and humans collaborate, but humans govern.**
 
 [Read the full origin story →](<https://artemis-city.dev/blog/origin-story>)
-
----
-
-## 📄 License
-
-MIT License — Open-source kernel, commercial governance layer.
 
 ---
 

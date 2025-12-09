@@ -34,7 +34,7 @@ Artemis City logo (single emoji or custom)
 
 ### Invite Link
 
-Custom vanity URL: [`discord.gg/artemis-city`](http://discord.gg/artemis-city)
+Custom vanity URL: [`discord.gg/T2Huqg4c`](https://discord.gg/T2Huqg4c)
 
 ------------------------------------------------------------------------
 

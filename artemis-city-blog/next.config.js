@@ -1,6 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  // Allow cross-origin requests from local network devices
+  allowedDevOrigins: ['192.168.0.201'],
   // Add any other Next.js specific configurations here
   // For example, image optimization domains, redirects etc.
 }

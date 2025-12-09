@@ -115,7 +115,7 @@ That moment crystallized the philosophy: AI and humans collaborate, but humans g
 **Tweet 6:**
 
 ```
-Open-source kernel + router launching Monday.
+Production-ready kernel + router launching Monday.
 
 If you're tired of herding unpredictable LLMs, join us:
 
@@ -150,7 +150,7 @@ So I built Artemis City—a kernel-driven operating system for multi-agent orche
 
 Think of it as Unix for AI agents: processes provide compute, the kernel provides governance.
 
-We're launching the open-source kernel + router on Monday.
+We're launching the production-ready kernel + router on Monday.
 
 If you're building production AI systems and tired of unpredictable frameworks, I'd love to hear your thoughts.
 

@@ -12,7 +12,6 @@ Welcome to the official blog for the Artemis City project! This application is b
 -   [Customizing MDX Components](#customizing-mdx-components)
 -   [Project Structure](#project-structure)
 -   [Contributing](#contributing)
--   [License](#license)
 
 ## Features {#features}
 

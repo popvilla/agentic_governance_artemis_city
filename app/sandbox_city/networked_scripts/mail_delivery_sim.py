@@ -1,11 +1,34 @@
-"""This module simulates a secure mail delivery process within Sandbox City."""
+"""Secure mail delivery simulation for Sandbox City.
+
+This module provides a simulation of the Pack Rat postal system,
+demonstrating secure message transfer between agents within the
+Artemis City sandbox environment. It includes realistic timing
+delays and occasional transfer failures to simulate real-world
+conditions.
+
+The simulation is used for testing and demonstrating the postal
+system before integration with the actual memory layer.
+"""
 
 import random
 import time
 
 
 def simulate_mail_delivery(sender, recipient, message):
-    """Simulate a secure mail delivery process within Sandbox City."""
+    """Simulate a secure mail delivery process within Sandbox City.
+
+    Demonstrates the Pack Rat secure transfer protocol with realistic
+    timing and a small failure rate to test error handling.
+
+    Args:
+        sender: Name of the sending agent or user.
+        recipient: Name of the receiving agent or user.
+        message: Content of the message being delivered.
+
+    Returns:
+        bool: True if delivery was successful, False if transfer failed
+            due to data integrity issues or unreachable recipient.
+    """
     print("\n--- Mail Delivery Simulation ---")
     print(f"Sender: {sender}, Recipient: {recipient}")
     print(f"Message: '{message}'")

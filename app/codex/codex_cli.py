@@ -1,9 +1,33 @@
+"""Artemis City Kernel Command-Line Interface.
+
+This module provides the CLI entry point for the Artemis City Codex
+kernel. It supports both single-command execution and interactive
+mode for ongoing conversations with the kernel system.
+
+The CLI initializes the kernel, processes commands, and executes
+plan files when specified. In interactive mode, users can issue
+commands and receive responses until they choose to exit.
+"""
+
 import argparse
 import sys
 from codex.kernel import Kernel
 
+
 def main():
-    """Artemis-City Kernel CLI Entry Point"""
+    """Artemis City Kernel CLI entry point.
+
+    Parses command-line arguments, initializes the kernel, and either
+    executes a single command/plan or enters interactive mode for
+    ongoing command processing.
+
+    Command-line Arguments:
+        command: Optional command string to execute (single-shot mode).
+        --plan: Path to a plan file to execute.
+
+    Returns:
+        None. Exits with status code 1 if kernel boot fails.
+    """
     parser = argparse.ArgumentParser(description="Artemis-City Kernel CLI")
     parser.add_argument("command", nargs="?", help="The command string to execute")
     parser.add_argument("--plan", help="Path to a plan file to execute")

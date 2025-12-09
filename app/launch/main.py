@@ -1,4 +1,16 @@
-"""This module provides a command-line interface for interacting with the Agentic Codex."""
+"""Artemis City CLI with ATP (Artemis Transmission Protocol) support.
+
+This module provides the main command-line interface for the Artemis City
+system. It integrates ATP message parsing for structured communication,
+agent routing, instruction loading, and the Artemis persona system.
+
+The CLI supports both single-command and interactive modes, parsing ATP
+headers from user input to provide structured context for agent routing
+and response generation.
+
+Example ATP-formatted command:
+    #Mode: Build #Context: CLI enhancement #ActionType: Execute
+"""
 
 import argparse
 import os
@@ -15,7 +27,15 @@ from agents.atp import ATPParser
 
 
 def load_agent_router_config(config_path):
-    """Load agent routing configurations from a specified YAML file."""
+    """Load agent routing configurations from a specified YAML file.
+
+    Args:
+        config_path: Path to the YAML configuration file.
+
+    Returns:
+        dict: Parsed configuration dictionary, or empty dict if file
+            not found or parsing fails.
+    """
     if not os.path.exists(config_path):
         print(f"Error: Agent router config not found at {config_path}")
         return {}
@@ -24,7 +44,19 @@ def load_agent_router_config(config_path):
 
 
 def handle_command(command, agent_router, atp_parser, instruction_cache, artemis_persona):
-    """Route a command to the appropriate agent with ATP parsing and instruction loading."""
+    """Route a command to the appropriate agent with ATP parsing and instruction loading.
+
+    Parses ATP headers from the command, loads relevant instructions,
+    and routes to the appropriate agent based on keyword matching.
+    Updates Artemis persona context when routing to the Artemis agent.
+
+    Args:
+        command: The command string to process, optionally with ATP headers.
+        agent_router: Dictionary containing agent routing configuration.
+        atp_parser: ATPParser instance for extracting ATP headers.
+        instruction_cache: InstructionCache for loading agent instructions.
+        artemis_persona: ArtemisPersona instance for context tracking.
+    """
     # Parse ATP message
     atp_message = atp_parser.parse(command)
 
@@ -80,7 +112,18 @@ def handle_command(command, agent_router, atp_parser, instruction_cache, artemis
 
 
 def main():
-    """Initialize and run the Agentic Codex Command-Line Interface (CLI)."""
+    """Initialize and run the Artemis City CLI with ATP support.
+
+    Sets up the ATP parser, instruction cache, Artemis persona, and
+    agent router. Supports single-command execution or interactive
+    mode with ATP header parsing.
+
+    Command-line Arguments:
+        command: Optional single command to execute.
+        --no-atp: Disable ATP parsing for commands.
+        --project-root: Specify the project root directory for
+            instruction loading.
+    """
     parser = argparse.ArgumentParser(description="Agentic Codex CLI Interface with ATP Support")
     parser.add_argument(
         "command",

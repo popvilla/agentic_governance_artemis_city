@@ -11,6 +11,7 @@ commands and receive responses until they choose to exit.
 
 import argparse
 import sys
+
 from codex.kernel import Kernel
 
 

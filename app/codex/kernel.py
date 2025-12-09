@@ -12,10 +12,11 @@ main entry point for processing user requests through its agent network.
 import json
 import os
 from pathlib import Path
+
 from codex.agent_router import AgentRouter
-from codex.memory_bus import MemoryBus
 from codex.agents.codex_agent import CodexAgent
 from codex.agents.planner_agent import PlannerAgent
+from codex.memory_bus import MemoryBus
 
 STATE_FILE = "state_kernel.json"
 

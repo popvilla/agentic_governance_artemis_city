@@ -13,12 +13,12 @@ Requirements:
     - Valid MCP_API_KEY in .env file
 """
 
-import unittest
-import urllib.request
-import urllib.error
 import json
 import os
 import sys
+import unittest
+import urllib.error
+import urllib.request
 
 
 class TestObsidianMCP(unittest.TestCase):

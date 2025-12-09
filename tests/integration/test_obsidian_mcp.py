@@ -15,7 +15,6 @@ Requirements:
 
 import json
 import os
-import sys
 import unittest
 import urllib.error
 import urllib.request
@@ -56,7 +55,8 @@ class TestObsidianMCP(unittest.TestCase):
 
         if not cls.API_KEY:
             print(
-                "Warning: MCP_API_KEY not found in .env, using default/hardcoded if any (or failing)."
+                "Warning: MCP_API_KEY not found in .env, "
+                "using default/hardcoded if any (or failing)."
             )
             # Fail if no key found
             if not cls.API_KEY:

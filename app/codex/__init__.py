@@ -1,3 +1,1 @@
-"""
-Artemis-City Codex Kernel Package
-"""
+"""Artemis-City Codex Kernel Package."""

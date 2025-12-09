@@ -153,13 +153,16 @@ class ATPValidator:
             ATPMode.REFLECT: [ATPActionType.REFLECT, ATPActionType.SUMMARIZE],
         }
 
-        if mode in expected_actions and action not in expected_actions[mode]:
-            if action != ATPActionType.UNKNOWN:
-                result.add_suggestion(
-                    f"Mode '{mode.value}' typically uses "
-                    f"{', '.join(a.value for a in expected_actions[mode])} actions, "
-                    f"but '{action.value}' was specified"
-                )
+        if (
+            mode in expected_actions
+            and action not in expected_actions[mode]
+            and action != ATPActionType.UNKNOWN
+        ):
+            result.add_suggestion(
+                f"Mode '{mode.value}' typically uses "
+                f"{', '.join(a.value for a in expected_actions[mode])} actions, "
+                f"but '{action.value}' was specified"
+            )
 
     def _validate_target_zone(self, target_zone: str, result: ValidationResult) -> None:
         """Validate TargetZone format.

@@ -74,9 +74,9 @@ Codex is an action-layer agent focused on **code execution, logic validation, an
 Once you’ve defined Codex’s `Agent_Card`, link it:
 
 - In `index.md`: `[[Codex_Agent_Card]]`
-    
+
 - In any `.qmd` or `.md` file that uses Codex: add `==executed_by== Codex` at the top
-    
+
 
 This creates traceability across your entire memory vault.
 
@@ -87,11 +87,11 @@ This creates traceability across your entire memory vault.
 Every time Codex is used:
 
 - Capture input (ATP-style prompt)
-    
+
 - Output (scaffolded code)
-    
+
 - Agent reflection (did it work, why or why not)
-    
+
 
 Store in: `codex_logs/2025-05-XX_codex_log_01.qmd`
 
@@ -193,7 +193,7 @@ You’ve laid out the architecture, uploaded logs, set memory zones, structured 
 
 ## 🚦 Phase: Before We Build — What Are We Doing First?
 
-### 🎯 Big Picture: 
+### 🎯 Big Picture:
 We're activating `AgentZero`, your first Codex-based AI development unit inside `MyBrainsHouse/Codex_Experiments`.
 
 But before we write code, run commands, or refactor anything…  
@@ -283,7 +283,7 @@ cat << EOF > README.md
 This Codex-powered agent supports interactive, reflective coding in a sandboxed terminal workspace.
 
 ## 🔍 Purpose
-To scaffold, execute, and reflect on Codex CLI prompts for structured automation workflows, using 
+To scaffold, execute, and reflect on Codex CLI prompts for structured automation workflows, using
 AI-generated code, feedback loops, and agent-aligned behavior.
 
 ## 🚀 First Prompt Example

@@ -293,8 +293,8 @@ __pycache__/
 *_cache/
 cache/
 
-# 🧠 Smart Rule: 
-# Allow temporary notebook output and error logs to be created, 
+# 🧠 Smart Rule:
+# Allow temporary notebook output and error logs to be created,
 # but prevent them from being accidentally pushed.
 ```
 

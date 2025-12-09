@@ -124,23 +124,23 @@ codex run coder "Build a simple REST API"
 routes:
 
 - pattern: "build|create|code"
-    
+
     agent: coder
-    
+
     priority: high
-    
+
 - pattern: "plan|design|architecture"
-    
+
     agent: planner
-    
+
     priority: high
-    
+
 - pattern: "research|find|search"
-    
+
     agent: researcher
-    
+
     priority: medium
-    
+
 
 from artemis_city import Kernel
 

@@ -19,7 +19,7 @@ This document outlines security best practices for Artemis City development and 
    ```bash
    # Root directory
    cp .env.example .env
-   
+
    # Memory Layer
    cd "Artemis Agentic Memory Layer "
    cp .env.example .env
@@ -29,7 +29,7 @@ This document outlines security best practices for Artemis City development and 
    ```bash
    # Generate a random API key
    openssl rand -hex 32
-   
+
    # Or use Python
    python -c "import secrets; print(secrets.token_hex(32))"
    ```
@@ -154,10 +154,10 @@ git push --force
 1. **Use environment variables:**
    ```python
    import os
-   
+
    #  Good
    api_key = os.environ.get('MCP_API_KEY')
-   
+
    #  Bad
    api_key = "abc123"
    ```
@@ -175,7 +175,7 @@ git push --force
    ```python
    #  Good
    logger.info("API key configured")
-   
+
    #  Bad
    logger.info(f"API key: {api_key}")
    ```
@@ -255,7 +255,7 @@ app.use('/api/', limiter);
    ```bash
    # Generate new key
    openssl rand -hex 32
-   
+
    # Update .env
    # Restart services
    ```
@@ -302,4 +302,4 @@ If you discover a security vulnerability:
 
 ---
 
-**Remember**: Security is everyone's responsibility! 
+**Remember**: Security is everyone's responsibility!

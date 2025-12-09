@@ -34,12 +34,12 @@ disable=
     # Import related
     import-error,
     no-name-in-module,
-    
+
     # Documentation
     missing-module-docstring,
     missing-function-docstring,
     missing-class-docstring,
-    
+
     # Too strict
     too-few-public-methods,
     too-many-arguments,
@@ -47,17 +47,17 @@ disable=
     too-many-branches,
     too-many-statements,
     too-many-instance-attributes,
-    
+
     # Formatting (handled by Black)
     line-too-long,
     bad-continuation,
-    
+
     # Style preferences
     invalid-name,
-    
+
     # Fixme comments are OK during development
     fixme,
-    
+
     # Logging
     logging-fstring-interpolation,
 

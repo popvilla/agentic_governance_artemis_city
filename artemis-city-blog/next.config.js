@@ -11,12 +11,12 @@ module.exports = nextConfig
 // Compare this snippet from Q%7C%3EH_Blog/artemis-city-blog/pages/index.js::
 // import Link from 'next/link';
 // import { getSortedPostsData } from '../lib/mdx';
-// 
+//
 // export default function Home({ allPostsData }) {
 //   return (
 //     <div className="max-w-3xl mx-auto">
 //       <h1 className="text-5xl font-extrabold text-center mb-10 text-gray-800">Artemis City Blog</h1>
-// 
+//
 //       <section className="mt-8">
 //         <h2 className="text-3xl font-bold mb-6 text-gray-700">Recent Posts</h2>
 //         <ul className="space-y-8">
@@ -31,11 +31,11 @@ module.exports = nextConfig
 //             </li>
 //           ))}
 //         </ul>
-//       </section> 
+//       </section>
 //     </div>
 //   );
 // }
-// 
+//
 // export async function getStaticProps() {
 //   const allPostsData = getSortedPostsData();
 //   return {

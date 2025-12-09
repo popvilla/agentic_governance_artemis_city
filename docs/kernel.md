@@ -7,25 +7,25 @@ This diagram illustrates the static structure of the Artemis-City system, showin
 graph TD
     User((User)) --> CLI[codex_cli.py]
     Makefile --> CLI
-    
+
     subgraph "Userland Interface"
         CLI
     end
-    
+
     CLI --> Kernel[kernel.py]
-    
+
     subgraph "Core System"
         Kernel --> Router[agent_router.py]
         Kernel --> MemoryBus[memory_bus.py]
         Kernel --> Agents[agents/*.py]
     end
-    
+
     subgraph "Configuration & Data"
         Router --> RouterConfig[agent_router.yaml]
         MemoryBus --> BackendObsidian[backends/obsidian]
         MemoryBus --> BackendSupabase[backends/supabase]
     end
-    
+
     subgraph "External Services"
         Agents --> OpenAI[OpenAI / External LLM API]
     end
@@ -50,7 +50,7 @@ sequenceDiagram
     participant Agent as agents/codex_agent.py
     participant LLM as OpenAI API
     participant MemBus as memory_bus.py
-    
+
     User->>CLI: codex run "..."
     CLI->>CLI: Parse args, create Request
     CLI->>Kernel: kernel.process(request)

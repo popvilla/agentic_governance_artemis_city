@@ -40,7 +40,7 @@ codex init my-agent-system
 
 **This creates:**
 
-```         
+```  
 my-agent-system/
 ├── agent_router.yaml    # Routing configuration
 ├── kernel.json          # Kernel state file
@@ -77,7 +77,7 @@ codex run coder "Create a Python function that calculates Fibonacci numbers"
 
 **Expected output:**
 
-```         
+```  
 🏛️  Artemis City Kernel v1.0.0
 🎯 Routing to agent: coder (confidence: 0.95)
 ⚡ Executing task...
@@ -97,7 +97,7 @@ return n
 
 return fibonacci(n-1) + fibonacci(n-2)
 
-```         
+```  
 
 💾 Saved to memory: memory/tasks/task_[001.md](<http://001.md>)
 ⏱️  Completed in 3.2s
@@ -129,7 +129,7 @@ codex memory list
 
 **Output:**
 
-```         
+```  
 📚 Memory Bus Contents:
 
 1. [2025-12-05 14:23] task_001 - Fibonacci function
@@ -137,7 +137,7 @@ codex memory list
 
 2. [2025-12-05 14:28] task_002 - REST API planning
    Agent: planner | Status: ✅ complete
-   
+
 3. [2025-12-05 14:29] task_003 - Create endpoint implementation
    Agent: coder | Status: ✅ complete
    Links: → task_002
@@ -178,15 +178,15 @@ routes:
   - pattern: "build|create|code|implement"
     agent: coder
     priority: high
-    
+
   - pattern: "plan|design|architect"
     agent: planner
     priority: high
-    
+
   - pattern: "research|find|search|investigate"
     agent: researcher
     priority: medium
-    
+
   - pattern: ".*"  # Catch-all
     agent: planner  # Default to planning
     priority: low

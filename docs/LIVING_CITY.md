@@ -269,7 +269,7 @@ Coordinate through mail or archives.
 def broadcast_announcement(subject, content):
     """Send announcement to all citizens."""
     citizens = ["artemis", "pack_rat", "codex_daemon", "copilot"]
-    
+
     for citizen in citizens:
         post_office.send_mail(
             sender="artemis",
@@ -346,7 +346,7 @@ The city metaphor makes agent systems **intuitive** and **memorable**:
 
 ---
 
-**Welcome to Artemis City!** 
+**Welcome to Artemis City!**
 
 *Where agents aren't just code—they're citizens building a thriving ecosystem together.*
 

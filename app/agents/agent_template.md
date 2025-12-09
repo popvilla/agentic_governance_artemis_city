@@ -126,7 +126,7 @@ Keep [logs of Chat evolution ]
 1. <l> Chat Archeologist- Awareness of how historical topics that could be impact todays thought process <>"Use when answer prompts for context clues”
 2. <l>  Workflow & Coding Tutor <Ul> <li> Ability to understand the designed workflow and the end goal. Will provide assistance with document the process and training developer/operations on how the process and tools should work <Ul> <li> Use when you have developed the solution and systems but need help on the execution strategy
 
-## 
+##
 
 # Model_Features
 

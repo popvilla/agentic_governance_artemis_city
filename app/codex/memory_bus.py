@@ -90,11 +90,7 @@ class FileMemoryBackend(MemoryBackend):
         metadata = metadata or {}
         filename = f"{int(time.time())}_{metadata.get('source', 'unknown')}.json"
         filepath = os.path.join(self.base_path, filename)
-        data = {
-            "content": content,
-            "metadata": metadata,
-            "timestamp": time.time()
-        }
+        data = {"content": content, "metadata": metadata, "timestamp": time.time()}
         try:
             with open(filepath, 'w') as f:
                 json.dump(data, f, indent=2)

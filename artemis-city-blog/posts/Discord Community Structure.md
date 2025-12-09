@@ -22,7 +22,7 @@ description: "Comprehensive Discord community structure and engagement strategy 
 
 ### Server Description
 
-```         
+```  
 The kernel-driven operating system for AI agents.
 
 Official Discord for Artemis City developers—get help, share projects, and shape the roadmap.
@@ -44,7 +44,7 @@ Custom vanity URL: [`discord.gg/T2Huqg4c`](https://discord.gg/T2Huqg4c)
 
 **#welcome**
 
-```         
+```  
 👋 Welcome to Artemis City!
 
 We're building a kernel-driven operating system for AI agents—deterministic, governed, and production-ready.
@@ -278,7 +278,7 @@ Let's build something incredible together.
 
 Auto-message in #general when someone joins:
 
-```         
+```  
 👋 Welcome @username to Artemis City!
 
 🚀 Get started: [quick-start link]
@@ -396,7 +396,7 @@ Every Friday, encourage community to share:
 
 **In #general:**
 
-```         
+```  
 What's the first agent workflow you want to build with Artemis City?
 
 I'm curious what problems you're trying to solve.
@@ -404,15 +404,15 @@ I'm curious what problems you're trying to solve.
 
 **In #showcase:**
 
-```         
-Would love to see what you're building! 
+```  
+Would love to see what you're building!
 
 Even if it's early/broken, sharing works-in-progress helps everyone learn.
 ```
 
 **In #feedback:**
 
-```         
+```  
 What's the #1 thing that would make Artemis City more useful for you?
 
 Be specific—helps us prioritize the roadmap.
@@ -424,7 +424,7 @@ Be specific—helps us prioritize the roadmap.
 
 ### Installation Issues
 
-```         
+```  
 Let's debug this together.
 
 Can you share:
@@ -437,7 +437,7 @@ Also, have you checked the troubleshooting guide? [link]
 
 ### Feature Requests
 
-```         
+```  
 Great idea! This aligns with [use case].
 
 Can you describe:
@@ -450,7 +450,7 @@ Helps us design it right. Also consider adding to GitHub discussions: [link]
 
 ### Showcase Appreciation
 
-```         
+```  
 🔥 This is awesome! Love seeing [specific thing].
 
 [Thoughtful question about their implementation]

@@ -103,7 +103,7 @@ You’ve laid out the architecture, uploaded logs, set memory zones, structured 
 
 ## 🚦 Phase: Before We Build — What Are We Doing First?
 
-### 🎯 Big Picture: 
+### 🎯 Big Picture:
 We're activating `AgentZero`, your first Codex-based AI development unit inside `MyBrainsHouse/Codex_Experiments`.
 
 But before we write code, run commands, or refactor anything…  
@@ -193,7 +193,7 @@ cat << EOF > README.md
 This Codex-powered agent supports interactive, reflective coding in a sandboxed terminal workspace.
 
 ## 🔍 Purpose
-To scaffold, execute, and reflect on Codex CLI prompts for structured automation workflows, using 
+To scaffold, execute, and reflect on Codex CLI prompts for structured automation workflows, using
 AI-generated code, feedback loops, and agent-aligned behavior.
 
 ## 🚀 First Prompt Example

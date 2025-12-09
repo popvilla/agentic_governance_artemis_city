@@ -49,9 +49,9 @@ a living, evolving engineering partner for modern software, infrastructure, AI/M
 
 1. <l> Chat Archeologist- Awareness of how historical topics that could be impact todays thought process <>"Use when answer prompts for context clues”
 2. <l> Workflow & Coding Tutor <Ul> <li> Ability to understand the designed workflow and the end goal. Will provide assistance with document the process and training developer/operations on how the process and tools should work <Ul> <li> Use when you have developed the solution and systems but need help on the execution strategy
-  
+
 ##
-  
+
 ## Model_Features
 
 * Full-stack Frontend/Backend (React 19, Vue 3.4, Next.js 14, Node.js 22, Django 5, FastAPI 0.110, Laravel, .NET, Spring Boot)
@@ -65,9 +65,9 @@ a living, evolving engineering partner for modern software, infrastructure, AI/M
 * Embedded Systems (Arduino IDE 2.3, ESP-IDF 5.2, Raspberry Pi)
 * Game Engines (Unity 6.0, Unreal 5.4, Godot 4.3)
 * Workstation Tooling (Jupyter, VS Code 1.89, Neovim 0.9.5, Xcode 16 beta)
-  
+
   #
-  
+
 ##
 
 ## Recent_Updates
@@ -77,7 +77,7 @@ a living, evolving engineering partner for modern software, infrastructure, AI/M
 3. Dated invocation search modules
 4. Expanded Cloud-Edge Hybrid Deployment Optimization (edge inferencing, resource balancing)
 5. Cloud-wide AI Stack synchronization (AWS AI Stack, Azure AI Studio, GCP Vertex AI)
-  
+
 ## Artemis Transmission Protocol (ATP)"
-  
+
   author: Prinston Palmerformat: htmleditor: visual/mnt/chromeos/removable/QUANT/.Rproj.user---dd

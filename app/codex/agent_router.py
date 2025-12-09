@@ -43,8 +43,8 @@ class AgentRouter:
                 the same directory as this module.
         """
         if config_path is None:
-             # Default to sibling file
-             config_path = os.path.join(os.path.dirname(__file__), "agent_router.yaml")
+            # Default to sibling file
+            config_path = os.path.join(os.path.dirname(__file__), "agent_router.yaml")
         self.config_path = config_path
         self.routes = {}
         self.load_config()
@@ -87,14 +87,14 @@ class AgentRouter:
                     action description
         """
         command_lower = command.lower()
-        
+
         for agent_name, rules in self.routes.items():
             keywords = rules.get("keywords", [])
             # Check for whole word matches
             if any(re.search(rf'\b{re.escape(k)}\b', command_lower) for k in keywords):
-                return {
-                    "agent": agent_name,
-                    "metadata": rules
-                }
-        
-        return {"agent": "codex_daemon", "metadata": {"role": "Default Handler", "action_description": "General processing"}}
+                return {"agent": agent_name, "metadata": rules}
+
+        return {
+            "agent": "codex_daemon",
+            "metadata": {"role": "Default Handler", "action_description": "General processing"},
+        }

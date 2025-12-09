@@ -124,8 +124,8 @@ model: whisper-$MODEL
 
 # Transcript: $BASENAME
 
-**Source File:** \`$(basename "$INPUT_FILE")\`  
-**Transcription Date:** $TIMESTAMP  
+**Source File:** \`$(basename "$INPUT_FILE")\`
+**Transcription Date:** $TIMESTAMP
 **Model:** whisper-$MODEL
 
 ---

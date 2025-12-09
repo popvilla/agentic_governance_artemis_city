@@ -88,17 +88,17 @@ Like Unix: processes provide compute, the kernel provides governance.
 routes:
 
 - pattern: "build|create|code"
-    
+
     agent: coder
-    
+
     priority: high
-    
+
 - pattern: "research|investigate"
-    
+
     agent: researcher
-    
+
     priority: medium
-    
+
 
 codex run "Build a REST API"
 

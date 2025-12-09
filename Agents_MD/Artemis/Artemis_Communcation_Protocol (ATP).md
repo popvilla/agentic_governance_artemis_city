@@ -15,14 +15,14 @@ tags:
   - "#ATP"
   - "#agent-communication"
 ---
-	[[chatlog]] [[GPTMERGE]] [[Prompting]]  [[Artemis]] 
+	[[chatlog]] [[GPTMERGE]] [[Prompting]]  [[Artemis]]
 ## Artemis Transmission Protocol (ATP)"
 author: Prinston Palmer
 format: html
 ---dd
 
 # 🧠 Overview
-[[chatlog]] [[GPTMERGE]] 
+[[chatlog]] [[GPTMERGE]]
 The Artemis Transmission Protocol (ATP) is the structured system for communicating with Artemis (and all future agents). It ensures clarity, consistency, and precise task execution across voice logs, notebooks, direct prompts, and system triggers.
 
 ---

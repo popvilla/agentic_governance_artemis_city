@@ -7,16 +7,16 @@ Artemis_City is presented as a new class of agentic operating system (AOS) desig
 Artemis_City represents a paradigm shift from single-agent loop frameworks to a full-stack operating system for agentic AI. It is positioned as a new category of AI architecture that treats autonomous agents not as stand-alone instances but as orchestrated components of a larger cognitive ecosystem. The system introduces:
 Core Innovations: An AOS kernel that schedules and manages agent processes (with dynamic role assignment and sandboxed execution), a memory bus that unifies file-based knowledge graphs and vector memory for both human-readable and machine-efficient recall, and a Hebbian plasticity module that continuously reorganizes knowledge based on experience.
 
-### Theoretical Foundations: 
+### Theoretical Foundations:
 Artemis_City’s design is inspired by embodied cognition (intelligence arising through interaction of mind, body, and environment), morphological computation (offloading computation to structure and environment[1]), and neuroplasticity principles (Hebbian learning: “neurons that fire together wire together” leading to strengthening of connections[2]). It embodies cognitive morphogenesis, allowing cognitive structures to self-assemble and evolve akin to biological development[3][4].
 
-### Architecture Overview: 
+### Architecture Overview:
 We detail how the Artemis_City Kernel orchestrates agent workflows and inter-agent communication, with an Agent Registry to manage agent lifecycles and sandboxing for safety. A Memory Bus connects agents to a hybrid memory: an Obsidian-based knowledge vault (graph of Markdown files capturing facts/relations)[5] and a Supabase vector store for efficient semantic lookup (leveraging Postgres pgvector for embeddings[6]). The knowledge vault forms a causal graph of experiences and insights, which the system updates via a Hebbian learning engine that strengthens useful associations and gradually prunes or weakens less useful ones (analogous to LTP/LTD from neuroscience[7]). A governance layer monitors agents via blocklists (for restricted actions/content) and scoring mechanisms to rate agent reliability, alignment, and performance over time. The system’s “Visual Cortex” presents an interactive graph view of the agents’ knowledge and connections, revealing an emergent topology of thoughts and memories as they form.
 
-### Comparative Advantages: 
+### Comparative Advantages:
 Unlike AutoGPT or BabyAGI which wrap a single LLM in a feedback loop, Artemis_City provides multi-agent orchestration and persistent, structured memory. AutoGPT, for instance, has known issues with self-feedback loops and costly recursive calls, and struggles with long-term memory retention[8]. BabyAGI is adaptive but lacks robust integration and enterprise features[9]. Artemis_City addresses these gaps by offering a governed, explainable, and scalable framework: multiple specialized agents collaborate under a central OS, with shared context, monitoring, and alignment safeguards. It thereby shifts the focus from an agent’s isolated capabilities to the collective intelligence of an agent society, aligning with emerging best practices that stress orchestrating networks of agents rather than boosting a single agent[10][11].
 
-### Future Roadmap: 
+### Future Roadmap:
 The whitebook outlines planned enhancements including reinforcement-based routing (using feedback/rewards to dynamically route tasks or queries to the best-suited agent, analogous to MoE gating networks that route inputs to expert modules[12][13]), inhibitory control mechanisms (suppressing or pausing agents or thoughts that are detracting from goals, inspired by human executive function[14]), memory decay (gradual fading of stale information unless refreshed, to prevent knowledge bloat and simulate forgetting[7]), and plastic workflows that rewire the agent workflow graph itself based on learned improvements (allowing the system to evolve its problem-solving pathways over time). These additions aim to further emulate living cognitive systems where not just knowledge, but the entire decision-making process, remains plastic and self-optimizing.
 
 In summary, Artemis_City is introduced as a foundational infrastructure for AGI research and deployment. It combines rigorous theoretical inspiration with an original architecture that transcends current agent frameworks. The following sections delve into each aspect in detail – from philosophy to implementation to future vision – to provide AGI researchers, cognitive systems engineers, and AI architects with a comprehensive understanding of Artemis_City’s design and its significance as a new milestone in agentic intelligence.
@@ -24,7 +24,7 @@ In summary, Artemis_City is introduced as a foundational infrastructure for AGI 
 ## Introduction and Positioning
 Artificial General Intelligence research is increasingly focused on agentic AI systems – AI agents that can autonomously plan, perceive, act, and learn in open environments. Early demonstrations like AutoGPT and BabyAGI showed the promise of wrapping large language models (LLMs) in simple feedback loops to create autonomous agents, but they also highlighted limitations. These systems tend to operate as single monolithic agents and often suffer from lack of long-term memory, fragile self-referential loops, and poor scalability[8][9]. In contrast, Artemis_City is conceived as the genesis of a new category: an agentic operating system. This means providing the infrastructure and runtime environment for many specialized agents to coexist and collaborate, analogous to how a traditional operating system manages multiple processes.
 
-### Distinct from Agent Wrappers: 
+### Distinct from Agent Wrappers:
 Unlike agent wrappers that simply chain prompts to an LLM, Artemis_City introduces a comprehensive architecture with distinct layers and components for memory, learning, and governance. It rejects the notion that one LLM-based loop can handle all tasks; instead, it embraces a society of agents model where each agent has defined roles or specialties, and a kernel mediates their interactions. This positioning aligns with the industry’s shift noted by Gartner and others – that the frontier is moving from creating single smarter agents to orchestrating networks of agents working in concert[15][16]. Artemis_City acts as that orchestration layer, effectively an “AI operating system” that coordinates specialized agents with shared goals.
 
 ### Academic and Visionary Tone:
@@ -267,22 +267,22 @@ We invite the community – researchers, developers, visionaries – to engage w
 
 ---
 
-Things to add 
+Things to add
 1) define thh sync process for the memory bus and its update scenario. Wether to favor cascading or agentic updates, how to measure the speed of these updates and ensure the timing of an update and the queries associated. the context of the query should be changed to most recent data and this could be during the query process, both supabase and obsidian structure needs updates with logs and review before write action on output or input. when this happens verusus when agent makes a move is importan and should be part of the shared context layer
 
-2) Include the quantum lock theory into validating the lock and state of information or objects.  Listen to the critique review of this concept again to identify the things to change. Merge this into architecture. 
+2) Include the quantum lock theory into validating the lock and state of information or objects.  Listen to the critique review of this concept again to identify the things to change. Merge this into architecture.
 
- 3) Used the additional sources to plan out how metrics and performance kpis will be deisgned for proof of cost and calculation savings. 
- 
+ 3) Used the additional sources to plan out how metrics and performance kpis will be deisgned for proof of cost and calculation savings.
+
   4) version decay strategy and logging. Track what was decayed and why in the sematic context layer to improve understanding of why a thing was decayed enhance the view for other things like it .
-  
-  5) update link for discord invite to this one https://discord.gg/T2Huqg4c 
-  
-  6) Explore the andboxing setup that is mentioned and ensure this is being applied and checked in the kernel process and shows up in the log activity when the main.py is ran. 
-  
-  7) How does the governance layer handle self updates.  This needs to include the trigger threshold and the properties around this like approval and how to implement. This is idea is to implement a devops engineer that is tasked with the CI/CD pipeline for system changes versus implementing workflow changes. The agents reliability will impact the approvals needed and gating. But this should resemble a github deployment with the proper auto checks and system checks designed and maintained. 
-  
-  8) Review the media material 
+
+  5) update link for discord invite to this one https://discord.gg/T2Huqg4c
+
+  6) Explore the andboxing setup that is mentioned and ensure this is being applied and checked in the kernel process and shows up in the log activity when the main.py is ran.
+
+  7) How does the governance layer handle self updates.  This needs to include the trigger threshold and the properties around this like approval and how to implement. This is idea is to implement a devops engineer that is tasked with the CI/CD pipeline for system changes versus implementing workflow changes. The agents reliability will impact the approvals needed and gating. But this should resemble a github deployment with the proper auto checks and system checks designed and maintained.
+
+  8) Review the media material
 
 
 ---

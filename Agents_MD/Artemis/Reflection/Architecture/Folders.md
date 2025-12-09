@@ -48,10 +48,10 @@ tags:
 |11. | Project_Summary | Markdown | 04-26-25 |||
 --
 
-##### Immediate Actions 
+##### Immediate Actions
 
 ##### Pending From Artemis
-| Document | Description | Type | Pending Since | Description | Project | 
+| Document | Description | Type | Pending Since | Description | Project |
 --
 | Final Gitignore_Structure | | Docs/Mdowns| | | |
 --
@@ -84,31 +84,31 @@ tags:
 | QuantumHarmony-Learn/README.md | Pasteable, created and customized | | |
 --
 
-##### Tactical 
+##### Tactical
 
-##### Strategic 
+##### Strategic
 
                                                                                        # Script Inventory
-## Content Type: 
-### Source Dir: 
+## Content Type:
+### Source Dir:
 ### As_Of_Date: 04-26-25
-#### Description|Note(s):                                                                         
-                                 
-                                                                                       
+#### Description|Note(s):  
+
+
 # Programming/Scripting/Markup Language Implementation
 | # | ScriptNm | SavedLocation |Language | LangType | ProjectNameUsed | ProjectUsecase| Total_#_Projects | CreatedDate | Version | LastUpdateTm| Status |
 --
-| 1 | 
+| 1 |
 
-##### Immediate Actions 
+##### Immediate Actions
 
 ##### Pending From Artemis
 
 ##### Pending Actions From Me
 
-##### Tactical 
+##### Tactical
 
-##### Strategic 
+##### Strategic
 
 
 
@@ -124,13 +124,13 @@ tags:
 --
 | 1 | Json To CsV | Python | Quant | Programming | Agent_Zero | Document conversion | 1 | Pending | Beta | Pending | In Development |
 
-##### Immediate Actions 
+##### Immediate Actions
 
 ##### Pending From Artemis
 
 ##### Pending Actions From Me
 
-##### Tactical 
+##### Tactical
 
 ##### Strategic
 

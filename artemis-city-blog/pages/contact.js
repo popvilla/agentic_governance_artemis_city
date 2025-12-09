@@ -50,10 +50,10 @@ export default function Contact() {
             <p className="text-lg text-secondary-700 leading-relaxed mb-6">
               Join our active community on Discord for real-time discussions, support, and collaboration. It&#39;s the best place to ask questions and share your projects.
             </p>
-            <a 
-              href="https://discord.gg/artemis-city" 
-              target="_blank" 
-              rel="noopener noreferrer" 
+            <a
+              href="https://discord.gg/artemis-city"
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn-primary"
             >
               Join the Discord Server
@@ -65,10 +65,10 @@ export default function Contact() {
             <p className="text-lg text-secondary-700 leading-relaxed mb-6">
               For more structured conversations, bug reports, or feature requests, head over to our GitHub Discussions. Search for existing topics or start a new one.
             </p>
-            <a 
-              href="https://github.com/popvilla/Artemis-City/discussions" 
-              target="_blank" 
-              rel="noopener noreferrer" 
+            <a
+              href="https://github.com/popvilla/Artemis-City/discussions"
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn-secondary"
             >
               Go to GitHub Discussions
@@ -80,10 +80,10 @@ export default function Contact() {
             <p className="text-lg text-secondary-700 leading-relaxed mb-6">
               Follow us on Twitter for the latest project updates, announcements, and news from the world of AI and agentic systems.
             </p>
-            <a 
-              href="https://twitter.com/artemis_city" 
-              target="_blank" 
-              rel="noopener noreferrer" 
+            <a
+              href="https://twitter.com/artemis_city"
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn-secondary"
             >
               Follow @artemis_city

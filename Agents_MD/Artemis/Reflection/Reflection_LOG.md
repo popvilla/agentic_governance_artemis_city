@@ -4,4 +4,4 @@ tags:
   - "#Artemis"
   - "#quantum-harmony"
 ---
-[[Quantum_Harmony/Projects/System/Artemis]] 
+[[Quantum_Harmony/Projects/System/Artemis]]

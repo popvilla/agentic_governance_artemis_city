@@ -124,10 +124,7 @@ def matches_command(command_lower: str, keywords: List[str]) -> bool:
     Returns:
         True if any keyword matches as a complete word in the command.
     """
-    return any(
-        re.search(rf'\b{re.escape(keyword)}\b', command_lower)
-        for keyword in keywords
-    )
+    return any(re.search(rf'\b{re.escape(keyword)}\b', command_lower) for keyword in keywords)
 
 
 def handle_command(command: str, agent_router: AgentRouterConfig) -> None:

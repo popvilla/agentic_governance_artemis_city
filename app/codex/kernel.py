@@ -84,7 +84,7 @@ class Kernel:
                 self.state = {"history": [], "boot_count": 0}
         else:
             self.state = {"history": [], "boot_count": 0}
-        
+
         self.state["boot_count"] = self.state.get("boot_count", 0) + 1
         self._save_state()
 
@@ -119,18 +119,18 @@ class Kernel:
         """
         content = request.get("content", "")
         request_type = request.get("type", "command")
-        
+
         # Log to history
         if "history" not in self.state:
             self.state["history"] = []
         self.state["history"].append(request)
         self._save_state()
-        
+
         if request_type == "command":
-             return self._handle_command(content)
+            return self._handle_command(content)
         elif request_type == "exec":
-             return f"[Kernel] Executing plan: {request.get('path')}"
-        
+            return f"[Kernel] Executing plan: {request.get('path')}"
+
         return f"[Kernel] Unknown request type: {request_type}"
 
     def _get_agent_instance(self, agent_name):
@@ -170,14 +170,14 @@ class Kernel:
         """
         if not self.router:
             return "[Kernel] Router not initialized."
-            
+
         route = self.router.route(command)
         agent_name = route.get("agent")
         # metadata = route.get("metadata", {})
-        
+
         agent = self._get_agent_instance(agent_name)
-        
+
         request = {"content": command, "type": "command"}
         result = agent.handle(request, self.memory)
-        
+
         return f"[Kernel] {agent_name} responded:\n{result}"

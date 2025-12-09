@@ -303,7 +303,7 @@ class PostOffice:
             Formatted markdown content
         """
         return f"""
---- 
+---
 from: {packet.sender}
 to: {packet.recipient}
 tracking_id: {packet.tracking_id}

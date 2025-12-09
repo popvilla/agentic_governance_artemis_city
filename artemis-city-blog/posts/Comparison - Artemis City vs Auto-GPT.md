@@ -99,7 +99,7 @@ routes:
   - pattern: "research|find|investigate"
     agent: researcher
     tools: [web_search, documentation]
-  
+
   - pattern: "build|create|implement"
     agent: coder
     tools: [filesystem, shell]

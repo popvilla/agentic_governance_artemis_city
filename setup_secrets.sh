@@ -45,7 +45,7 @@ echo -e "${BLUE} Setting up root .env file...${NC}"
 if check_file ".env"; then
     if [ -f ".env.example" ]; then
         cp .env.example .env
-        
+
         # Generate and insert MCP API key
         MCP_KEY=$(generate_key)
         if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -53,9 +53,9 @@ if check_file ".env"; then
         else
             sed -i "s/your_secure_api_key_here/$MCP_KEY/" .env
         fi
-        
+
         echo -e "${GREEN} Created .env with generated MCP_API_KEY${NC}"
-        
+
         # Set secure permissions
         chmod 600 .env
         echo -e "${GREEN} Set permissions to 600${NC}"
@@ -74,16 +74,16 @@ if [ -d "$MEMORY_DIR" ]; then
     if check_file "$MEMORY_DIR/.env"; then
         if [ -f "$MEMORY_DIR/.env.example" ]; then
             cp "$MEMORY_DIR/.env.example" "$MEMORY_DIR/.env"
-            
+
             # Use the same MCP API key
             if [[ "$OSTYPE" == "darwin"* ]]; then
                 sed -i '' "s/your_secure_api_key_here/$MCP_KEY/" "$MEMORY_DIR/.env"
             else
                 sed -i "s/your_secure_api_key_here/$MCP_KEY/" "$MEMORY_DIR/.env"
             fi
-            
+
             echo -e "${GREEN} Created Memory Layer .env with same MCP_API_KEY${NC}"
-            
+
             # Set secure permissions
             chmod 600 "$MEMORY_DIR/.env"
             echo -e "${GREEN} Set permissions to 600${NC}"

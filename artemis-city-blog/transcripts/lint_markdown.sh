@@ -34,37 +34,37 @@ usage() {
 # Function to clean markdown content
 lint_markdown() {
     local content="$1"
-    
+
     # Remove common AI markers and artifacts
     content=$(echo "$content" | sed -E '
         # Remove thinking/reasoning blocks
         /<think>/,/<\/think>/d
         /\*\*Thinking\*\*/,/^$/d
         /```thinking/,/```/d
-        
+
         # Remove assistant markers
         /^\[Assistant\]/d
         /^\[AI\]/d
         /^Assistant:/d
         /^AI:/d
-        
+
         # Remove XML-style tags
         /</,/<\/antml:/d
         /<citation/,/<\/citation>/d
-        
+
         # Remove excessive blank lines (more than 2 consecutive)
         /^$/N;/^\n$/N;/^\n\n$/d
-        
+
         # Remove trailing whitespace
         s/[[:space:]]+$//
-        
+
         # Remove leading/trailing blank lines will be handled at the end
     ')
-    
+
     # Fix common formatting issues
     content=$(echo "$content" | awk '
         BEGIN { in_code_block = 0; prev_blank = 0 }
-        
+
         # Track code blocks
         /^```/ {
             in_code_block = !in_code_block
@@ -72,14 +72,14 @@ lint_markdown() {
             prev_blank = 0
             next
         }
-        
+
         # Preserve content inside code blocks
         in_code_block {
             print
             prev_blank = 0
             next
         }
-        
+
         # Handle blank lines
         /^[[:space:]]*$/ {
             if (prev_blank == 0) {
@@ -88,7 +88,7 @@ lint_markdown() {
             }
             next
         }
-        
+
         # Fix header spacing (ensure one blank line before headers)
         /^#{1,6} / {
             if (NR > 1 && prev_blank == 0) print ""
@@ -96,37 +96,37 @@ lint_markdown() {
             prev_blank = 0
             next
         }
-        
+
         # Fix list item spacing
         /^[[:space:]]*[-*+] / || /^[[:space:]]*[0-9]+\. / {
             print
             prev_blank = 0
             next
         }
-        
+
         # Regular lines
         {
             print
             prev_blank = 0
         }
     ')
-    
+
     # Convert to Markdeep-style enhancements
     content=$(echo "$content" | sed -E '
         # Fix emphasis (ensure proper spacing)
         s/\*\*([^*]+)\*\*/\*\*\1\*\*/g
         s/\*([^*]+)\*/\*\1\*/g
-        
+
         # Fix code spans (ensure no space inside backticks)
         s/` ([^`]+) `/`\1`/g
-        
+
         # Ensure links have proper format
         s/\[([^\]]+)\]\(([^)]+)\)/[\1](\2)/g
-        
+
         # Fix blockquote spacing
         s/^>[[:space:]]+/> /
     ')
-    
+
     echo "$content"
 }
 

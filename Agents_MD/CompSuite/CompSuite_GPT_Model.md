@@ -12,7 +12,7 @@
 
 ---
 
-### 2. **Folder + Script Structure** 
+### 2. **Folder + Script Structure**
 
 ```
 CompSuite/

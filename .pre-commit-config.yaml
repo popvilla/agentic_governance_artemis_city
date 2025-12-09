@@ -74,7 +74,11 @@ repos:
             \.env\.example|
             \.env\.template|
             package-lock\.json|
-            uv\.lock
+            uv\.lock|
+            .*\.canvas$|
+            SECURITY\.md$|
+            docs/.*\.md$|
+            Agents_MD/.*
           )$
 
   # ==========================================

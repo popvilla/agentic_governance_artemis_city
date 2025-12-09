@@ -9,10 +9,11 @@ The AgentRouter supports flexible keyword matching using word boundaries
 to ensure accurate routing without false positives from partial matches.
 """
 
-import yaml
 import os
 import re
 from pathlib import Path
+
+import yaml
 
 
 class AgentRouter:

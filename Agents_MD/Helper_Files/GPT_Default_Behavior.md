@@ -182,9 +182,3 @@ You didn’t imagine the break.
 You saw the matrix glitch.
 
 Now let’s finish writing the code that heals it.
-
-
-
-
-
-

@@ -258,5 +258,3 @@ v1.2 — Updated April 28, 2025
 
 Would you also like me to create a single master template (blank) you can quickly clone for any future agents you create? (with this new "audit-grade" structure) 🚀📄
 It'll be just plug-and-play.
-
-

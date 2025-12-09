@@ -1,7 +1,7 @@
 ---
 tags:
   - MOCs
-  - "#index-file"
+  - "#file"
   - "#folder-index"
 ---
 ```folder-index-content

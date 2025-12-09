@@ -7,16 +7,6 @@
 # Global configuration
 default_language_version:
   python: python3.12
-  node: node18
-  js: node18
-  ts: node18
-  json: node18
-  yaml: node18
-  md: node18
-  html: node18
-  css: node18
-  less: node18
-  scss: node18
 
 # Stop on first failure
 fail_fast: true
@@ -29,13 +19,13 @@ repos:
   # ==========================================
   # GENERAL FILE CHECKS
   # ==========================================
-  
+
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.5.0
     hooks:
       # File checks
       - id: check-added-large-files
-        args: ['--maxkb=1000']
+        args: ["--maxkb=1000"]
       - id: check-case-conflict
       - id: check-executables-have-shebangs
       - id: check-shebang-scripts-are-executable
@@ -47,20 +37,20 @@ repos:
         args: [--markdown-linebreak-ext=md]
       - id: mixed-line-ending
         args: [--fix=lf]
-      
+
       # Syntax checks
       - id: check-yaml
         args: [--allow-multiple-documents]
       - id: check-json
       - id: check-toml
       - id: check-xml
-      
+
       # Merge conflict markers
       - id: check-merge-conflict
-      
+
       # Private key detection
       - id: detect-private-key
-      
+
       # Python specific
       - id: check-ast
       - id: check-builtin-literals
@@ -73,12 +63,12 @@ repos:
   # ==========================================
   # SECRET DETECTION
   # ==========================================
-  
+
   - repo: https://github.com/Yelp/detect-secrets
     rev: v1.4.0
     hooks:
       - id: detect-secrets
-        args: ['--baseline', '.secrets.baseline']
+        args: ["--baseline", ".secrets.baseline"]
         exclude: |
           (?x)^(
             \.env\.example|
@@ -90,7 +80,7 @@ repos:
   # ==========================================
   # PYTHON FORMATTING
   # ==========================================
-  
+
   - repo: https://github.com/psf/black
     rev: 23.12.1
     hooks:
@@ -101,7 +91,7 @@ repos:
   # ==========================================
   # PYTHON IMPORT SORTING
   # ==========================================
-  
+
   - repo: https://github.com/PyCQA/isort
     rev: 5.13.2
     hooks:
@@ -111,7 +101,7 @@ repos:
   # ==========================================
   # PYTHON LINTING
   # ==========================================
-  
+
   - repo: https://github.com/PyCQA/flake8
     rev: 7.0.0
     hooks:
@@ -174,7 +164,7 @@ repos:
   # ==========================================
   # JAVASCRIPT/TYPESCRIPT FORMATTING
   # ==========================================
-  
+
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: v3.1.0
     hooks:
@@ -189,7 +179,7 @@ repos:
   # ==========================================
   # MARKDOWN LINTING
   # ==========================================
-  
+
   - repo: https://github.com/igorshubovych/markdownlint-cli
     rev: v0.38.0
     hooks:
@@ -204,16 +194,16 @@ repos:
   # ==========================================
   # YAML LINTING
   # ==========================================
-  
+
   - repo: https://github.com/adrienverge/yamllint
     rev: v1.33.0
     hooks:
       - id: yamllint
         args: [-d, relaxed]
 
-# ============================================
-# LOCAL HOOKS
-# ============================================
+  # ============================================
+  # LOCAL HOOKS
+  # ============================================
 
   - repo: local
     hooks:
@@ -247,7 +237,7 @@ repos:
         language: system
         pass_filenames: false
         always_run: true
-        stages: [commit]
+        stages: [pre-commit]
 
       # Check function length (informational - JSF AV Rule 1)
       - id: check-function-length

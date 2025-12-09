@@ -17,13 +17,14 @@ import os
 import sys
 from pathlib import Path
 
+# Add parent directory to path for local imports
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-import yaml
+import yaml  # noqa: E402
 
-from agents.artemis import ArtemisPersona
-from agents.atp import ATPParser
-from core.instructions import get_global_cache
+from agents.artemis import ArtemisPersona  # noqa: E402
+from agents.atp import ATPParser  # noqa: E402
+from core.instructions import get_global_cache  # noqa: E402
 
 
 def load_agent_router_config(config_path):

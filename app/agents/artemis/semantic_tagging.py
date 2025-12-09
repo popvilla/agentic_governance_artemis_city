@@ -310,6 +310,6 @@ class SemanticTagger:
             "tagged_items": len(self.item_tags),
             "tags_by_category": {
                 cat: sum(1 for t in self.tags.values() if t.category == cat)
-                for cat in set(t.category for t in self.tags.values())
+                for cat in {t.category for t in self.tags.values()}
             },
         }

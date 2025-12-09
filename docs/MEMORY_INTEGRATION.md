@@ -250,7 +250,7 @@ if trust.can_perform_operation(agent_name, 'write'):
     # Store reflection
     reflection = "Today's synthesis: ATP integration complete"
     response = client.store_agent_context(agent_name, reflection)
-    
+
     if response.success:
         trust.record_success(agent_name)
     else:

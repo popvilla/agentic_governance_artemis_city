@@ -70,17 +70,17 @@ We follow **PEP 8** with modifications for modern Python development:
 ```python
 def example_function(param1: str, param2: int) -> bool:
     """Brief description of function.
-    
+
     Longer description if needed. Can span multiple lines
     and provide detailed context.
-    
+
     Args:
         param1: Description of param1
         param2: Description of param2
-        
+
     Returns:
         Description of return value
-        
+
     Raises:
         ValueError: When param2 is negative
     """
@@ -311,12 +311,12 @@ from module_name import function_to_test
 
 class TestClassName:
     """Tests for ClassName."""
-    
+
     def test_basic_functionality(self):
         """Test basic functionality."""
         result = function_to_test()
         assert result == expected_value
-    
+
     def test_error_handling(self):
         """Test error handling."""
         with pytest.raises(ValueError):

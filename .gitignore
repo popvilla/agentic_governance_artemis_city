@@ -469,3 +469,6 @@ core/instructions/instruction_cache.py
 !src/core/
 !src/core/**
 /renv
+*.md
+*.md
+/MCP

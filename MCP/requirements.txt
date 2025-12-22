@@ -1,6 +1,0 @@
-python-dotenv
-markdown
-fastapi
-uvicorn[standard]
-python-multipart
-prometheus-client

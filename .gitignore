@@ -467,12 +467,16 @@ core/instructions/instruction_cache.py
 
 # Allow tracked Python sources under src/core (override core dump ignore rule)
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 !src/core/
 !src/core/**
 /renv
 *.md
 *.md
 /MCP
+=======
+.gitignore copy
+>>>>>>> Stashed changes
 =======
 .gitignore copy
 >>>>>>> Stashed changes

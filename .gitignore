@@ -10,7 +10,7 @@
 # 🚨 SECRETS & CREDENTIALS (HIGHEST PRIORITY)
 # ============================================
 # Environment files
-.env
+*.env
 .env.*
 !.env.example
 !.env.template
@@ -466,9 +466,3 @@ agents/atp/__init__.py
 core/instructions/instruction_cache.py
 
 # Allow tracked Python sources under src/core (override core dump ignore rule)
-!src/core/
-!src/core/**
-/renv
-*.md
-*.md
-/MCP

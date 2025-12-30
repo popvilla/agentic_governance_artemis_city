@@ -466,3 +466,4 @@ agents/atp/__init__.py
 core/instructions/instruction_cache.py
 
 # Allow tracked Python sources under src/core (override core dump ignore rule)
+.gitignore copy

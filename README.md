@@ -102,7 +102,7 @@ npm run dev
 
 ```
 Artemis-City/
-├── app/                          # Main application code
+├── build/                          # Main application code
 │   ├── agents/                   # Agent definitions (ATP, Artemis)
 │   ├── codex/                    # Kernel, router, memory bus
 │   ├── core/                     # Core utilities (instructions)
@@ -110,7 +110,6 @@ Artemis-City/
 │   ├── interface/                # CLI interface
 │   ├── launch/                   # Entry points
 │   └── sandbox_city/             # Simulation environment
-├── artemis-city-blog/            # Next.js marketing blog
 ├── MCP/                          # Memory server & frontend
 ├── tests/                        # Test suite
 └── docs/                         # Documentation

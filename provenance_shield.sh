@@ -14,12 +14,12 @@
 
 set -e
 
-# Colors
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-BLUE='\033[0;34m'
-NC='\033[0m' # No Color
+# Colors (using ANSI-C quoting for cross-shell compatibility)
+RED=$'\033[0;31m'
+GREEN=$'\033[0;32m'
+YELLOW=$'\033[1;33m'
+BLUE=$'\033[0;34m'
+NC=$'\033[0m' # No Color
 
 echo "${BLUE}🛡️  The Provenance Shield: Git History Scrubber & Sanitizer 🛡️${NC}"
 echo "${YELLOW}WARNING: This script rewrites git history. It is DESTRUCTIVE.${NC}"

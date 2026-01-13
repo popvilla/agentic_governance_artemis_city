@@ -1,0 +1,117 @@
+# ============================================
+# ARTEMIS CITY - DEVELOPMENT DEPENDENCIES
+# ============================================
+# Additional tools for development, testing, and code quality
+# Install with: pip install -r requirements-dev.txt
+
+# First install core dependencies
+-r requirements.txt
+
+# ============================================
+# TESTING
+# ============================================
+
+# Testing framework
+pytest>=7.4.0
+pytest-cov>=4.1.0  # Coverage reporting
+pytest-asyncio>=0.21.0  # Async test support
+pytest-mock>=3.12.0  # Mocking utilities
+
+# ============================================
+# CODE QUALITY
+# ============================================
+
+# Formatting
+black>=23.0.0  # Opinionated code formatter
+isort>=5.12.0  # Import statement sorter
+
+# Linting
+flake8>=6.0.0  # Style guide enforcement
+flake8-docstrings>=1.7.0  # Docstring linting
+pylint>=3.0.0  # Additional linting
+
+# Type checking
+mypy>=1.5.0  # Static type checker
+types-PyYAML>=6.0.0  # Type stubs for PyYAML
+
+# Security
+bandit>=1.7.0  # Security issue scanner
+safety>=2.3.0  # Dependency vulnerability checker
+
+# ============================================
+# DEVELOPMENT TOOLS
+# ============================================
+
+# Enhanced CLI/REPL
+ipython>=8.18.0  # Better interactive shell
+rich>=13.7.0  # Beautiful terminal output
+click>=8.1.0  # CLI framework (if extending CLI)
+prompt-toolkit>=3.0.0  # Enhanced REPL
+
+# Debugging
+ipdb>=0.13.13  # IPython debugger
+pdbpp>=0.10.3  # Enhanced pdb
+
+# ============================================
+# DOCUMENTATION
+# ============================================
+
+# Documentation generation
+mkdocs>=1.5.0
+mkdocs-material>=9.0.0
+mkdocstrings[python]>=0.24.0
+
+# ============================================
+# PROJECT MANAGEMENT
+# ============================================
+
+# Package building
+build>=1.0.0
+twine>=4.0.0  # For publishing packages
+
+# Pre-commit hooks
+pre-commit>=3.5.0
+
+# ============================================
+# OPTIONAL ENHANCEMENTS
+# ============================================
+
+# Data validation (for future API work)
+pydantic>=2.0.0
+
+# HTTP library (if extending beyond urllib)
+requests>=2.31.0
+httpx>=0.25.0  # Modern async HTTP
+
+# Environment management
+python-dotenv>=1.0.0  # .env file support (optional, we use os.environ)
+
+# ============================================
+# USAGE
+# ============================================
+#
+# Install all dev dependencies:
+#   pip install -r requirements-dev.txt
+#
+# Run tests:
+#   pytest
+#   pytest --cov=. --cov-report=html
+#
+# Format code:
+#   black .
+#   isort .
+#
+# Lint code:
+#   flake8 .
+#   pylint agents/ core/ memory/ interface/
+#
+# Type check:
+#   mypy .
+#
+# Security check:
+#   bandit -r .
+#   safety check
+#
+# Build documentation:
+#   mkdocs serve  # Local preview
+#   mkdocs build  # Build static site

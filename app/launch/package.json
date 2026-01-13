@@ -1,0 +1,28 @@
+{
+  "name": "artemis-city",
+  "version": "0.1.0",
+  "description": "An architectural framework for agentic reasoning and transparent action.",
+  "main": "main.py",
+  "scripts": {
+    "start": "python main.py",
+    "demo": "python demo_artemis.py",
+    "demo:memory": "python demo_memory_integration.py",
+    "sim:mail": "python sandbox_city/networked_scripts/mail_delivery_sim.py",
+    "pre-commit": "pre-commit run --all-files",
+    "pre-commit:install": "pre-commit install",
+    "pre-commit:uninstall": "pre-commit uninstall",
+    "pre-commit:autoupdate": "pre-commit autoupdate",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "agents",
+    "artemis",
+    "atp",
+    "AI",
+    "architecture",
+    "codex",
+    "python"
+  ],
+  "author": "Prinston Palmer",
+  "license": "MIT"
+}

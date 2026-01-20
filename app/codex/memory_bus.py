@@ -1,8 +1,13 @@
 """Memory bus system for persistent agent memory operations.
 
 This module provides a pluggable memory backend system for the Artemis
-City framework. It implements a file-based storage backend for persisting
+City framework. It implements multiple storage backends for persisting
 agent interactions and enables memory queries across stored content.
+
+Supported backends:
+- file: Local JSON file storage (default, development)
+- vector: Supabase pgvector for semantic search (production)
+- mcp: Obsidian MCP server via MemoryClient
 
 The MemoryBus acts as an abstraction layer over different storage backends,
 allowing agents to store and retrieve information without coupling to
@@ -13,6 +18,7 @@ import json
 import os
 import time
 from abc import ABC, abstractmethod
+from typing import Any, Dict, List, Optional
 
 
 class MemoryBackend(ABC):
@@ -129,31 +135,120 @@ class FileMemoryBackend(MemoryBackend):
         return results
 
 
+class VectorMemoryBackend(MemoryBackend):
+    """Supabase pgvector-based memory backend for semantic search.
+
+    Provides semantic search capabilities using embeddings and
+    vector similarity. Requires the MCP vector_store module.
+
+    Attributes:
+        vector_store: VectorStore instance for operations
+    """
+
+    def __init__(self):
+        """Initialize vector memory backend."""
+        try:
+            from MCP.src.vector_store import VectorStore
+            self.vector_store = VectorStore()
+            self._available = True
+        except ImportError as e:
+            print(f"[Memory] VectorStore not available: {e}")
+            self._available = False
+            self.vector_store = None
+
+    def write(self, content: str, metadata: Optional[Dict] = None) -> Optional[str]:
+        """Write content to vector store.
+
+        Args:
+            content: Content to store
+            metadata: Optional metadata
+
+        Returns:
+            Document ID if successful, None otherwise
+        """
+        if not self._available:
+            print("[Memory] Vector backend not available")
+            return None
+
+        try:
+            return self.vector_store.store(content, metadata)
+        except Exception as e:
+            print(f"[Memory] Vector write failed: {e}")
+            return None
+
+    def read(self, query: str, limit: int = 10) -> List[Dict]:
+        """Semantic search for content.
+
+        Args:
+            query: Search query
+            limit: Maximum results
+
+        Returns:
+            List of matching entries
+        """
+        if not self._available:
+            return []
+
+        try:
+            results = self.vector_store.search(query, limit=limit)
+            return [
+                {
+                    "content": doc.content,
+                    "metadata": doc.metadata,
+                    "timestamp": doc.metadata.get("stored_at", 0),
+                    "similarity": doc.similarity
+                }
+                for doc in results
+            ]
+        except Exception as e:
+            print(f"[Memory] Vector search failed: {e}")
+            return []
+
+
 class MemoryBus:
     """High-level memory interface for agent memory operations.
 
     Provides an abstraction layer over memory backends, allowing
     agents to perform memory operations without coupling to specific
-    storage implementations. Currently supports file-based storage.
+    storage implementations.
+
+    Supported backends:
+    - 'file': Local JSON file storage (default)
+    - 'vector': Supabase pgvector semantic search
+    - Custom backend instance can be passed directly
 
     Attributes:
         backend: The underlying MemoryBackend implementation.
+        backend_type: String identifier for the backend type.
     """
 
-    def __init__(self, backend_type="file"):
+    def __init__(
+        self,
+        backend_type: str = "file",
+        backend: Optional[MemoryBackend] = None
+    ):
         """Initialize the MemoryBus with the specified backend.
 
         Args:
-            backend_type: Type of backend to use. Currently supported:
+            backend_type: Type of backend to use:
                 - 'file': File-based storage (default)
+                - 'vector': Supabase pgvector semantic search
+            backend: Optional custom backend instance (overrides backend_type)
         """
-        if backend_type == "file":
+        self.backend_type = backend_type
+
+        if backend is not None:
+            self.backend = backend
+        elif backend_type == "file":
             self.backend = FileMemoryBackend()
+        elif backend_type == "vector":
+            self.backend = VectorMemoryBackend()
         else:
             print(f"[Memory] Unknown backend {backend_type}, defaulting to file.")
             self.backend = FileMemoryBackend()
+            self.backend_type = "file"
 
-    def write(self, content, metadata=None):
+    def write(self, content: str, metadata: Optional[Dict] = None) -> Optional[str]:
         """Write content to the memory backend.
 
         Args:
@@ -165,13 +260,25 @@ class MemoryBus:
         """
         return self.backend.write(content, metadata)
 
-    def read(self, query):
+    def read(self, query: str, limit: int = 10) -> List[Dict]:
         """Query the memory backend for matching content.
 
         Args:
             query: Search query string.
+            limit: Maximum number of results (for backends that support it).
 
         Returns:
             List of matching memory entries from the backend.
         """
+        # FileMemoryBackend doesn't support limit, VectorMemoryBackend does
+        if hasattr(self.backend, 'read') and self.backend_type == "vector":
+            return self.backend.read(query, limit=limit)
         return self.backend.read(query)
+
+    def is_semantic(self) -> bool:
+        """Check if backend supports semantic search.
+
+        Returns:
+            True if using vector backend with semantic capabilities.
+        """
+        return self.backend_type == "vector"

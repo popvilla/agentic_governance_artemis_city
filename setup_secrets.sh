@@ -1,33 +1,12 @@
 #!/bin/bash
-
-# ------------------------------------------------------------------------------
-# [[Mode]]: Setup
-# [[Context]]: Artemis City Secrets Configuration
-# [[Priority]]: High
-# [[ActionType]]: Scaffold
-# [[TargetZone]]: Environment
-# [[SpecialNotes]]: Generates secure .env files; NEVER commit generated files.
-# ------------------------------------------------------------------------------
-
-# Artemis City - Secure Environment Setup
-# Purpose: Scaffold .env files with secure random keys for development.
-
 set -e
 
-# Colors (using ANSI-C quoting for cross-shell compatibility)
-# Compatible with: bash, zsh, ksh. For POSIX sh, use printf instead.
 RED=$'\033[0;31m'
 GREEN=$'\033[0;32m'
 YELLOW=$'\033[1;33m'
 BLUE=$'\033[0;34m'
 CYAN=$'\033[0;36m'
 NC=$'\033[0m' # No Color
-
-echo ""
-echo "${BLUE}============================================${NC}"
-echo "${BLUE}  🏛️  ARTEMIS CITY - SECRETS SETUP  🏛️${NC}"
-echo "${BLUE}============================================${NC}"
-echo ""
 
 # Check if we're in the right directory
 if [ ! -f "pyproject.toml" ] && [ ! -f "package.json" ]; then

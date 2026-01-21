@@ -1,8 +1,34 @@
 # Contributing to Artemis City
 
-Thank you for your interest in contributing to Artemis City! This document provides guidelines for maintaining code quality and consistency.
+Purpose
+This project exists to explore and demonstrate responsible orchestration of intelligent systems. Its goal is to preserve human intent, contextual integrity, and long-term coherence as systems scale in complexity and collaboration.
 
-## Table of Contents
+Guiding Philosophy
+Capability alone is not authority. Intelligence must be guided by structure, context, and accountability. The project prioritizes alignment, traceability, and restraint over speed, novelty, or automation for its own sake.
+
+On Governance
+Governance within this ecosystem is facilitative, not authoritarian. Coordination mechanisms are designed to support human judgment, not replace it. No single component or actor is considered sovereign.
+
+On Memory and Accountability
+Durable systems require durable memory. Significant actions are expected to be explainable and attributable. Transparency and auditability are treated as prerequisites for trust.
+
+On Restraint
+Choosing not to act is sometimes the most responsible action. The project explicitly values restraint, reflection, and delayed disclosure where these preserve clarity, safety, or alignment.
+
+On Modularity
+Systems are composed of well-defined components with explicit boundaries. Modularity is used to reduce risk, prevent unintended escalation, and enable thoughtful evolution over time.
+
+On Safety
+Responsible system design assumes the need for interruption, review, and correction. Safety mechanisms and human oversight are treated as foundational, not exceptional.
+
+On Evolution
+Change is expected. However, progress is evaluated not only by outcomes, but by whether core principles are preserved. Growth that undermines accountability or alignment is considered regression.
+
+On Collaboration
+Collaboration is welcomed when shared understanding and context can be maintained. Openness is practiced deliberately, with respect for framing, responsibility, and long-term impact.
+
+Statement of Precedence
+When trade-offs arise, this constitution takes precedence over performance metrics, popularity, or external pressure. Human judgment, ethical responsibility, and long-term integrity are the final arbiters.## Table of Contents
 
 1. [Getting Started](#getting-started)
 2. [Code Style Guidelines](#code-style-guidelines)
@@ -447,22 +473,3 @@ Brief description of changes
 ```bash
 make secrets
 ```
-
-## Additional Resources
-
-- [Python PEP 8](https://pep8.org/)
-- [Google Python Style Guide](https://google.github.io/styleguide/pyguide.html)
-- [Black Documentation](https://black.readthedocs.io/)
-- [Flake8 Rules](https://www.flake8rules.com/)
-- [Pre-commit Hooks](https://pre-commit.com/)
-
-## ❓ Questions?
-
-- Check [README.md](README.md) for project overview
-- See [SECURITY.md](SECURITY.md) for security practices
-- Read [WARP.md](WARP.md) for AI assistant guidelines
-- Open an issue for questions
-
----
-
-**Thank you for contributing to Artemis City!**

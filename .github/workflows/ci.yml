@@ -4,13 +4,13 @@ permissions:
 
 on:
   push:
-    branches: [main, develop]
+      branches: [main, develop,  genesis, master]
   pull_request:
-    branches: [main, develop]
+      branches: [main, develop,  genesis, master]
 
 env:
-  PYTHON_VERSION: "3.10"
-  NODE_VERSION: "18"
+  PYTHON_VERSION: "3.14"
+  NODE_VERSION: "24"
 
 jobs:
   # ============================================
@@ -18,9 +18,9 @@ jobs:
   # ============================================
   lint-python:
     name: Lint Python Code
-    runs-on: ubuntu-latest
+    runs-on: github
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -30,8 +30,8 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           # Install dev requirements if present
-          if [ -f src/launch/requirements-dev.txt ]; then
-            pip install -r src/launch/requirements-dev.txt
+          if [ -f app/launch/requirements-dev.txt ]; then
+            pip install -r aoo/launch/requirements-dev.txt
           elif [ -f requirements-dev.txt ]; then
             pip install -r requirements-dev.txt
           fi
@@ -95,11 +95,11 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.10"]
+        python-version: ["3.14"]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: ${{ matrix.python-version }}
           cache: "pip"
@@ -125,7 +125,7 @@ jobs:
           fi
       - name: Upload coverage
         if: matrix.python-version == env.PYTHON_VERSION
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v7
         with:
           file: ./coverage.xml
           fail_ci_if_error: false
@@ -138,7 +138,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: "npm"
@@ -154,7 +154,7 @@ jobs:
     name: Build TypeScript
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
@@ -172,13 +172,13 @@ jobs:
   # ============================================
   secret-scan:
     name: Scan for Secrets
-    runs-on: ubuntu-latest
+    runs-on: github
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
       - name: Run Gitleaks
-        uses: gitleaks/gitleaks-action@v2
+        uses: gitleaks/gitleaks-action@v7
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   # ============================================
@@ -186,11 +186,11 @@ jobs:
   # ============================================
   docs:
     name: Build Documentation
-    runs-on: ubuntu-latest
+    runs-on: github
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: ${{ env.PYTHON_VERSION }}
       - name: Install dependencies
@@ -205,17 +205,17 @@ jobs:
   # ============================================
   integration:
     name: Integration Check
-    runs-on: ubuntu-latest
+    runs-on: github
     needs: [lint-python, test-python, lint-typescript, build-typescript]
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: ${{ env.PYTHON_VERSION }}
           cache: "pip"
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: "npm"
@@ -224,8 +224,8 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           # Install project requirements if present
-          if [ -f src/launch/requirements.txt ]; then
-            pip install -r src/launch/requirements.txt
+          if [ -f app/launch/requirements.txt ]; then
+            pip install -r app/launch/requirements.txt
           elif [ -f requirements.txt ]; then
             pip install -r requirements.txt
           fi

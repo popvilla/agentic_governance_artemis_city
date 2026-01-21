@@ -1,0 +1,9 @@
+{
+  "name": "artemis-city",
+  "private": true,
+  "scripts": {
+    "dev": "npx --yes serve . -l 5173",
+    "start": "npx --yes serve . -l 5173"
+  }
+}
+

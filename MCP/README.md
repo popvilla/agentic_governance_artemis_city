@@ -21,8 +21,8 @@ pip install -r requirements.txt
 ### 2. Configure Environment
 
 ```bash
-export SUPABASE_URL=https://lkyeffgxichvbpxmrgir.supabase.co
-export SUPABASE_KEY=sb_publishable_7xivO1svcjiU1vqugJLPLg_wCzqspN
+export SUPABASE_URL=
+export SUPABASE_KEY=
 export OPENAI_API_KEY="your-openai-key"
 ```
 

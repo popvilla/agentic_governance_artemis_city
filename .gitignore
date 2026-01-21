@@ -841,3 +841,5 @@ core/instructions/instruction_cache.py
 # ============================================
 # End of .gitignore
 # ============================================
+/.claude
+/.obsidian

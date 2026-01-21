@@ -783,5 +783,61 @@ core/instructions/__init__.py
 agents/atp/__init__.py
 core/instructions/instruction_cache.py
 
-# Allow tracked Python sources under src/core (override core dump ignore rule)
-.gitignore copy
+# Keep important scripts
+!scripts/setup.sh
+!scripts/deploy.sh      
+!scripts/install_dependencies.sh
+# Keep version control files
+!.gitignore
+!.gitattributes
+# Keep license files
+!LICENSE
+!LICENSE.txt
+
+# Keep configuration files
+!config.json
+!settings.yaml
+!appsettings.json
+
+# Keep important project files
+!package.json
+!requirements.txt
+!pyproject.toml
+!Pipfile
+!poetry.lock
+!README.md
+!WARP.md
+!scripts/deploy.sh
+!scripts/setup.sh
+!scripts/install_dependencies.sh
+!core/instructions/__init__.py
+!core/instructions/instruction_cache.py
+!agents/atp/__init__.py
+!agents/atp/__init__.py
+!core/instructions/instruction_cache.py
+!scripts/setup.sh
+!scripts/deploy.sh
+!scripts/install_dependencies.sh
+!scripts/install_dependencies.sh
+!core/instructions/__init__.py
+!core/instructions/instruction_cache.py
+!agents/atp/__init__.py
+!agents/atp/__init__.py
+!core/instructions/instruction_cache.py
+!scripts/setup.sh
+!scripts/deploy.sh
+!scripts/install_dependencies.sh
+!scripts/install_dependencies.sh
+!core/instructions/__init__.py
+!core/instructions/instruction_cache.py
+!agents/atp/__init__.py
+!agents/atp/__init__.py
+!core/instructions/instruction_cache.py
+!scripts/setup.sh
+!scripts/deploy.sh
+!scripts/install_dependencies.sh
+!scripts/install_dependencies.sh
+
+# ============================================
+# End of .gitignore
+# ============================================

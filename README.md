@@ -1,4 +1,4 @@
-# Artemis City
+# agentic_governance_artemis_city
 
 ## Overview
 
@@ -171,9 +171,9 @@ An architectural framework for building agentic reasoning systems with transpare
 
 | Field | Value |
 |-------|-------|
-| **Project Name** | Artemis City (agentic-codex) |
+| **Project Name** | agentic_governance_artemis_city |
 | **Version** | 0.1.0 |
-| **License** | Apache 2.0 |
+| **License** | MIT |
 | **Primary Languages** | Python 3.8+, TypeScript |
 | **Author** | Prinston Palmer |
 

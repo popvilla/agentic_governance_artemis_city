@@ -402,10 +402,10 @@ if trust.can_perform_operation('artemis', 'write'):
 | Level | Score | Allowed Operations |
 |-------|-------|-------------------|
 | FULL | 0.9-1.0 | read, write, delete, search, tag, update |
-| HIGH | 0.7-0.9 | read, write, search, tag, update |
-| MEDIUM | 0.5-0.7 | read, write, search, tag |
-| LOW | 0.3-0.5 | read, search |
-| UNTRUSTED | 0.0-0.3 | none |
+| HIGH | 0.7-<0.9 | read, write, search, tag, update |
+| MEDIUM | 0.5-<0.7 | read, write, search, tag |
+| LOW | 0.3-<0.5 | read, search |
+| UNTRUSTED | <0.3 | none |
 
 For complete documentation, see [docs/MEMORY_INTEGRATION.md](docs/MEMORY_INTEGRATION.md).
 

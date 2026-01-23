@@ -380,7 +380,7 @@ Artemis City integrates with **Obsidian vault** as a persistent knowledge base t
 | **Persistent Context** | Agents store and retrieve context across sessions |
 | **Trust-Based Access** | Memory operations filtered by agent trust scores |
 | **Obsidian Integration** | Vault acts as versioned source of truth |
-| **9 MCP Operations** | Read, append, update, search, search/replace, list, delete, frontmatter, tags |
+| **MCP Operations** | Read, append, update, search, search/replace, list, delete, frontmatter, tags |
 
 ### Quick Example
 

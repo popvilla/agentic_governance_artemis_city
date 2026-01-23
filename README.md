@@ -1,4 +1,4 @@
-# Artemis City
+# agentic_governance_artemis_city
 
 ## Overview
 
@@ -144,17 +144,20 @@ An architectural framework for building agentic reasoning systems with transpare
 ## Table of Contents
 
 1. [Project Overview](#project-overview)
-2. [Quick Start](#quick-start)
-3. [Architecture](#architecture)
-4. [Core Components](#core-components)
-5. [Agent System](#agent-system)
-6. [Key Protocols](#key-protocols)
-7. [Development Guide](#development-guide)
-8. [Testing](#testing)
-9. [Deployment](#deployment)
-10. [Security](#security)
-11. [Contributing](#contributing)
-12. [License](#license)
+2. [Interactive Demo](#interactive-demo)
+3. [Quick Start](#quick-start)
+4. [Architecture](#architecture)
+5. [Core Components](#core-components)
+6. [Memory Integration](#memory-integration)
+7. [Agent System](#agent-system)
+8. [Key Protocols](#key-protocols)
+9. [Development Guide](#development-guide)
+10. [Testing](#testing)
+11. [Deployment](#deployment)
+12. [Security](#security)
+13. [Contributing](#contributing)
+14. [License](#license)
+15. [Resources](#resources)
 
 ---
 
@@ -171,15 +174,38 @@ An architectural framework for building agentic reasoning systems with transpare
 
 | Field | Value |
 |-------|-------|
-| **Project Name** | Artemis City (agentic-codex) |
+| **Project Name** | agentic_governance_artemis_city |
 | **Version** | 0.1.0 |
-| **License** | Apache 2.0 |
+| **License** | MIT |
 | **Primary Languages** | Python 3.8+, TypeScript |
 | **Author** | Prinston Palmer |
 
 ### Mission Statement
 
 Balance **trust**, **entropy**, and **collaboration** to achieve "net good over noise" through iterative clarity and accountable collaboration.
+
+---
+
+## Interactive Demo
+
+Try the **ATP Prototype** - a fully interactive visualization of the Artemis City agent ecosystem that runs directly in your browser.
+
+### Running in GitHub Codespaces / Jupyter
+
+1. Open `atp-prototype.html` in a Codespace or Jupyter environment
+2. Use the built-in HTML preview or open in a browser tab
+3. Explore the live agent ecosystem with:
+   - **Trust Decay Visualization**: Watch trust scores evolve over time with real-time charts
+   - **Agent Interaction Panel**: See Artemis, Copilot, Pack Rat, and Codex Daemon in action
+   - **ATP Protocol Builder**: Construct structured commands with Mode, Priority, and ActionType
+   - **Hebbian Weight Dynamics**: Observe how agent relationships strengthen through interaction
+
+```bash
+# In Codespaces: Right-click atp-prototype.html → Open Preview
+# Or serve locally:
+python -m http.server 8080
+# Then open http://localhost:8080/atp-prototype.html
+```
 
 ---
 
@@ -340,6 +366,48 @@ from core.instructions import get_global_cache
 cache = get_global_cache()
 instructions = cache.get(agent_name="artemis")
 ```
+
+---
+
+## Memory Integration
+
+Artemis City integrates with **Obsidian vault** as a persistent knowledge base through the Artemis Agentic Memory Layer (MCP Server). This enables agents to maintain context across sessions with trust-based access control.
+
+### Key Features
+
+| Feature | Description |
+|---------|-------------|
+| **Persistent Context** | Agents store and retrieve context across sessions |
+| **Trust-Based Access** | Memory operations filtered by agent trust scores |
+| **Obsidian Integration** | Vault acts as versioned source of truth |
+| **9 MCP Operations** | Read, append, update, search, search/replace, list, delete, frontmatter, tags |
+
+### Quick Example
+
+```python
+# Requires app/ on PYTHONPATH (e.g., run from app/ or set PYTHONPATH=app)
+from integration import MemoryClient, get_trust_interface
+
+client = MemoryClient(base_url="http://localhost:3000", api_key="your_key")
+trust = get_trust_interface()
+
+# Check permission and store agent context
+if trust.can_perform_operation('artemis', 'write'):
+    client.store_agent_context("artemis", "Session completed successfully")
+    trust.record_success('artemis')  # Reinforce trust
+```
+
+### Trust Levels
+
+| Level | Score | Allowed Operations |
+|-------|-------|-------------------|
+| FULL | 0.9-1.0 | read, write, delete, search, tag, update |
+| HIGH | 0.7-<0.9 | read, write, search, tag, update |
+| MEDIUM | 0.5-<0.7 | read, write, search, tag |
+| LOW | 0.3-<0.5 | read, search |
+| UNTRUSTED | <0.3 | none |
+
+For complete documentation, see [docs/MEMORY_INTEGRATION.md](docs/MEMORY_INTEGRATION.md).
 
 ---
 
@@ -598,10 +666,22 @@ MIT License - See [LICENSE](LICENSE) for details.
 
 ## Resources
 
-- **Documentation**: [docs/](docs/)
+### Documentation (`docs/`)
+
+| Document | Description |
+|----------|-------------|
+| [MEMORY_INTEGRATION.md](docs/MEMORY_INTEGRATION.md) | Memory layer API reference and usage patterns |
+| [LIVING_CITY.md](docs/LIVING_CITY.md) | Living City metaphor and architectural philosophy |
+| [trust_decay_model.md](docs/trust_decay_model.md) | Trust decay mathematics and implementation |
+| [ARTEMIS_FEATURES.md](docs/ARTEMIS_FEATURES.md) | Feature specifications for Artemis agent |
+| [kernel.md](docs/kernel.md) | Kernel architecture and design |
+| [INSTALL.md](docs/INSTALL.md) | Detailed installation guide |
+| [CICD.md](docs/CICD.md) | CI/CD pipeline documentation |
+
+### Other Resources
+
+- **Interactive Demo**: [atp-prototype.html](atp-prototype.html) - Browser-based agent visualization
 - **Security Guide**: [SECURITY.md](SECURITY.md)
-- **API Reference**: [docs/MEMORY_INTEGRATION.md](docs/MEMORY_INTEGRATION.md)
-- **Living City Metaphor**: [docs/LIVING_CITY.md](docs/LIVING_CITY.md)
 
 ---
 

@@ -385,7 +385,8 @@ Artemis City integrates with **Obsidian vault** as a persistent knowledge base t
 ### Quick Example
 
 ```python
-from memory.integration import MemoryClient, get_trust_interface
+# Requires app/ on PYTHONPATH (e.g., run from app/ or set PYTHONPATH=app)
+from integration import MemoryClient, get_trust_interface
 
 client = MemoryClient(base_url="http://localhost:3000", api_key="your_key")
 trust = get_trust_interface()

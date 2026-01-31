@@ -122,7 +122,7 @@ npm run dev
 
 ### System Overview
 
-```asiic
+```ascii
 Artemis-City/
 ├── app/                          # Main application code
 │   ├── agents/                   # Agent definitions (ATP, Artemis)

@@ -198,6 +198,8 @@ export const sanitize = (str: string): string => {
   return str
     .replace(/[<>]/g, '')
     .replace(/javascript:/gi, '')
+    .replace(/data:/gi, '')
+    .replace(/vbscript:/gi, '')
     .trim();
 };
 

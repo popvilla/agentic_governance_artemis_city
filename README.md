@@ -122,7 +122,7 @@ npm run dev
 
 ### System Overview
 
-```
+```ascii
 Artemis-City/
 ├── app/                          # Main application code
 │   ├── agents/                   # Agent definitions (ATP, Artemis)
@@ -168,63 +168,7 @@ Artemis-City/
 │                   MCP Memory Server                              │
 │  (app/integration/memory_client.py → MCP/)                      │
 │  Obsidian vault integration for persistent memory               │
-└─────────────────────────────────────────────────────────────────┘
-```
-
----
-
-## Core Components
-
-### Kernel (`app/codex/kernel.py`)
-
-The central orchestrator that manages:
-- Command processing and routing
-- Agent instantiation
-- Persistent state management
-- Memory bus operations
-
-```python
-from codex.kernel import Kernel
-
-kernel = Kernel()
-result = kernel.process({"type": "command", "content": "status"})
-```
-
-### Agent Router (`app/codex/agent_router.py`)
-
-Routes commands to appropriate agents based on keyword matching:
-
-```yaml
-# agent_router.yaml
-agents:
-  artemis:
-    role: "Governance Agent"
-    keywords: ["artemis", "governance", "policy", "audit"]
-    action_description: "Handles governance and policy queries"
-```
-
-### Memory Bus (`app/codex/memory_bus.py`)
-
-Provides persistent memory storage with pluggable backends:
-
-```python
-from codex.memory_bus import MemoryBus
-
-memory = MemoryBus()
-memory.write("Content", metadata={"source": "agent_name"})
-results = memory.read("search query")
-```
-
-### Instruction Loader (`app/core/instructions.py`)
-
-Loads agent instructions from Markdown files with caching:
-
-```python
-from core.instructions import get_global_cache
-
-cache = get_global_cache()
-instructions = cache.get(agent_name="artemis")
-```
+└─────────────────────────────────────────────────────────────────
 
 ---
 
@@ -239,7 +183,7 @@ Artemis City integrates with **Obsidian vault** as a persistent knowledge base t
 | **Persistent Context** | Agents store and retrieve context across sessions |
 | **Trust-Based Access** | Memory operations filtered by agent trust scores |
 | **Obsidian Integration** | Vault acts as versioned source of truth |
-| **9 MCP Operations** | Read, append, update, search, search/replace, list, delete, frontmatter, tags |
+| **MCP Operations** | Read, append, update, search, search/replace, list, delete, frontmatter, tags |
 
 ### Quick Example
 
@@ -300,7 +244,7 @@ Primary function description
 - keyword2
 ```
 
-2. Implement agent class:
+1. Implement agent class:
 
 ```python
 from codex.agents.base import Agent
@@ -328,7 +272,7 @@ class MyAgent(Agent):
         return f"Processed: {content}"
 ```
 
-3. Register in `agent_router.yaml`
+1. Register in `agent_router.yaml`
 
 ---
 
@@ -348,6 +292,7 @@ Structured communication system with signal tags:
 | `#SpecialNotes:` | Exceptions | Free text |
 
 Example:
+
 ```
 #Mode: Build #Context: Add dark mode #Priority: High #ActionType: Execute
 ```

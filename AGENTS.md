@@ -158,6 +158,7 @@ radon cc app --min D --show-complexity
 ### Data Flow Patterns
 
 **1. Command Processing Flow**
+
 ```
 User Input (with ATP headers)
     → ATPParser extracts headers + content
@@ -169,6 +170,7 @@ User Input (with ATP headers)
 ```
 
 **2. Memory Flow**
+
 ```
 Agent operation
     → TrustInterface checks agent permissions (trust score)
@@ -179,6 +181,7 @@ Agent operation
 ```
 
 **3. Instruction Loading Flow**
+
 ```
 Hierarchical precedence (lowest to highest):
     1. Global instructions (system-wide)
@@ -211,11 +214,13 @@ Structured communication format using signal tags:
 **Location**: `app/interface/agent_router.yaml`
 
 Maps agent names to:
+
 - **role**: Human-readable agent purpose
 - **keywords**: List of trigger words for routing
 - **action_description**: What agent does when invoked
 
 **Current agents**:
+
 - **artemis**: Governance, policy, audits (keywords: artemis, governance, policy, audit)
 - **pack_rat**: Secure data transfer (keywords: transfer, send, receive, courier)
 - **codex_daemon**: System status, memory interface (keywords: memory, system, daemon, status)
@@ -228,17 +233,20 @@ To add a new agent: Add entry to yaml → implement handler class → register i
 **Purpose**: Dynamic trust evaluation framework ensuring agents maintain accountability.
 
 **Key concepts**:
+
 - **Initial Trust Score**: Baseline for new entities (typically 0.5-0.7)
 - **Decay Rate**: Trust erodes over time without reinforcement
 - **Reinforcement Events**: Successful actions increase trust
 - **Trust Thresholds**: Trigger access restrictions when crossed
 
 **Implementation**: `app/integration/trust_interface.py` provides:
+
 - `can_perform_operation(agent_name, operation)`: Permission check
 - `record_success(agent_name)`: Reinforce trust
 - `record_failure(agent_name)`: Decay trust faster
 
 **Trust Levels**:
+
 - FULL (0.9-1.0): All operations
 - HIGH (0.7-0.9): Read, write, search, tag, update
 - MEDIUM (0.5-0.7): Read, write, search, tag
@@ -248,12 +256,14 @@ To add a new agent: Add entry to yaml → implement handler class → register i
 ### Memory Integration
 
 **External MCP Server** (if used): REST API to Obsidian vault
+
 - Endpoint: Configurable via OBSIDIAN_BASE_URL
 - Authentication: Bearer token (MCP_API_KEY)
 - Operations: read, write, search, delete, frontmatter, tags
 - Client: `app/integration/memory_client.py`
 
 **Internal Memory Bus**: `app/codex/memory_bus.py`
+
 - Simple in-memory or file-based persistence
 - Used by kernel for state management
 - Pluggable backend design
@@ -263,11 +273,13 @@ To add a new agent: Add entry to yaml → implement handler class → register i
 **Location**: `state_kernel.json` (created at runtime)
 
 **Contents**:
+
 - `boot_count`: Number of times kernel has initialized
 - `history`: Array of all processed requests
 - Additional agent-specific state as needed
 
 **Lifecycle**:
+
 1. `_load_state()`: Read from disk or initialize defaults
 2. `process()`: Handle request and append to history
 3. `_save_state()`: Persist to disk after each operation
@@ -279,12 +291,14 @@ To add a new agent: Add entry to yaml → implement handler class → register i
 **Loader**: `app/core/instructions.py` (assumed based on imports in main.py)
 
 **Precedence** (highest wins):
+
 1. Agent-specific instructions
 2. Local directory instructions
 3. Project-level instructions  
 4. Global system instructions
 
 **Usage in code**:
+
 ```python
 instruction_cache = get_global_cache()
 instruction_set = instruction_cache.get(agent_name="artemis")
@@ -334,7 +348,7 @@ This project follows JSF (Joint Strike Fighter) C++ standards adapted for Python
 
 1. **Complexity Limit**: Cyclomatic complexity ≤ 20 (most functions ≤ 10)
    - Enforced by pre-commit hook: `radon cc app --min D`
-   
+
 2. **Function Length**: ≤ 200 logical lines (aim for ~50)
 
 3. **Function Parameters**: ≤ 7 parameters
@@ -344,6 +358,7 @@ This project follows JSF (Joint Strike Fighter) C++ standards adapted for Python
    - Type checking enforced via mypy in pre-commit
 
 5. **Resource Management**: Always use context managers for file operations
+
    ```python
    # Correct
    with open(path, 'r') as f:
@@ -356,6 +371,7 @@ This project follows JSF (Joint Strike Fighter) C++ standards adapted for Python
    - No bare `except:` clauses
 
 7. **No Magic Numbers**: Use named constants
+
    ```python
    MAIL_DELIVERY_FAILURE_RATE = 0.10
    ```
@@ -446,6 +462,7 @@ pytest -m "not slow"
 ### Trust Model Integration
 
 Before any sensitive operation:
+
 ```python
 from integration import get_trust_interface
 
@@ -463,6 +480,7 @@ else:
 ### Adding a New Agent
 
 1. **Define agent in** `app/interface/agent_router.yaml`:
+
    ```yaml
    my_agent:
      role: "Description of role"
@@ -471,6 +489,7 @@ else:
    ```
 
 2. **Implement agent class** in `app/codex/agents/`:
+
    ```python
    from codex.agents.base import Agent
    
@@ -482,6 +501,7 @@ else:
    ```
 
 3. **Register in kernel** at `app/codex/kernel.py`:
+
    ```python
    def _get_agent_instance(self, agent_name):
        if agent_name == "my_agent":
@@ -528,6 +548,7 @@ GitHub Actions workflows in `.github/workflows/`:
 - **jekyll-gh-pages.yml**: Documentation site deployment
 
 All PRs must pass:
+
 1. Pre-commit hooks (local)
 2. Code quality checks (CI)
 3. Test suite (pytest)
